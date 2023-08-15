@@ -34,30 +34,32 @@ Patches focussed on JavaScript performance improvements.
 
 ### Caching / Doing less work
 
-- [pnpm](https://github.com/pnpm/pnpm/pull/6317) - awesome due to explainer [blog post](https://jakebailey.dev/posts/pnpm-dt-2/)
+- [pnpm](https://github.com/pnpm/pnpm/pull/6317) - caches results | [blog post](https://jakebailey.dev/posts/pnpm-dt-2/)
 - [Speeding up the JavaScript ecosystem by Marvin Hagemeister](https://marvinh.dev/blog/speeding-up-javascript-ecosystem/)
-  - [postcss-plugins](https://github.com/csstools/postcss-plugins/pull/737) - avoiding expensive RegExps
-  - [svgo](https://github.com/svg/svgo/pull/1716) - avoiding casting
-  - [svgo](https://github.com/svg/svgo/pull/1717) - avoiding double RegExps calls
+  - [postcss-plugins](https://github.com/csstools/postcss-plugins/pull/737) - avoids expensive RegExps
+  - [svgo](https://github.com/svg/svgo/pull/1716) - avoids casting
+  - [svgo](https://github.com/svg/svgo/pull/1717) - avoids double RegExps calls
   - and other topics, such as avoiding inline functions in functions, downtranspilation
-- [esquery](https://github.com/estools/esquery/pull/134) - replacing `String.prototype.split`, avoiding downtranspilation of `for..of`, hoist constants. | [blog post](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-3/)
-- [emoji-toolkit](https://github.com/joypixels/emoji-toolkit/pull/57) - cache expensive RegExps result | [blog post](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-5/)
-- [slow-json-stringify](https://github.com/lucagez/slow-json-stringify/pull/31) - hoisting RegExpses & functions, replacing `Array.prototype.map` with `for` loops, using `?.` instead of `||{}`
-- [cookie](https://github.com/jshttp/cookie/pull/144) - cache `length` of string in `while` loop
+- [esquery](https://github.com/estools/esquery/pull/134) - replaces `String.prototype.split`, avoids downtranspilation of `for..of`, hoist constants. | [blog post](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-3/)
+- [joypixels/emoji-toolkit](https://github.com/joypixels/emoji-toolkit/pull/57) - caches expensive RegExps result | [blog post](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-5/)
+- [lucagez/slow-json-stringify](https://github.com/lucagez/slow-json-stringify/pull/31) - hoists RegExpses & functions, replaces `Array.prototype.map` with `for` loops, uses `?.` instead of `||{}`
+- [jshttp/cookie](https://github.com/jshttp/cookie/pull/144) - caches `length` of string in `while` loop
 
 ### Data Structures
 
-- [valibot](https://github.com/fabian-hiller/valibot/pull/68) - convert `Set` to `Array`
-- [graphql-js](https://github.com/graphql/graphql-js/pull/3687) - `for..of` downtranspilation & destructuring optimization
-- [pnpm](https://github.com/pnpm/pnpm/pull/6749) - `Set` and `Map` instead of objects
+- [fabian-hiller/valibot](https://github.com/fabian-hiller/valibot/pull/68) - converts `Set` to `Array`
+- [pnpm](https://github.com/pnpm/pnpm/pull/6749) - converts objects to `Set` and `Map`
+- [preact/signals](https://github.com/preactjs/signals/pull/136) - converts `Set` to Linked Lists, adds lazy value evaluation
 
 ### Unsorted
 
 - [npm scripts](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - Lazy module load, `Intl.Collator` over `String.prototype.localeCompare`
 - [deno](https://github.com/denoland/deno/pull/12265) - attribute assignment in constructur is faster than class field expressions
-- [node-semver](https://github.com/npm/node-semver/pull/536/files) - Bit Flags instead of string manipulation
+- [node-semver](https://github.com/npm/node-semver/pull/536/files) - bit flags instead of string manipulation
 - [node-semver](https://github.com/npm/node-semver/pull/528) - `Object#freeze` for lower memory consumption at around equal perf
 - [typescript](https://github.com/microsoft/TypeScript/pull/52656) - `var` is faster than `let/const` in the specific use case of TypeScript
+- [graphql-js](https://github.com/graphql/graphql-js/pull/3687) - `for..of` downtranspilation & destructuring optimization
+- [preact/signals](https://github.com/preactjs/signals/pull/160) - converts ES6 classes to ES5 classes for higher performance
 
 ### Blog Posts with Code
 
@@ -75,12 +77,12 @@ Patches focussed on JavaScript performance improvements.
 
 Patches focussed on CSS performance improvements.
 
-- [nuka-carousel](https://github.com/FormidableLabs/nuka-carousel/pull/796) - avoiding huge layers
+- [nuka-carousel](https://github.com/FormidableLabs/nuka-carousel/pull/796) - removes huge layers
 
 ### Blog Posts with Code
 
 - [Selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/)
-- [Need cheap paint? Use getComputedStyle().opacity](https://webventures.rejh.nl/blog/2022/getcomputedstyle-element-opacity/) - replacing double `requestAnimationFrame` callbacks with something faster
+- [Need cheap paint? Use getComputedStyle().opacity](https://webventures.rejh.nl/blog/2022/getcomputedstyle-element-opacity/) - replace double `requestAnimationFrame` callbacks with something faster
 - [Web performance case study: Wikipedia page previews](https://techblog.wikimedia.org/2020/11/23/web-performance-case-study-wikipedia-page-previews/) - avoiding layout trashing
 
 #### Animations
