@@ -2,13 +2,18 @@
 
 > 🚀⚡ Awesome lists about performance related patches/PRs.
 
-The purpose of this awesome list is to allow others to learn from performance improvements of the past, so that you can submit your performance improvement sooner or later here as well. The list also includes blog posts without PRs, if they contain enough code to make them useful for this purpose.
+<center>
+The purpose of this awesome list is to allow others to learn from performance improvements of the past 📝, so that you can submit your performance improvement sooner or later here as well 🤝.
 
-<small>Hint: What improves performance might change over time; always re-validate assumptions by benchmarking.</small>
+<sub>The list also includes blog posts without PRs, if they contain enough code to make them useful for this purpose.</sub>
 
 For Web Performance, there is another list of curated links of talks, newsletters, blogs and more ➡️ [fabkrum/web-performance-resources](https://github.com/fabkrum/web-performance-resources/blob/master/index.md)
 
-<small>Follow me on [Twitter](https://twitter.com/sindresorhus) for updates.</small>
+<sub>Hint: What improves performance might change over time; always re-validate assumptions by benchmarking.</sub>
+
+<sub>Follow me on [Twitter](https://twitter.com/sindresorhus) for updates.</sub>
+
+</center>
 
 ## Contents
 
@@ -16,10 +21,11 @@ For Web Performance, there is another list of curated links of talks, newsletter
   - [Caching / Doing less work](#caching--doing-less-work)
   - [Data Structures](#data-structures)
   - [Unsorted](#unsorted)
-  - [Blog Posts with Code](#blog-posts-with-code)
+  - [Blog Posts with Code 📖](#blog-posts-with-code-f09f9396-1)
     - [Algorithmic](#algorithmic)
 - [CSS & Rendering](#css--rendering)
-  - [Animations](#animations)
+  - [Blog Posts with Code 📖](#blog-posts-with-code-f09f9396-2)
+    - [Animations 💫](#animations)
 - [HTML](#html)
 
 ## JavaScript
@@ -34,14 +40,14 @@ Patches focussed on JavaScript performance improvements.
 
 ### Caching / Doing less work
 
-- [pnpm](https://github.com/pnpm/pnpm/pull/6317) - caches results | [blog post](https://jakebailey.dev/posts/pnpm-dt-2/)
-- [Speeding up the JavaScript ecosystem by Marvin Hagemeister](https://marvinh.dev/blog/speeding-up-javascript-ecosystem/)
+- [pnpm](https://github.com/pnpm/pnpm/pull/6317) - caches results | [blog post📖](https://jakebailey.dev/posts/pnpm-dt-2/)
+- [Speeding up the JavaScript ecosystem by Marvin Hagemeister📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem/)
   - [postcss-plugins](https://github.com/csstools/postcss-plugins/pull/737) - avoids expensive RegExps
   - [svgo](https://github.com/svg/svgo/pull/1716) - avoids casting
   - [svgo](https://github.com/svg/svgo/pull/1717) - avoids double RegExps calls
   - and other topics, such as avoiding inline functions in functions, downtranspilation
-- [esquery](https://github.com/estools/esquery/pull/134) - replaces `String.prototype.split`, avoids downtranspilation of `for..of`, hoist constants. | [blog post](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-3/)
-- [joypixels/emoji-toolkit](https://github.com/joypixels/emoji-toolkit/pull/57) - caches expensive RegExps result | [blog post](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-5/)
+- [esquery](https://github.com/estools/esquery/pull/134) - replaces `String.prototype.split`, avoids downtranspilation of `for..of`, hoist constants. | [blog post📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-3/)
+- [joypixels/emoji-toolkit](https://github.com/joypixels/emoji-toolkit/pull/57) - caches expensive RegExps result | [blog post📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-5/)
 - [lucagez/slow-json-stringify](https://github.com/lucagez/slow-json-stringify/pull/31) - hoists RegExpses & functions, replaces `Array.prototype.map` with `for` loops, uses `?.` instead of `||{}`
 - [jshttp/cookie](https://github.com/jshttp/cookie/pull/144) - caches `length` of string in `while` loop
 
@@ -53,7 +59,7 @@ Patches focussed on JavaScript performance improvements.
 
 ### Unsorted
 
-- [npm scripts](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - Lazy module load, `Intl.Collator` over `String.prototype.localeCompare`
+- [npm scripts📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - Lazy module load, `Intl.Collator` over `String.prototype.localeCompare`
 - [deno](https://github.com/denoland/deno/pull/12265) - attribute assignment in constructur is faster than class field expressions
 - [node-semver](https://github.com/npm/node-semver/pull/536/files) - bit flags instead of string manipulation
 - [node-semver](https://github.com/npm/node-semver/pull/528) - `Object#freeze` for lower memory consumption at around equal perf
@@ -61,7 +67,7 @@ Patches focussed on JavaScript performance improvements.
 - [graphql-js](https://github.com/graphql/graphql-js/pull/3687) - `for..of` downtranspilation & destructuring optimization
 - [preact/signals](https://github.com/preactjs/signals/pull/160) - converts ES6 classes to ES5 classes for higher performance
 
-### Blog Posts with Code
+### Blog Posts with Code 📖
 
 - [Don’t attach tooltips to document.body](https://atfzl.com/articles/don-t-attach-tooltips-to-document-body/)
 - [[Typia] Hidden Class Optimization of v8 Engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb)
@@ -79,13 +85,13 @@ Patches focussed on CSS performance improvements.
 
 - [nuka-carousel](https://github.com/FormidableLabs/nuka-carousel/pull/796) - removes huge layers
 
-### Blog Posts with Code
+### Blog Posts with Code 📖
 
 - [Selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/)
 - [Need cheap paint? Use getComputedStyle().opacity](https://webventures.rejh.nl/blog/2022/getcomputedstyle-element-opacity/) - replace double `requestAnimationFrame` callbacks with something faster
 - [Web performance case study: Wikipedia page previews](https://techblog.wikimedia.org/2020/11/23/web-performance-case-study-wikipedia-page-previews/) - avoiding layout trashing
 
-#### Animations
+#### Animations 💫
 
 - [Animation performance](https://motion.dev/guides/performance)
 - [Animating a blur](https://developer.chrome.com/blog/animated-blur/) - animating blur's the performant way
@@ -93,7 +99,7 @@ Patches focussed on CSS performance improvements.
 
 ## HTML
 
-Patches focussed on CSS performance improvements (in reality, it's more blog posts).
+Patches focussed on HTML performance improvements (in reality, it's more like only blog posts 📖).
 
 - [SVG icon stress test](https://cloudfour.com/thinks/svg-icon-stress-test/)
 - [Avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
