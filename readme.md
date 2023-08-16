@@ -2,18 +2,16 @@
 
 > 🚀⚡ Awesome lists about performance related patches/PRs.
 
-<center>
 The purpose of this awesome list is to allow others to learn from performance improvements of the past 📝, so that you can submit your performance improvement sooner or later here as well 🤝.
 
 <sub>The list also includes blog posts without PRs, if they contain enough code to make them useful for this purpose.</sub>
 
-For Web Performance, there is another list of curated links of talks, newsletters, blogs and more ➡️ [fabkrum/web-performance-resources](https://github.com/fabkrum/web-performance-resources/blob/master/index.md)
+For Web Performance, there is another list of curated links of talks, newsletters, blogs and more:<br />
+➡️ [fabkrum/web-performance-resources](https://github.com/fabkrum/web-performance-resources/blob/master/index.md)
+➡️ [nucliweb/webperf-snippets](https://github.com/nucliweb/webperf-snippets)
 
-<sub>Hint: What improves performance might change over time; always re-validate assumptions by benchmarking.</sub>
-
+<sub>Hint: What improves performance might change over time; always re-validate assumptions by benchmarking.</sub><br />
 <sub>Follow me on [Twitter](https://twitter.com/sindresorhus) for updates.</sub>
-
-</center>
 
 ## Contents
 
@@ -23,6 +21,7 @@ For Web Performance, there is another list of curated links of talks, newsletter
   - [Unsorted](#unsorted)
   - [Blog Posts with Code 📖](#blog-posts-with-code-f09f9396-1)
     - [Algorithmic](#algorithmic)
+  - [Perf Audits 📝](#perf-audits)
 - [CSS & Rendering](#css--rendering)
   - [Blog Posts with Code 📖](#blog-posts-with-code-f09f9396-2)
     - [Animations 💫](#animations)
@@ -79,6 +78,13 @@ Patches focussed on JavaScript performance improvements.
 - [High Performance Text Parsing Using Finite State Machines](https://hackernoon.com/high-performance-text-parsing-using-finite-state-machines-fsm-6d3m33j9) - replacing RegExps with Finite State Machines
 - [How to Compare Arrays in JavaScript Efficiently](https://dev.to/doabledanny/how-to-compare-arrays-in-javascript-efficiently-1p0) - using Frequency Counter Objects to reduce the Big O complexity from `O(n²)` to `O(n)` | awesome due to explaning code in-depth
 
+### Perf Audits 📝
+
+- [npm install is slower with a progress bar](https://github.com/npm/npm/issues/11283#issuecomment-175246823) - the curious case where a progress bar made `npm i` significantly slower, due to expensive CLI/draw calls - solved by throttling
+- [NYTimes perf audit](https://docs.google.com/document/d/1Oax3j0-wsYlNQCfgJTtPHlOWJ-ilRvk-I9E3mhiyl5I/edit#heading=h.mxlya9axneww) - 2017
+- [CNet, Times, Wikipedia, Google Play audit](https://docs.google.com/document/d/1K-mKOqiUiSjgZTEscBLjtjd6E67oiK8H2ztOiq5tigk/view#heading=h.hz6e7660btmo) - 2015
+- [Web performance case study: Wikipedia page previews](https://techblog.wikimedia.org/2020/11/23/web-performance-case-study-wikipedia-page-previews/) - avoiding layout trashing
+
 ## CSS & Rendering
 
 Patches focussed on CSS performance improvements.
@@ -89,7 +95,6 @@ Patches focussed on CSS performance improvements.
 
 - [Selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/)
 - [Need cheap paint? Use getComputedStyle().opacity](https://webventures.rejh.nl/blog/2022/getcomputedstyle-element-opacity/) - replace double `requestAnimationFrame` callbacks with something faster
-- [Web performance case study: Wikipedia page previews](https://techblog.wikimedia.org/2020/11/23/web-performance-case-study-wikipedia-page-previews/) - avoiding layout trashing
 
 #### Animations 💫
 
