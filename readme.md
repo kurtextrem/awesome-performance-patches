@@ -29,7 +29,7 @@ For Web Performance, there is another list of curated links of talks, newsletter
 
 ## JavaScript
 
-Patches focussed on JavaScript performance improvements.
+Patches focused on JavaScript performance improvements.
 <small>
 
 - [nodejs-bench-operations](https://github.com/RafaelGSS/nodejs-bench-operations) might be a good starting point to get an idea of what's fast.
@@ -80,21 +80,21 @@ Patches focussed on JavaScript performance improvements.
 
 ### Perf Audits 📝
 
+- [Web performance case study: Wikipedia page previews](https://techblog.wikimedia.org/2020/11/23/web-performance-case-study-wikipedia-page-previews/) - avoiding layout trashing
 - [npm install is slower with a progress bar](https://github.com/npm/npm/issues/11283#issuecomment-175246823) - the curious case where a progress bar made `npm i` significantly slower, due to expensive CLI/draw calls - solved by throttling
 - [NYTimes perf audit](https://docs.google.com/document/d/1Oax3j0-wsYlNQCfgJTtPHlOWJ-ilRvk-I9E3mhiyl5I/edit#heading=h.mxlya9axneww) - 2017
 - [CNet, Times, Wikipedia, Google Play audit](https://docs.google.com/document/d/1K-mKOqiUiSjgZTEscBLjtjd6E67oiK8H2ztOiq5tigk/view#heading=h.hz6e7660btmo) - 2015
-- [Web performance case study: Wikipedia page previews](https://techblog.wikimedia.org/2020/11/23/web-performance-case-study-wikipedia-page-previews/) - avoiding layout trashing
 
 ## CSS & Rendering
 
-Patches focussed on CSS performance improvements.
+Patches focused on CSS performance improvements.
 
-- [nuka-carousel](https://github.com/FormidableLabs/nuka-carousel/pull/796) - removes huge layers
+- [nuka-carousel](https://github.com/FormidableLabs/nuka-carousel/pull/796) - removes huge layers by fixing negative `z-index`
 
 ### Blog Posts with Code 📖
 
 - [Selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/)
-- [Need cheap paint? Use getComputedStyle().opacity](https://webventures.rejh.nl/blog/2022/getcomputedstyle-element-opacity/) - replace double `requestAnimationFrame` callbacks with something faster
+- [Need cheap paint? Use getComputedStyle().opacity](https://webventures.rejh.nl/blog/2022/getcomputedstyle-element-opacity/) - replace double `requestAnimationFrame` callbacks for higher perf
 
 #### Animations 💫
 
@@ -104,7 +104,7 @@ Patches focussed on CSS performance improvements.
 
 ## HTML
 
-Patches focussed on HTML performance improvements (in reality, it's more like only blog posts 📖).
+Patches focused on HTML performance improvements (in reality, it's more like only blog posts 📖).
 
 - [SVG icon stress test](https://cloudfour.com/thinks/svg-icon-stress-test/)
 - [Avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
