@@ -19,12 +19,12 @@ For Web Performance, there is another list of curated links of talks, newsletter
   - [Caching / Doing less work](#caching--doing-less-work)
   - [Data Structures](#data-structures)
   - [Unsorted](#unsorted)
-  - [Blog Posts with Code 📖](#blog-posts-with-code-f09f9396-1)
+  - [Blog Posts with Code 📖](#blog-posts-with-code-)
     - [Algorithmic](#algorithmic)
-  - [Perf Audits 📝](#perf-audits)
+  - [Perf Audits 📝](#perf-audits-)
 - [CSS & Rendering](#css--rendering)
-  - [Blog Posts with Code 📖](#blog-posts-with-code-f09f9396-2)
-    - [Animations 💫](#animations)
+  - [Blog Posts with Code 📖](#blog-posts-with-code--1)
+    - [Animations 💫](#animations-)
 - [HTML](#html)
 
 ## JavaScript
@@ -82,8 +82,11 @@ Patches focused on JavaScript performance improvements.
 
 - [Web performance case study: Wikipedia page previews](https://techblog.wikimedia.org/2020/11/23/web-performance-case-study-wikipedia-page-previews/) - avoiding layout trashing
 - [npm install is slower with a progress bar](https://github.com/npm/npm/issues/11283#issuecomment-175246823) - the curious case where a progress bar made `npm i` significantly slower, due to expensive CLI/draw calls - solved by throttling
+- [CNet, Times, Wikipedia, Google Play perf audits](https://docs.google.com/document/d/1K-mKOqiUiSjgZTEscBLjtjd6E67oiK8H2ztOiq5tigk/view#heading=h.hz6e7660btmo) - 2015
 - [NYTimes perf audit](https://docs.google.com/document/d/1Oax3j0-wsYlNQCfgJTtPHlOWJ-ilRvk-I9E3mhiyl5I/edit#heading=h.mxlya9axneww) - 2017
-- [CNet, Times, Wikipedia, Google Play audit](https://docs.google.com/document/d/1K-mKOqiUiSjgZTEscBLjtjd6E67oiK8H2ztOiq5tigk/view#heading=h.hz6e7660btmo) - 2015
+- [Notion perf audit](https://3perf.com/blog/notion/) - defer JS, Babel tweaks, code splitting, caching and more
+- [Walmart perf audit](https://iamakulov.com/notes/walmart/) - remove old polyfills, CSS & font tweaks
+- [Causal perf audit](https://3perf.com/blog/causal/) - React performance tweaks
 
 ## CSS & Rendering
 
@@ -93,12 +96,12 @@ Patches focused on CSS performance improvements.
 
 ### Blog Posts with Code 📖
 
-- [Selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/)
+- [Selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/) - guidelines for performant CSS selectors
 - [Need cheap paint? Use getComputedStyle().opacity](https://webventures.rejh.nl/blog/2022/getcomputedstyle-element-opacity/) - replace double `requestAnimationFrame` callbacks for higher perf
 
 #### Animations 💫
 
-- [Animation performance](https://motion.dev/guides/performance)
+- [Animation performance](https://motion.dev/guides/performance) - guidelines for performant CSS/JS animations
 - [Animating a blur](https://developer.chrome.com/blog/animated-blur/) - animating blur's the performant way
 - [CSS Box Shadows and Optimize Performance](https://www.sitepoint.com/css-box-shadow-animation-performance/) - animating box shadows the performant way
 
@@ -106,7 +109,7 @@ Patches focused on CSS performance improvements.
 
 Patches focused on HTML performance improvements (in reality, it's more like only blog posts 📖).
 
-- [SVG icon stress test](https://cloudfour.com/thinks/svg-icon-stress-test/)
+- [SVG icon stress test](https://cloudfour.com/thinks/svg-icon-stress-test/) - benchmarks the best way to embed `<svg>`s
 - [Avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
 - [Redirect Liquidation](https://calendar.perfplanet.com/2021/redirect-liquidation/) - removing redirects using the Edge
 
