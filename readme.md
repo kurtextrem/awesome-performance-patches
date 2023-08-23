@@ -66,6 +66,7 @@ Patches focused on JavaScript performance improvements.
 - [typescript](https://github.com/microsoft/TypeScript/pull/52656) - `var` is faster than `let/const` in the specific use case of TypeScript
 - [graphql-js](https://github.com/graphql/graphql-js/pull/3687) - `for..of` downtranspilation & destructuring optimization
 - [preact/signals](https://github.com/preactjs/signals/pull/160) - converts ES6 classes to ES5 classes for higher performance
+- [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/104) - lazy evaluation, "is object" check via `var?.constructor !== Object`, array tuples to flat array
 
 ### Blog Posts with Code 📖
 
