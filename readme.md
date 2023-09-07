@@ -26,6 +26,7 @@ For Web Performance, there is another list of curated links of talks, newsletter
   - [Blog Posts with Code 📖](#blog-posts-with-code--1)
     - [Animations 💫](#animations-)
 - [HTML](#html)
+- [TypeScript](#typescript)
 
 ## JavaScript
 
@@ -117,6 +118,12 @@ Patches focused on HTML performance improvements (in reality, it's more like onl
 - [SVG icon stress test](https://cloudfour.com/thinks/svg-icon-stress-test/) - benchmarks the best way to embed `<svg>`s
 - [Avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
 - [Redirect Liquidation](https://calendar.perfplanet.com/2021/redirect-liquidation/) - removing redirects using the Edge
+
+## TypeScript
+
+Patches focused on TypeScript runtime performance improvements (e.g. running `tsc`). The TS team also has a dedicated wiki page for it: https://github.com/microsoft/TypeScript/wiki/Performance.
+
+- [sentry](https://github.com/getsentry/sentry/pull/30847) - avoid large unions in favor of `interface`s
 
 ## Contribute
 
