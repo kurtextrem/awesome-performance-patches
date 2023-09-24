@@ -68,6 +68,7 @@ Patches focused on JavaScript performance improvements.
 - [graphql-js](https://github.com/graphql/graphql-js/pull/3687) - `for..of` downtranspilation & destructuring optimization
 - [preact/signals](https://github.com/preactjs/signals/pull/160) - converts ES6 classes to ES5 classes for higher performance
 - [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/104) - lazy evaluation, "is object" check via `var?.constructor !== Object`, array tuples to flat array
+- [nodejs/node](https://github.com/nodejs/node/pull/49745) - replaces lots of boolean props with one bitmap
 
 ### Blog Posts with Code 📖
 
