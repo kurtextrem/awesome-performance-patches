@@ -56,7 +56,8 @@ Patches focused on JavaScript performance improvements.
 - [fabian-hiller/valibot](https://github.com/fabian-hiller/valibot/pull/68) - converts `Set` to `Array`
 - [pnpm](https://github.com/pnpm/pnpm/pull/6749) - converts objects to `Set` and `Map`
 - [preact/signals](https://github.com/preactjs/signals/pull/136) - converts `Set` to Linked Lists, adds lazy value evaluation
-- [TanStack/table](https://github.com/TanStack/table/pull/4495) - replacing immutable spread calls with mutable arrays | [blog post](https://jpcamara.com/2023/03/07/making-tanstack-table.html)
+- [TanStack/table](https://github.com/TanStack/table/pull/4495) - replaces immutable spread calls with mutable arrays | [blog post](https://jpcamara.com/2023/03/07/making-tanstack-table.html)
+- [parcel-bundler/parcel](https://github.com/parcel-bundler/parcel/pull/9266) - converts graph to array of bit sets, avoids `new` calls, `Uint32Array` + Wasm instead of `BigInt`, array instead of hash map to avoid hashing cost, fast path stack-based depth-first search to avoid recursion
 
 ### Unsorted
 
