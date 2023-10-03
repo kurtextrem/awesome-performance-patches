@@ -6,12 +6,13 @@ The purpose of this awesome list is to allow others to learn from performance im
 
 <sub>The list also includes blog posts without PRs, if they contain enough code to make them useful for this purpose.</sub>
 
-For Web Performance, there is another list of curated links of talks, newsletters, blogs and more:<br />
+For Web Performance, there are a few more lists of curated links of talks, newsletters, blogs and more:<br />
 ➡️ [fabkrum/web-performance-resources](https://github.com/fabkrum/web-performance-resources/blob/master/index.md)
+➡️ [imteekay/web-performance-research](https://github.com/imteekay/web-performance-research)
 ➡️ [nucliweb/webperf-snippets](https://github.com/nucliweb/webperf-snippets)
 
 <sub>Hint: What improves performance might change over time; always re-validate assumptions by benchmarking.</sub><br />
-<sub>Follow me on [Twitter](https://twitter.com/sindresorhus) for updates.</sub>
+<sub>Follow me on [Twitter](https://twitter.com/kurtextrem) for updates.</sub>
 
 ## Contents
 
@@ -35,6 +36,7 @@ Patches focused on JavaScript performance improvements.
 
 - [nodejs-bench-operations](https://github.com/RafaelGSS/nodejs-bench-operations) might be a good starting point to get an idea of what's fast.
 - [MythBusters JS](https://mythbusters.js.org/) - A JavaScript Handbook exploring performance & readability.
+- [v8-perf](https://github.com/thlorenz/v8-perf) - Notes and resources related to v8 and thus Node.js performance.
 
 </small>
 
@@ -62,7 +64,6 @@ Patches focused on JavaScript performance improvements.
 ### Unsorted
 
 - [npm scripts📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - Lazy module load, `Intl.Collator` over `String.prototype.localeCompare`
-- [deno](https://github.com/denoland/deno/pull/12265) - attribute assignment in constructur is faster than class field expressions
 - [node-semver](https://github.com/npm/node-semver/pull/536/files) - bit flags instead of string manipulation
 - [node-semver](https://github.com/npm/node-semver/pull/528) - `Object#freeze` for lower memory consumption at around equal perf
 - [typescript](https://github.com/microsoft/TypeScript/pull/52656) - `var` is faster than `let/const` in the specific use case of TypeScript
@@ -77,6 +78,10 @@ Patches focused on JavaScript performance improvements.
 - [[Typia] Hidden Class Optimization of v8 Engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb)
 - [Bluebird](https://www.reaktor.com/articles/javascript-performance-fundamentals-make-bluebird-fast) - minimize function object allocation, use bit flags
 - [Confluence Whiteboards](https://www.atlassian.com/engineering/rendering-like-butter-a-confluence-whiteboards-story) - DOM event delegation, Finite State Machines, Entity Component System, WebGL optimization
+- [That time I 10x'd a TI-84 emulator's speed by replacing a switch-case](https://artemis.sh/2022/08/07/emulating-calculators-fast-in-js.html) - avoid really big `switch..case` statements, replace by manual instruction tables (using arrays)
+- [Understanding why our build got 15x slower with Webpack 5](https://www.tines.com/blog/understanding-why-our-build-got-15x-slower-with-webpack-5) - avoid `Symbol.isConcatSpreadable`
+- [A Tale of a JavaScript Memory Leak](https://www.just-bi.nl/a-tale-of-a-javascript-memory-leak/) - when working with global RegExp's (`/g`) and very large strings, make sure to check for memory leaks in V8/Chromium (possibly also includes other string functions like `substring`, `slice`, `trim` due to [v8/2869](https://bugs.chromium.org/p/v8/issues/detail?id=2869)
+- [High-performance input handling on the web](https://nolanlawson.com/2019/08/11/high-performance-input-handling-on-the-web/) - in-depth guide for how to avoid layout trashing while handling user inputs
 
 #### Algorithmic
 
@@ -120,12 +125,14 @@ Patches focused on HTML performance improvements (in reality, it's more like onl
 - [SVG icon stress test](https://cloudfour.com/thinks/svg-icon-stress-test/) - benchmarks the best way to embed `<svg>`s
 - [Avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
 - [Redirect Liquidation](https://calendar.perfplanet.com/2021/redirect-liquidation/) - removing redirects using the Edge
+- [Improving Redux state transfer performance with JSON.parse(), a quick case study](https://joreteg.com/blog/improving-redux-state-transfer-performance) - use `JSON.parse` for big inline objects
 
 ## TypeScript
 
-Patches focused on TypeScript runtime performance improvements (e.g. running `tsc`). The TS team also has a dedicated wiki page for it: https://github.com/microsoft/TypeScript/wiki/Performance.
+Patches focused on TypeScript runtime performance improvements (e.g. running `tsc`). The TS team also has a dedicated [wiki page](https://github.com/microsoft/TypeScript/wiki/Performance).
 
 - [sentry](https://github.com/getsentry/sentry/pull/30847) - avoid large unions in favor of `interface`s
+- [tRPC](https://twitter.com/s4chinraja/status/1570658634039984128) - avoid disabling the lazy evaluation of TypeScript types
 
 ## Contribute
 
