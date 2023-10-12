@@ -4,7 +4,8 @@
 
 The purpose of this awesome list is to allow others to learn from performance improvements of the past 📝, so that you can submit your performance improvement sooner or later here as well 🤝.
 
-<sub>The list also includes blog posts without PRs, if they contain enough code to make them useful for this purpose.</sub>
+<sub>The list also includes blog posts without PRs, if they contain enough code to make them useful for this purpose. 
+<br>⭐ marks blog posts or articles covering a lot of areas with in-depth explanations.</sub>
 
 For Web Performance, there are a few more lists of curated links of talks, newsletters, blogs and more:<br />
 ➡️ [fabkrum/web-performance-resources](https://github.com/fabkrum/web-performance-resources/blob/master/index.md)
@@ -43,7 +44,7 @@ Patches focused on JavaScript performance improvements.
 ### Caching / Doing less work
 
 - [pnpm](https://github.com/pnpm/pnpm/pull/6317) - caches results | [blog post📖](https://jakebailey.dev/posts/pnpm-dt-2/)
-- [Speeding up the JavaScript ecosystem by Marvin Hagemeister📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem/)
+- [Speeding up the JavaScript ecosystem by Marvin Hagemeister📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem/) | ⭐
   - [postcss-plugins](https://github.com/csstools/postcss-plugins/pull/737) - avoids expensive RegExps
   - [svgo](https://github.com/svg/svgo/pull/1716) - avoids casting
   - [svgo](https://github.com/svg/svgo/pull/1717) - avoids double RegExps calls
@@ -59,11 +60,12 @@ Patches focused on JavaScript performance improvements.
 - [pnpm](https://github.com/pnpm/pnpm/pull/6749) - converts objects to `Set` and `Map`
 - [preact/signals](https://github.com/preactjs/signals/pull/136) - converts `Set` to Linked Lists, adds lazy value evaluation
 - [TanStack/table](https://github.com/TanStack/table/pull/4495) - replaces immutable spread calls with mutable arrays | [blog post](https://jpcamara.com/2023/03/07/making-tanstack-table.html)
-- [parcel-bundler/parcel](https://github.com/parcel-bundler/parcel/pull/9266) - converts graph to array of bit sets, avoids `new` calls, `Uint32Array` + Wasm instead of `BigInt`, array instead of hash map to avoid hashing cost, fast path stack-based depth-first search to avoid recursion
+- [rollup](https://github.com/rollup/rollup/pull/4862) - replaces `Set` with `BigInt` | [Mastodon explainer](https://elk.zone/webperf.social/@lukastaegert@webtoo.ls/109882130404793578)
+- [parcel-bundler/parcel](https://github.com/parcel-bundler/parcel/pull/9266) - converts graph to array of BitSets, avoids `new` calls, `Uint32Array` + Wasm instead of `BigInt`, array instead of hash map to avoid hashing cost, fast path stack-based depth-first search to avoid recursion | [Twitter explainer](https://twitter.com/devongovett/status/1712169214872867288)
 
 ### Unsorted
 
-- [npm scripts📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - Lazy module load, `Intl.Collator` over `String.prototype.localeCompare`
+- [npm scripts📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - Lazy module load, prefer `Intl.Collator` over `String.prototype.localeCompare`
 - [node-semver](https://github.com/npm/node-semver/pull/536/files) - bit flags instead of string manipulation
 - [node-semver](https://github.com/npm/node-semver/pull/528) - `Object#freeze` for lower memory consumption at around equal perf
 - [typescript](https://github.com/microsoft/TypeScript/pull/52656) - `var` is faster than `let/const` in the specific use case of TypeScript
@@ -71,22 +73,24 @@ Patches focused on JavaScript performance improvements.
 - [preact/signals](https://github.com/preactjs/signals/pull/160) - converts ES6 classes to ES5 classes for higher performance
 - [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/104) - lazy evaluation, "is object" check via `var?.constructor !== Object`, array tuples to flat array
 - [nodejs/node](https://github.com/nodejs/node/pull/49745) - replaces lots of boolean props with one bitmap
+- [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/180#issuecomment-1751250891) - avoid (negative) look-aheads for faster regexp execution
 
 ### Blog Posts with Code 📖
 
 - [Don’t attach tooltips to document.body](https://atfzl.com/articles/don-t-attach-tooltips-to-document-body/)
-- [[Typia] Hidden Class Optimization of v8 Engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb)
 - [Bluebird](https://www.reaktor.com/articles/javascript-performance-fundamentals-make-bluebird-fast) - minimize function object allocation, use bit flags
-- [Confluence Whiteboards](https://www.atlassian.com/engineering/rendering-like-butter-a-confluence-whiteboards-story) - DOM event delegation, Finite State Machines, Entity Component System, WebGL optimization
+- [Maybe you don't need Rust and WASM to speed up your JS](https://mrale.ph/blog/2018/02/03/maybe-you-dont-need-rust-to-speed-up-your-js.html) - post covering insights into various JavaScript engines and low level optimizations | ⭐
+- [Confluence Whiteboards](https://www.atlassian.com/engineering/rendering-like-butter-a-confluence-whiteboards-story) - DOM event delegation, Finite State Machines, Entity Component System, WebGL optimization | ⭐
 - [That time I 10x'd a TI-84 emulator's speed by replacing a switch-case](https://artemis.sh/2022/08/07/emulating-calculators-fast-in-js.html) - avoid really big `switch..case` statements, replace by manual instruction tables (using arrays)
 - [Understanding why our build got 15x slower with Webpack 5](https://www.tines.com/blog/understanding-why-our-build-got-15x-slower-with-webpack-5) - avoid `Symbol.isConcatSpreadable`
 - [A Tale of a JavaScript Memory Leak](https://www.just-bi.nl/a-tale-of-a-javascript-memory-leak/) - when working with global RegExp's (`/g`) and very large strings, make sure to check for memory leaks in V8/Chromium (possibly also includes other string functions like `substring`, `slice`, `trim` due to [v8/2869](https://bugs.chromium.org/p/v8/issues/detail?id=2869)
 - [High-performance input handling on the web](https://nolanlawson.com/2019/08/11/high-performance-input-handling-on-the-web/) - in-depth guide for how to avoid layout trashing while handling user inputs
+- [[Typia] Hidden Class Optimization of v8 Engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb) | ⭐
 
 #### Algorithmic
 
 - [High Performance Text Parsing Using Finite State Machines](https://hackernoon.com/high-performance-text-parsing-using-finite-state-machines-fsm-6d3m33j9) - replacing RegExps with Finite State Machines
-- [How to Compare Arrays in JavaScript Efficiently](https://dev.to/doabledanny/how-to-compare-arrays-in-javascript-efficiently-1p0) - using Frequency Counter Objects to reduce the Big O complexity from `O(n²)` to `O(n)` | awesome due to explaning code in-depth
+- [How to Compare Arrays in JavaScript Efficiently](https://dev.to/doabledanny/how-to-compare-arrays-in-javascript-efficiently-1p0) - using Frequency Counter Objects to reduce the Big O complexity from `O(n²)` to `O(n)`
 
 ### Perf Audits 📝
 
