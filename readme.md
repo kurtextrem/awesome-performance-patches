@@ -65,7 +65,6 @@ Patches focused on JavaScript performance improvements.
 
 ### Unsorted
 
-- [npm scripts📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - Lazy module load, prefer `Intl.Collator` over `String.prototype.localeCompare`
 - [node-semver](https://github.com/npm/node-semver/pull/536/files) - bit flags instead of string manipulation
 - [node-semver](https://github.com/npm/node-semver/pull/528) - `Object#freeze` for lower memory consumption at around equal perf
 - [typescript](https://github.com/microsoft/TypeScript/pull/52656) - `var` is faster than `let/const` in the specific use case of TypeScript
@@ -86,6 +85,8 @@ Patches focused on JavaScript performance improvements.
 - [A Tale of a JavaScript Memory Leak](https://www.just-bi.nl/a-tale-of-a-javascript-memory-leak/) - when working with global RegExp's (`/g`) and very large strings, make sure to check for memory leaks in V8/Chromium (possibly also includes other string functions like `substring`, `slice`, `trim` due to [v8/2869](https://bugs.chromium.org/p/v8/issues/detail?id=2869)
 - [High-performance input handling on the web](https://nolanlawson.com/2019/08/11/high-performance-input-handling-on-the-web/) - in-depth guide for how to avoid layout trashing while handling user inputs
 - [[Typia] Hidden Class Optimization of v8 Engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb) | ⭐
+- [npm scripts📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - lazy module load, prefer `Intl.Collator` over `String.prototype.localeCompare`
+- [How to optimize Date format operations](https://webperf.tips/tip/date-formatting/) - prefer `Intl.DateTimeFormat` over `Date.toLocaleDateString`
 
 #### Algorithmic
 
@@ -101,6 +102,7 @@ Patches focused on JavaScript performance improvements.
 - [Notion perf audit](https://3perf.com/blog/notion/) - defer JS, Babel tweaks, code splitting, caching and more
 - [Walmart perf audit](https://iamakulov.com/notes/walmart/) - remove old polyfills, CSS & font tweaks
 - [Causal perf audit](https://3perf.com/blog/causal/) - React performance tweaks
+- [Uber Eats](https://webperf.tips/tip/uber-eats-dom-parsing/) - avoid too many frequent calls to `DOMParser`
 
 ## CSS & Rendering
 
