@@ -132,6 +132,7 @@ Patches focused on HTML performance improvements (in reality, it's more like onl
 - [Avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
 - [Redirect Liquidation](https://calendar.perfplanet.com/2021/redirect-liquidation/) - removing redirects using the Edge
 - [Improving Redux state transfer performance with JSON.parse(), a quick case study](https://joreteg.com/blog/improving-redux-state-transfer-performance) - use `JSON.parse` for big inline objects
+- [Techniques for bypassing CORS Preflight Requests to improve performance](https://webperf.tips/tip/optimizing-cors/) - optimizing CORS requests by avoiding `OPTIONS` requests
 
 ## TypeScript
 
