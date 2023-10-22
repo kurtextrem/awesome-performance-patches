@@ -87,6 +87,7 @@ Patches focused on JavaScript performance improvements.
 - [[Typia] Hidden Class Optimization of v8 Engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb) | ⭐
 - [npm scripts📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - lazy module load, prefer `Intl.Collator` over `String.prototype.localeCompare`
 - [How to optimize Date format operations](https://webperf.tips/tip/date-formatting/) - prefer `Intl.DateTimeFormat` over `Date.toLocaleDateString`
+- [My Node.js is a bit Rusty](https://gal.hagever.com/posts/my-node-js-is-a-bit-rusty) - replacing a JS based file parser with a Rust napi implementation for faster execution speed and less memory usage
 
 #### Algorithmic
 
