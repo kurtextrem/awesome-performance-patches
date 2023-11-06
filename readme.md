@@ -43,25 +43,26 @@ Patches focused on JavaScript performance improvements.
 
 ### Caching / Doing less work
 
-- [pnpm](https://github.com/pnpm/pnpm/pull/6317) - caches results | [blog post📖](https://jakebailey.dev/posts/pnpm-dt-2/)
+- [pnpm](https://github.com/pnpm/pnpm/pull/6317) - cache results | [blog post📖](https://jakebailey.dev/posts/pnpm-dt-2/)
 - [Speeding up the JavaScript ecosystem by Marvin Hagemeister📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem/) | ⭐
-  - [postcss-plugins](https://github.com/csstools/postcss-plugins/pull/737) - avoids expensive RegExps
-  - [svgo](https://github.com/svg/svgo/pull/1716) - avoids casting
-  - [svgo](https://github.com/svg/svgo/pull/1717) - avoids double RegExps calls
+  - [postcss-plugins](https://github.com/csstools/postcss-plugins/pull/737) - avoid expensive RegExps
+  - [svgo](https://github.com/svg/svgo/pull/1716) - avoid casting
+  - [svgo](https://github.com/svg/svgo/pull/1717) - avoid double RegExps calls
   - and other topics, such as avoiding inline functions in functions, downtranspilation
-- [esquery](https://github.com/estools/esquery/pull/134) - replaces `String.prototype.split`, avoids downtranspilation of `for..of`, hoist constants. | [blog post📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-3/)
-- [joypixels/emoji-toolkit](https://github.com/joypixels/emoji-toolkit/pull/57) - caches expensive RegExps result | [blog post📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-5/)
-- [lucagez/slow-json-stringify](https://github.com/lucagez/slow-json-stringify/pull/31) - hoists RegExpses & functions, replaces `Array.prototype.map` with `for` loops, uses `?.` instead of `||{}`
-- [jshttp/cookie](https://github.com/jshttp/cookie/pull/144) - caches `length` of string in `while` loop
+- [esquery](https://github.com/estools/esquery/pull/134) - replace `String.prototype.split`, avoid downtranspilation of `for..of`, hoist constants. | [blog post📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-3/)
+- [joypixels/emoji-toolkit](https://github.com/joypixels/emoji-toolkit/pull/57) - cache expensive RegExps result | [blog post📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-5/)
+- [lucagez/slow-json-stringify](https://github.com/lucagez/slow-json-stringify/pull/31) - hoist RegExpses & functions, replace `Array.prototype.map` with `for` loops, use `?.` instead of `||{}`
+- [jshttp/cookie](https://github.com/jshttp/cookie/pull/144) - cache `length` of string in `while` loop
 
 ### Data Structures
 
-- [fabian-hiller/valibot](https://github.com/fabian-hiller/valibot/pull/68) - converts `Set` to `Array`
-- [pnpm](https://github.com/pnpm/pnpm/pull/6749) - converts objects to `Set` and `Map`
-- [preact/signals](https://github.com/preactjs/signals/pull/136) - converts `Set` to Linked Lists, adds lazy value evaluation
-- [TanStack/table](https://github.com/TanStack/table/pull/4495) - replaces immutable spread calls with mutable arrays | [blog post](https://jpcamara.com/2023/03/07/making-tanstack-table.html)
-- [rollup](https://github.com/rollup/rollup/pull/4862) - replaces `Set` with `BigInt` | [Mastodon explainer](https://elk.zone/webperf.social/@lukastaegert@webtoo.ls/109882130404793578)
-- [parcel-bundler/parcel](https://github.com/parcel-bundler/parcel/pull/9266) - converts graph to array of BitSets, avoids `new` calls, `Uint32Array` + Wasm instead of `BigInt`, array instead of hash map to avoid hashing cost, fast path stack-based depth-first search to avoid recursion | [Twitter explainer](https://twitter.com/devongovett/status/1712169214872867288)
+- [fabian-hiller/valibot](https://github.com/fabian-hiller/valibot/pull/68) - convert `Set` to `Array`
+- [pnpm](https://github.com/pnpm/pnpm/pull/6749) - convert objects to `Set` and `Map`
+- [preact/signals](https://github.com/preactjs/signals/pull/136) - convert `Set` to Linked Lists, adds lazy value evaluation
+- [TanStack/table](https://github.com/TanStack/table/pull/4495) - replace immutable spread calls with mutable arrays | [blog post](https://jpcamara.com/2023/03/07/making-tanstack-table.html)
+- [rollup](https://github.com/rollup/rollup/pull/4862) - replace `Set` with `BigInt` | [Mastodon explainer](https://elk.zone/webperf.social/@lukastaegert@webtoo.ls/109882130404793578)
+- [parcel-bundler/parcel](https://github.com/parcel-bundler/parcel/pull/9266) - convert graph to array of BitSets, avoid `new` calls, `Uint32Array` + Wasm instead of `BigInt`, array instead of hash map to avoid hashing cost, fast path stack-based depth-first search to avoid recursion | [Twitter explainer](https://twitter.com/devongovett/status/1712169214872867288)
+- [xpl/ansicolor](https://github.com/xpl/ansicolor/pull/20) - avoid `delete`, optimize for [v8 hidden classes](https://v8.dev/docs/hidden-classes), use JS generators to allow more frequent GC collection
 
 ### Unsorted
 
@@ -69,9 +70,9 @@ Patches focused on JavaScript performance improvements.
 - [node-semver](https://github.com/npm/node-semver/pull/528) - `Object#freeze` for lower memory consumption at around equal perf
 - [typescript](https://github.com/microsoft/TypeScript/pull/52656) - `var` is faster than `let/const` in the specific use case of TypeScript
 - [graphql-js](https://github.com/graphql/graphql-js/pull/3687) - `for..of` downtranspilation & destructuring optimization
-- [preact/signals](https://github.com/preactjs/signals/pull/160) - converts ES6 classes to ES5 classes for higher performance
+- [preact/signals](https://github.com/preactjs/signals/pull/160) - convert ES6 classes to ES5 classes for higher performance
 - [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/104) - lazy evaluation, "is object" check via `var?.constructor !== Object`, array tuples to flat array
-- [nodejs/node](https://github.com/nodejs/node/pull/49745) - replaces lots of boolean props with one bitmap
+- [nodejs/node](https://github.com/nodejs/node/pull/49745) - replace N boolean props with one bitmap
 - [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/180#issuecomment-1751250891) - avoid (negative) look-aheads for faster regexp execution
 
 ### Blog Posts with Code 📖
@@ -87,16 +88,16 @@ Patches focused on JavaScript performance improvements.
 - [[Typia] Hidden Class Optimization of v8 Engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb) | ⭐
 - [npm scripts📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - lazy module load, prefer `Intl.Collator` over `String.prototype.localeCompare`
 - [How to optimize Date format operations](https://webperf.tips/tip/date-formatting/) - prefer `Intl.DateTimeFormat` over `Date.toLocaleDateString`
-- [My Node.js is a bit Rusty](https://gal.hagever.com/posts/my-node-js-is-a-bit-rusty) - replacing a JS based file parser with a Rust napi implementation for faster execution speed and less memory usage
+- [My Node.js is a bit Rusty](https://gal.hagever.com/posts/my-node-js-is-a-bit-rusty) - replaces a JS based file parser with a Rust napi implementation for faster execution speed and less memory usage
 
 #### Algorithmic
 
-- [High Performance Text Parsing Using Finite State Machines](https://hackernoon.com/high-performance-text-parsing-using-finite-state-machines-fsm-6d3m33j9) - replacing RegExps with Finite State Machines
-- [How to Compare Arrays in JavaScript Efficiently](https://dev.to/doabledanny/how-to-compare-arrays-in-javascript-efficiently-1p0) - using Frequency Counter Objects to reduce the Big O complexity from `O(n²)` to `O(n)`
+- [High Performance Text Parsing Using Finite State Machines](https://hackernoon.com/high-performance-text-parsing-using-finite-state-machines-fsm-6d3m33j9) - replace RegExps with Finite State Machines
+- [How to Compare Arrays in JavaScript Efficiently](https://dev.to/doabledanny/how-to-compare-arrays-in-javascript-efficiently-1p0) - use Frequency Counter Objects to reduce the Big O complexity from `O(n²)` to `O(n)`
 
 ### Perf Audits 📝
 
-- [Web performance case study: Wikipedia page previews](https://techblog.wikimedia.org/2020/11/23/web-performance-case-study-wikipedia-page-previews/) - avoiding layout trashing
+- [Web performance case study: Wikipedia page previews](https://techblog.wikimedia.org/2020/11/23/web-performance-case-study-wikipedia-page-previews/) - avoid layout trashing
 - [npm install is slower with a progress bar](https://github.com/npm/npm/issues/11283#issuecomment-175246823) - the curious case where a progress bar made `npm i` significantly slower, due to expensive CLI/draw calls - solved by throttling
 - [CNet, Times, Wikipedia, Google Play perf audits](https://docs.google.com/document/d/1K-mKOqiUiSjgZTEscBLjtjd6E67oiK8H2ztOiq5tigk/view#heading=h.hz6e7660btmo) - 2015
 - [NYTimes perf audit](https://docs.google.com/document/d/1Oax3j0-wsYlNQCfgJTtPHlOWJ-ilRvk-I9E3mhiyl5I/edit#heading=h.mxlya9axneww) - 2017
@@ -131,9 +132,9 @@ Patches focused on HTML performance improvements (in reality, it's more like onl
 
 - [SVG icon stress test](https://cloudfour.com/thinks/svg-icon-stress-test/) - benchmarks the best way to embed `<svg>`s
 - [Avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
-- [Redirect Liquidation](https://calendar.perfplanet.com/2021/redirect-liquidation/) - removing redirects using the Edge
+- [Redirect Liquidation](https://calendar.perfplanet.com/2021/redirect-liquidation/) - remove redirects using the Edge
 - [Improving Redux state transfer performance with JSON.parse(), a quick case study](https://joreteg.com/blog/improving-redux-state-transfer-performance) - use `JSON.parse` for big inline objects
-- [Techniques for bypassing CORS Preflight Requests to improve performance](https://webperf.tips/tip/optimizing-cors/) - optimizing CORS requests by avoiding `OPTIONS` requests
+- [Techniques for bypassing CORS Preflight Requests to improve performance](https://webperf.tips/tip/optimizing-cors/) - optimize CORS requests by avoiding `OPTIONS` requests
 
 ## TypeScript
 
