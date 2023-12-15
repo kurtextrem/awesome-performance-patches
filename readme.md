@@ -74,6 +74,7 @@ Patches focused on JavaScript performance improvements.
 - [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/104) - lazy evaluation, "is object" check via `var?.constructor !== Object`, array tuples to flat array
 - [nodejs/node](https://github.com/nodejs/node/pull/49745) - replace N boolean props with one bitmap
 - [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/180#issuecomment-1751250891) - avoid (negative) look-aheads for faster regexp execution
+- [ai/nanoid](https://github.com/ai/nanoid/pull/310/files) - re-ordered alphabet for smaller brotli compression
 
 ### Blog Posts with Code 📖
 
