@@ -53,6 +53,7 @@ Patches focused on JavaScript performance improvements.
 - [joypixels/emoji-toolkit](https://github.com/joypixels/emoji-toolkit/pull/57) - cache expensive RegExps result | [blog post📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-5/)
 - [lucagez/slow-json-stringify](https://github.com/lucagez/slow-json-stringify/pull/31) - hoist RegExpses & functions, replace `Array.prototype.map` with `for` loops, use `?.` instead of `||{}`
 - [jshttp/cookie](https://github.com/jshttp/cookie/pull/144) - cache `length` of string in `while` loop
+- [recharts](https://github.com/recharts/recharts/pull/3953) - avoid expensive DOM calculations by using an early-exit math calculation | [blog post📖](https://belchior.hashnode.dev/improving-recharts-performance-clp5w295y000b0ajq8hu6cnmm)
 
 ### Data Structures
 
