@@ -54,6 +54,7 @@ Patches focused on JavaScript performance improvements.
 - [lucagez/slow-json-stringify](https://github.com/lucagez/slow-json-stringify/pull/31) - hoist RegExpses & functions, replace `Array.prototype.map` with `for` loops, use `?.` instead of `||{}`
 - [jshttp/cookie](https://github.com/jshttp/cookie/pull/144) - cache `length` of string in `while` loop
 - [recharts](https://github.com/recharts/recharts/pull/3953) - avoid expensive DOM calculations by using an early-exit math calculation | [blog post📖](https://belchior.hashnode.dev/improving-recharts-performance-clp5w295y000b0ajq8hu6cnmm)
+- [microsoft/node-jsonc-parser](https://github.com/microsoft/node-jsonc-parser/pull/81) - cache frequently used characters in conditions to save memory and make runtime faster
 
 ### Data Structures
 
