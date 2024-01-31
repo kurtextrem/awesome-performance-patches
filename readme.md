@@ -27,7 +27,7 @@ For Web Performance, there are a few more lists of curated links of talks, newsl
 - [CSS & Rendering](#css--rendering)
   - [Blog Posts with Code 📖](#blog-posts-with-code--1)
     - [Animations 💫](#animations-)
-- [HTML & Web Vitals](#html-webvitals)
+- [HTML & Web Vitals](#html--web-vitals)
 - [TypeScript](#typescript)
 
 ## JavaScript
