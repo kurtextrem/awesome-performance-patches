@@ -27,7 +27,7 @@ For Web Performance, there are a few more lists of curated links of talks, newsl
 - [CSS & Rendering](#css--rendering)
   - [Blog Posts with Code 📖](#blog-posts-with-code--1)
     - [Animations 💫](#animations-)
-- [HTML](#html)
+- [HTML & Web Vitals](#html-webvitals)
 - [TypeScript](#typescript)
 
 ## JavaScript
@@ -129,15 +129,16 @@ Patches focused on CSS performance improvements.
 - [Animating a blur](https://developer.chrome.com/blog/animated-blur/) - animating blur's the performant way
 - [CSS Box Shadows and Optimize Performance](https://www.sitepoint.com/css-box-shadow-animation-performance/) - animating box shadows the performant way
 
-## HTML
+## HTML & Web Vitals
 
-Patches focused on HTML performance improvements (in reality, it's more like only blog posts 📖).
+Patches focused on HTML & Web Vitals performance improvements.
 
 - [SVG icon stress test](https://cloudfour.com/thinks/svg-icon-stress-test/) - benchmarks the best way to embed `<svg>`s
 - [Avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
 - [Redirect Liquidation](https://calendar.perfplanet.com/2021/redirect-liquidation/) - remove redirects using the Edge
-- [Improving Redux state transfer performance with JSON.parse(), a quick case study](https://joreteg.com/blog/improving-redux-state-transfer-performance) - use `JSON.parse` for big inline objects
+- [Fastest Way of Passing State to JavaScript, Re-visited](https://kurtextrem.de/posts/state-revisited) - use `JSON.parse` and fake script tags for passing states from server to client
 - [Techniques for bypassing CORS Preflight Requests to improve performance](https://webperf.tips/tip/optimizing-cors/) - optimize CORS requests by avoiding `OPTIONS` requests
+- [sentry](https://github.com/getsentry/sentry/pull/64165) - Improves the Web Vital INP by replacing React's `autofocus` implementation with manual focus in the next task
 
 ## TypeScript
 
