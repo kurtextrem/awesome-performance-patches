@@ -138,7 +138,8 @@ Patches focused on HTML & Web Vitals performance improvements.
 - [Redirect Liquidation](https://calendar.perfplanet.com/2021/redirect-liquidation/) - remove redirects using the Edge
 - [Fastest Way of Passing State to JavaScript, Re-visited](https://kurtextrem.de/posts/state-revisited) - use `JSON.parse` and fake script tags for passing states from server to client
 - [Techniques for bypassing CORS Preflight Requests to improve performance](https://webperf.tips/tip/optimizing-cors/) - optimize CORS requests by avoiding `OPTIONS` requests
-- [sentry](https://github.com/getsentry/sentry/pull/64165) - Improves the Web Vital INP by replacing React's `autofocus` implementation with manual focus in the next task
+- [sentry](https://github.com/getsentry/sentry/pull/64165) - improve INP by replacing React's `autofocus` implementation with manual focus in the next task
+- [Use text-wrap: balance; to improve design and INP](https://www.erwinhofman.com/blog/use-text-wrap-balance-to-improve-inp/) - replace JS based text balancers with the CSS prop
 
 ## TypeScript
 
