@@ -141,6 +141,7 @@ Patches focused on HTML & Web Vitals performance improvements.
 - [Techniques for bypassing CORS Preflight Requests to improve performance](https://webperf.tips/tip/optimizing-cors/) - optimize CORS requests by avoiding `OPTIONS` requests
 - [sentry](https://github.com/getsentry/sentry/pull/64165) - improve INP by replacing React's `autofocus` implementation with manual focus in the next task
 - [Use text-wrap: balance; to improve design and INP](https://www.erwinhofman.com/blog/use-text-wrap-balance-to-improve-inp/) - replace JS based text balancers with the CSS prop
+- [INP on HTTPArchive](https://twitter.com/rick_viscomi/status/1754882706951864731) - defer offscreen components to improve early-load INP
 
 ## TypeScript
 
