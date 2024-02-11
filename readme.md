@@ -65,6 +65,7 @@ Patches focused on JavaScript performance improvements.
 - [rollup](https://github.com/rollup/rollup/pull/4862) - replace `Set` with `BigInt` | [Mastodon explainer](https://elk.zone/webperf.social/@lukastaegert@webtoo.ls/109882130404793578)
 - [parcel-bundler/parcel](https://github.com/parcel-bundler/parcel/pull/9266) - convert graph to array of BitSets, avoid `new` calls, `Uint32Array` + Wasm instead of `BigInt`, array instead of hash map to avoid hashing cost, fast path stack-based depth-first search to avoid recursion | [Twitter explainer](https://twitter.com/devongovett/status/1712169214872867288)
 - [xpl/ansicolor](https://github.com/xpl/ansicolor/pull/20) - avoid `delete`, optimize for [v8 hidden classes](https://v8.dev/docs/hidden-classes), use JS generators to allow more frequent GC collection
+- [Fast JavaScript with Data-oriented Design](https://docs.google.com/presentation/d/1yn87uVuB7oXmRX5uMsdu9_DQP7M5a2jO2xKuRl1ERIo/edit#slide=id.g2b61cb63bcc_0_32) - converts `Map` to typed arrays, uses "parallel arrays" for more efficient CPU cache usage | [Video](https://fosdem.org/2024/schedule/event/fosdem-2024-2773-fast-javascript-with-data-oriented-design/)
 
 ### Unsorted
 
