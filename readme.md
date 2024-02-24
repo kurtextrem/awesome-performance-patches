@@ -65,7 +65,8 @@ Patches focused on JavaScript performance improvements.
 - [rollup](https://github.com/rollup/rollup/pull/4862) - replace `Set` with `BigInt` | [Mastodon explainer](https://elk.zone/webperf.social/@lukastaegert@webtoo.ls/109882130404793578)
 - [parcel-bundler/parcel](https://github.com/parcel-bundler/parcel/pull/9266) - convert graph to array of BitSets, avoid `new` calls, `Uint32Array` + Wasm instead of `BigInt`, array instead of hash map to avoid hashing cost, fast path stack-based depth-first search to avoid recursion | [Twitter explainer](https://twitter.com/devongovett/status/1712169214872867288)
 - [xpl/ansicolor](https://github.com/xpl/ansicolor/pull/20) - avoid `delete`, optimize for [v8 hidden classes](https://v8.dev/docs/hidden-classes), use JS generators to allow more frequent GC collection
-- [Fast JavaScript with Data-oriented Design](https://docs.google.com/presentation/d/1yn87uVuB7oXmRX5uMsdu9_DQP7M5a2jO2xKuRl1ERIo/edit#slide=id.g2b61cb63bcc_0_32) - converts `Map` to typed arrays, uses "parallel arrays" for more efficient CPU cache usage | [Video](https://fosdem.org/2024/schedule/event/fosdem-2024-2773-fast-javascript-with-data-oriented-design/)
+- [Fast JavaScript with Data-oriented Design📖](https://docs.google.com/presentation/d/1yn87uVuB7oXmRX5uMsdu9_DQP7M5a2jO2xKuRl1ERIo/edit#slide=id.g2b61cb63bcc_0_32) - converts `Map` to typed arrays, uses "parallel arrays" for more efficient CPU cache usage | [Video](https://fosdem.org/2024/schedule/event/fosdem-2024-2773-fast-javascript-with-data-oriented-design/)
+- [A 400% faster Performance panel through perf-ception📖](https://developer.chrome.com/blog/perf-panel-4x-faster) - replace `Set` with array to reduce memory consumption if uniqueness is guaranteed, discusses downsides of `Map` for frequent and large data sets, because of rehashing | ⭐
 
 ### Unsorted
 
@@ -78,6 +79,7 @@ Patches focused on JavaScript performance improvements.
 - [nodejs/node](https://github.com/nodejs/node/pull/49745) - replace N boolean props with one bitmap
 - [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/180#issuecomment-1751250891) - avoid (negative) look-aheads for faster regexp execution
 - [ai/nanoid](https://github.com/ai/nanoid/pull/310/files) - re-ordered alphabet for smaller brotli compression
+- [astro](https://github.com/withastro/astro/pull/9614) - `AsyncIterable` instead of a `ReadableStream`
 
 ### Blog Posts with Code 📖
 
@@ -90,7 +92,7 @@ Patches focused on JavaScript performance improvements.
 - [A Tale of a JavaScript Memory Leak](https://www.just-bi.nl/a-tale-of-a-javascript-memory-leak/) - when working with global RegExp's (`/g`) and very large strings, make sure to check for memory leaks in V8/Chromium (possibly also includes other string functions like `substring`, `slice`, `trim` due to [v8/2869](https://bugs.chromium.org/p/v8/issues/detail?id=2869)
 - [High-performance input handling on the web](https://nolanlawson.com/2019/08/11/high-performance-input-handling-on-the-web/) - in-depth guide for how to avoid layout trashing while handling user inputs
 - [[Typia] Hidden Class Optimization of v8 Engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb) | ⭐
-- [npm scripts📖](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - lazy module load, prefer `Intl.Collator` over `String.prototype.localeCompare`
+- [npm scripts](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - lazy module load, prefer `Intl.Collator` over `String.prototype.localeCompare`
 - [How to optimize Date format operations](https://webperf.tips/tip/date-formatting/) - prefer `Intl.DateTimeFormat` over `Date.toLocaleDateString`
 - [My Node.js is a bit Rusty](https://gal.hagever.com/posts/my-node-js-is-a-bit-rusty) - replaces a JS based file parser with a Rust napi implementation for faster execution speed and less memory usage
 
