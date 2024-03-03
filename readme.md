@@ -148,7 +148,7 @@ Patches focused on HTML & Web Vitals performance improvements.
 
 ## TypeScript
 
-Patches focused on TypeScript runtime performance improvements (e.g. running `tsc`). The TS team also has a dedicated [wiki page](https://github.com/microsoft/TypeScript/wiki/Performance).
+Patches focused on TypeScript runtime performance improvements (e.g. running `tsc`). The TS team also has a dedicated [wiki page](https://github.com/microsoft/TypeScript/wiki/Performance). [Attest](https://github.com/arktypeio/arktype/tree/2.0/ark/attest#benches) can help you benchmark.
 
 - [sentry](https://github.com/getsentry/sentry/pull/30847) - avoid large unions in favor of `interface`s
 - [tRPC](https://twitter.com/s4chinraja/status/1570658634039984128) - avoid disabling the lazy evaluation of TypeScript types
