@@ -144,6 +144,7 @@ Patches focused on HTML & Web Vitals performance improvements.
 - [sentry](https://github.com/getsentry/sentry/pull/64165) - improve INP by replacing React's `autofocus` implementation with manual focus in the next task
 - [Use text-wrap: balance; to improve design and INP](https://www.erwinhofman.com/blog/use-text-wrap-balance-to-improve-inp/) - replace JS based text balancers with the CSS prop
 - [INP on HTTPArchive](https://twitter.com/rick_viscomi/status/1754882706951864731) - defer offscreen components to improve early-load INP
+- [How PubTech's Consent Management Platform reduced INP on their customers' websites by up to 64%, while also improving ad viewability by up to 1.5%](https://web.dev/case-studies/pubconsent-inp) - "lazy de-rendering", by setting `display:none` first and then remove DOM nodes using `requestIdleCallback`; yield functions for high and background priority
 
 ## TypeScript
 
