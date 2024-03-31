@@ -22,12 +22,12 @@ For Web Performance, there are a few more lists of curated links of talks, newsl
   - [Data Structures](#data-structures)
   - [Unsorted](#unsorted)
   - [Blog Posts with Code 📖](#blog-posts-with-code-)
-    - [Algorithmic](#algorithmic)
+    - [Algorithmic](#algorithmic-)
   - [Perf Audits 📝](#perf-audits-)
 - [CSS & Rendering](#css--rendering)
   - [Blog Posts with Code 📖](#blog-posts-with-code--1)
     - [Animations 💫](#animations-)
-- [HTML & Web Vitals](#html--web-vitals)
+- [HTML & Web Vitals](#html--web-vitals-)
 - [TypeScript](#typescript)
 
 ## JavaScript
@@ -38,6 +38,7 @@ Patches focused on JavaScript performance improvements.
 - [nodejs-bench-operations](https://github.com/RafaelGSS/nodejs-bench-operations) might be a good starting point to get an idea of what's fast.
 - [MythBusters JS](https://mythbusters.js.org/) - A JavaScript Handbook exploring performance & readability.
 - [v8-perf](https://github.com/thlorenz/v8-perf) - Notes and resources related to v8 and thus Node.js performance.
+- [Optimizing Javascript for fun and for profit📖](https://romgrk.com/posts/optimizing-javascript) - Excellent post about micro-performance in JavaScript.
 
 </small>
 
@@ -96,9 +97,9 @@ Patches focused on JavaScript performance improvements.
 - [npm scripts](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - lazy module load, prefer `Intl.Collator` over `String.prototype.localeCompare`
 - [How to optimize Date format operations](https://webperf.tips/tip/date-formatting/) - prefer `Intl.DateTimeFormat` over `Date.toLocaleDateString`
 - [My Node.js is a bit Rusty](https://gal.hagever.com/posts/my-node-js-is-a-bit-rusty) - replaces a JS based file parser with a Rust napi implementation for faster execution speed and less memory usage
-- [Dragging React performance forward](https://medium.com/@alexandereardon/dragging-react-performance-forward-688b30d40a33) & [Introducing Pragmatic drag and drop by Alex Reardon](https://www.youtube.com/watch?v=5SQkOyzZLHM)
+- [Dragging React performance forward](https://medium.com/@alexandereardon/dragging-react-performance-forward-688b30d40a33) & [Introducing Pragmatic drag and drop 🎥](https://www.youtube.com/watch?v=5SQkOyzZLHM)
 
-#### Algorithmic
+#### Algorithmic 📖
 
 - [High Performance Text Parsing Using Finite State Machines](https://hackernoon.com/high-performance-text-parsing-using-finite-state-machines-fsm-6d3m33j9) - replace RegExps with Finite State Machines
 - [How to Compare Arrays in JavaScript Efficiently](https://dev.to/doabledanny/how-to-compare-arrays-in-javascript-efficiently-1p0) - use Frequency Counter Objects to reduce the Big O complexity from `O(n²)` to `O(n)`
@@ -119,6 +120,10 @@ Patches focused on JavaScript performance improvements.
 Patches focused on CSS performance improvements.
 
 - [nuka-carousel](https://github.com/FormidableLabs/nuka-carousel/pull/796) - removes huge layers by fixing negative `z-index`
+- [mui/mui-x](https://twitter.com/olivtassinari/status/1774145311419634101) - collection of MUI improvements:
+  - [recalculate style](https://github.com/mui/mui-x/pull/12019) - avoiding updating CSS variables on parents for shorter "recalculate style" tasks
+  - [layerize](https://github.com/mui/mui-x/pull/11924) - make "layerize" tasks shorter by avoiding creating many layers
+  - [scroll direction](https://github.com/mui/mui-x/pull/12353) - emphasize scroll direction for optimistic updates
 
 ### Blog Posts with Code 📖
 
@@ -134,7 +139,7 @@ Patches focused on CSS performance improvements.
 - [Animating a blur](https://developer.chrome.com/blog/animated-blur/) - animating blur's the performant way
 - [CSS Box Shadows and Optimize Performance](https://www.sitepoint.com/css-box-shadow-animation-performance/) - animating box shadows the performant way
 
-## HTML & Web Vitals
+## HTML & Web Vitals 📈
 
 Patches focused on HTML & Web Vitals performance improvements.
 
