@@ -99,6 +99,7 @@ Patches focused on JavaScript performance improvements.
 - [How to optimize Date format operations](https://webperf.tips/tip/date-formatting/) - prefer `Intl.DateTimeFormat` over `Date.toLocaleDateString`
 - [My Node.js is a bit Rusty](https://gal.hagever.com/posts/my-node-js-is-a-bit-rusty) - replaces a JS based file parser with a Rust napi implementation for faster execution speed and less memory usage
 - [Dragging React performance forward](https://medium.com/@alexandereardon/dragging-react-performance-forward-688b30d40a33) & [Introducing Pragmatic drag and drop 🎥](https://www.youtube.com/watch?v=5SQkOyzZLHM)
+- [Template engine with streaming capability](https://lorenzofox.dev/posts/html-streaming-part-2/) - avoid creating too many promises, avoid creating too many `ReadableStream`'s
 
 #### Algorithmic 📖
 
