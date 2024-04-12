@@ -159,6 +159,7 @@ Patches focused on TypeScript runtime performance improvements (e.g. running `ts
 
 - [sentry](https://github.com/getsentry/sentry/pull/30847) - avoid large unions in favor of `interface`s
 - [tRPC](https://twitter.com/s4chinraja/status/1570658634039984128) - avoid disabling the lazy evaluation of TypeScript types
+- [TanStack/router](https://github.com/TanStack/router/pull/1453) 
 
 ## Contribute
 
