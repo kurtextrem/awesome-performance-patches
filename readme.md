@@ -82,6 +82,7 @@ Patches focused on JavaScript performance improvements.
 - [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/180#issuecomment-1751250891) - avoid (negative) look-aheads for faster regexp execution
 - [ai/nanoid](https://github.com/ai/nanoid/pull/310/files) - re-ordered alphabet for smaller brotli compression
 - [astro](https://github.com/withastro/astro/pull/9614) - `AsyncIterable` instead of a `ReadableStream`
+- [TanStack/query](https://github.com/TanStack/query/issues/6489) - avoid too frequent `setTimeout` & `cancelTimeout`
 
 ### Blog Posts with Code 📖
 
