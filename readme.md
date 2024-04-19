@@ -83,6 +83,7 @@ Patches focused on JavaScript performance improvements.
 - [ai/nanoid](https://github.com/ai/nanoid/pull/310/files) - re-ordered alphabet for smaller brotli compression
 - [astro](https://github.com/withastro/astro/pull/9614) - `AsyncIterable` instead of a `ReadableStream`
 - [TanStack/query](https://github.com/TanStack/query/issues/6489) - avoid too frequent `setTimeout` & `cancelTimeout`
+- [react](https://github.com/facebook/react/pull/28569/) - maintain the same object key across the code to avoid causing de-opts
 
 ### Blog Posts with Code 📖
 
@@ -100,6 +101,7 @@ Patches focused on JavaScript performance improvements.
 - [My Node.js is a bit Rusty](https://gal.hagever.com/posts/my-node-js-is-a-bit-rusty) - replaces a JS based file parser with a Rust napi implementation for faster execution speed and less memory usage
 - [Dragging React performance forward](https://medium.com/@alexandereardon/dragging-react-performance-forward-688b30d40a33) & [Introducing Pragmatic drag and drop 🎥](https://www.youtube.com/watch?v=5SQkOyzZLHM)
 - [Template engine with streaming capability](https://lorenzofox.dev/posts/html-streaming-part-2/) - avoid creating too many promises, avoid creating too many `ReadableStream`'s
+- [The story of a V8 performance cliff in React](https://v8.dev/blog/react-cliff) - initialize `Double`s via `Number.NaN` instead of `0` or `null`, initialize numeric fields with `0` instead of `null`
 
 #### Algorithmic 📖
 
