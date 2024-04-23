@@ -147,15 +147,19 @@ Patches focused on CSS performance improvements.
 
 Patches focused on HTML & Web Vitals performance improvements.
 
-- [SVG icon stress test](https://cloudfour.com/thinks/svg-icon-stress-test/) - benchmarks the best way to embed `<svg>`s
-- [Avoid an excessive DOM size](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
-- [Redirect Liquidation](https://calendar.perfplanet.com/2021/redirect-liquidation/) - remove redirects using the Edge
-- [Fastest Way of Passing State to JavaScript, Re-visited](https://kurtextrem.de/posts/state-revisited) - use `JSON.parse` and fake script tags for passing states from server to client
-- [Techniques for bypassing CORS Preflight Requests to improve performance](https://webperf.tips/tip/optimizing-cors/) - optimize CORS requests by avoiding `OPTIONS` requests
-- [sentry](https://github.com/getsentry/sentry/pull/64165) - improve INP by replacing React's `autofocus` implementation with manual focus in the next task
-- [Use text-wrap: balance; to improve design and INP](https://www.erwinhofman.com/blog/use-text-wrap-balance-to-improve-inp/) - replace JS based text balancers with the CSS prop
-- [INP on HTTPArchive](https://twitter.com/rick_viscomi/status/1754882706951864731) - defer offscreen components to improve early-load INP
-- [How PubTech's Consent Management Platform reduced INP on their customers' websites by up to 64%, while also improving ad viewability by up to 1.5%](https://web.dev/case-studies/pubconsent-inp) - "lazy de-rendering", by setting `display:none` first and then remove DOM nodes using `requestIdleCallback`; yield functions for high and background priority
+- [sentry](https://github.com/getsentry/sentry/pull/64165) - replaces React's `autofocus` implementation with manual focus in the next task for improved INP
+- [radix-ui/primitives](https://github.com/radix-ui/primitives/pull/2855) - sets CSS inline style on `<body>` _after_ giving the browser a chance to paint for improved INP
+
+Blog posts: 
+- [SVG icon stress test📖](https://cloudfour.com/thinks/svg-icon-stress-test/) - benchmarks the best way to embed `<svg>`s
+- [Avoid an excessive DOM size📖](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
+- [Redirect Liquidation📖](https://calendar.perfplanet.com/2021/redirect-liquidation/) - remove redirects using the Edge
+- [Fastest Way of Passing State to JavaScript, Re-visited📖](https://kurtextrem.de/posts/state-revisited) - use `JSON.parse` and fake script tags for passing states from server to client
+- [Techniques for bypassing CORS Preflight Requests to improve performance📖](https://webperf.tips/tip/optimizing-cors/) - optimize CORS requests by avoiding `OPTIONS` requests
+- [Use text-wrap: balance; to improve design and INP📖](https://www.erwinhofman.com/blog/use-text-wrap-balance-to-improve-inp/) - replace JS based text balancers with the CSS prop
+- [INP on HTTPArchive📖](https://twitter.com/rick_viscomi/status/1754882706951864731) - defer offscreen components to improve early-load INP
+- [How PubTech reduced INP by up to 64%📖](https://web.dev/case-studies/pubconsent-inp) - "lazy de-rendering", by setting `display:none` first and then remove DOM nodes using `requestIdleCallback`; yield functions for high and background priority
+
 
 ## TypeScript
 
