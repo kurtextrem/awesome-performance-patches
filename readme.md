@@ -84,6 +84,7 @@ Patches focused on JavaScript performance improvements.
 - [astro](https://github.com/withastro/astro/pull/9614) - `AsyncIterable` instead of a `ReadableStream`
 - [TanStack/query](https://github.com/TanStack/query/issues/6489) - avoid too frequent `setTimeout` & `cancelTimeout`
 - [react](https://github.com/facebook/react/pull/28569/) - maintain the same object key across the code to avoid causing de-opts
+- [microsoft/vscode-js-debug](https://github.com/microsoft/vscode-js-debug/pull/2002/) - faster stream splitting
 
 ### Blog Posts with Code 📖
 
