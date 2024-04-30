@@ -70,6 +70,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [xpl/ansicolor](https://github.com/xpl/ansicolor/pull/20) - avoid `delete`, optimize for [v8 hidden classes](https://v8.dev/docs/hidden-classes), use JS generators to allow more frequent GC collection
 - [Fast JavaScript with Data-oriented Design📖](https://docs.google.com/presentation/d/1yn87uVuB7oXmRX5uMsdu9_DQP7M5a2jO2xKuRl1ERIo/edit#slide=id.g2b61cb63bcc_0_32) - converts `Map` to typed arrays, uses "parallel arrays" for more efficient CPU cache usage | [Video](https://fosdem.org/2024/schedule/event/fosdem-2024-2773-fast-javascript-with-data-oriented-design/)
 - [A 400% faster Performance panel through perf-ception📖](https://developer.chrome.com/blog/perf-panel-4x-faster) - replace `Set` with array to reduce memory consumption if uniqueness is guaranteed, discusses downsides of `Map` for frequent and large data sets, because of rehashing | ⭐
+- [kikobeats/superlock](https://github.com/Kikobeats/superlock/pull/7) - switches a large array to a linked list to make `shift` an `O(1)` operation
 
 ### Unsorted
 
