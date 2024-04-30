@@ -88,6 +88,7 @@ Patches focused on JavaScript performance improvements.
 
 ### Blog Posts with Code 📖
 
+- [Adventures in the land of substrings and RegExps](https://mrale.ph/blog/2016/11/23/making-less-dart-faster.html) - replaces regex with manual parsing, lazy getter to avoid string allocation
 - [Don’t attach tooltips to document.body](https://atfzl.com/articles/don-t-attach-tooltips-to-document-body/)
 - [Bluebird](https://www.reaktor.com/articles/javascript-performance-fundamentals-make-bluebird-fast) - minimize function object allocation, use bit flags
 - [Maybe you don't need Rust and WASM to speed up your JS](https://mrale.ph/blog/2018/02/03/maybe-you-dont-need-rust-to-speed-up-your-js.html) - post covering insights into various JavaScript engines and low level optimizations | ⭐
