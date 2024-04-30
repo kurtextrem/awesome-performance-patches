@@ -39,7 +39,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [MythBusters JS](https://mythbusters.js.org/) - A JavaScript Handbook exploring performance & readability.
 - [v8-perf](https://github.com/thlorenz/v8-perf) - Notes and resources related to v8 and thus Node.js performance.
 - [Optimizing Javascript for fun and for profit📖](https://romgrk.com/posts/optimizing-javascript) - Excellent post about micro-performance in JavaScript.
-- [V8's strings: implementation and optimizations](https://iliazeus.github.io/articles/js-string-optimizations-en/) - Sliced strings, how to reduce memory consumption of strings
+- [V8's strings: implementation and optimizations📖](https://iliazeus.github.io/articles/js-string-optimizations-en/) - Sliced strings, how to reduce memory consumption of strings.
 
 </small>
 
@@ -86,6 +86,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [TanStack/query](https://github.com/TanStack/query/issues/6489) - avoid too frequent `setTimeout` & `cancelTimeout`
 - [react](https://github.com/facebook/react/pull/28569/) - maintain the same object key across the code to avoid causing de-opts
 - [microsoft/vscode-js-debug](https://github.com/microsoft/vscode-js-debug/pull/2002/) - faster stream splitting
+- [fastify](https://github.com/fastify/fastify/pull/5400) - `indexOf` -> `slice` to reduce worst-case runtime duration
 
 ### Blog Posts with Code 📖
 
