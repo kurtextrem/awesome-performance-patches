@@ -32,13 +32,14 @@ For Web Performance, there are a few more lists of curated links of talks, newsl
 
 ## JavaScript
 
-Patches focused on JavaScript performance improvements.
+Patches focused on JavaScript performance improvements. Guides:
 <small>
 
 - [nodejs-bench-operations](https://github.com/RafaelGSS/nodejs-bench-operations) might be a good starting point to get an idea of what's fast.
 - [MythBusters JS](https://mythbusters.js.org/) - A JavaScript Handbook exploring performance & readability.
 - [v8-perf](https://github.com/thlorenz/v8-perf) - Notes and resources related to v8 and thus Node.js performance.
 - [Optimizing Javascript for fun and for profit📖](https://romgrk.com/posts/optimizing-javascript) - Excellent post about micro-performance in JavaScript.
+- [V8's strings: implementation and optimizations](https://iliazeus.github.io/articles/js-string-optimizations-en/) - Sliced strings, how to reduce memory consumption of strings
 
 </small>
 
