@@ -167,6 +167,7 @@ Blog posts:
 - [Use text-wrap: balance; to improve design and INP📖](https://www.erwinhofman.com/blog/use-text-wrap-balance-to-improve-inp/) - replace JS based text balancers with the CSS prop
 - [INP on HTTPArchive📖](https://twitter.com/rick_viscomi/status/1754882706951864731) - defer offscreen components to improve early-load INP
 - [How PubTech reduced INP by up to 64%📖](https://web.dev/case-studies/pubconsent-inp) - "lazy de-rendering", by setting `display:none` first and then remove DOM nodes using `requestIdleCallback`; yield functions for high and background priority
+- [Optiming INP: Deep Dive 🎥](https://www.youtube.com/watch?v=cmtfM4emG5k) - yield to main thread, avoid layout trashing, avoid expensive polyfills and css props
 
 
 ## TypeScript
