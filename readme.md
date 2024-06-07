@@ -111,6 +111,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [Template engine with streaming capability](https://lorenzofox.dev/posts/html-streaming-part-2/) - avoid creating too many promises, avoid creating too many `ReadableStream`'s
 - [The story of a V8 performance cliff in React](https://v8.dev/blog/react-cliff) - initialize `Double`s via `Number.NaN` instead of `0` or `null`, initialize numeric fields with `0` instead of `null`
 - [Sneaky React Memory Leaks II: Closures Vs. React Query](https://schiener.io/2024-05-29/react-query-leaks) - avoid memory leaks in React by using custom hooks
+- [Promise chaining memory leak](https://cribl.io/blog/promise-chaining-memory-leak/) - avoid creating too long promise chains; as those cannot be garbage collected
 
 #### Algorithmic 📖
 
