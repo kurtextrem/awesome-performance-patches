@@ -87,6 +87,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [astro](https://github.com/withastro/astro/pull/9614) - `AsyncIterable` instead of a `ReadableStream`
 - [TanStack/query](https://github.com/TanStack/query/issues/6489) - avoid too frequent `setTimeout` & `cancelTimeout`
 - [react](https://github.com/facebook/react/pull/28569/) - maintain the same object key across the code to avoid causing de-opts
+- [typescript](https://github.com/microsoft/TypeScript/pull/58045/files) ([PR #2](https://github.com/microsoft/TypeScript/pull/57977/files)) - ensure objects have a consistent set of properties with a consistent initialization order ("monomorphism"), related to [hidden classes](https://x.com/sebmarkbage/status/1774082541357592739)
 - [microsoft/vscode-js-debug](https://github.com/microsoft/vscode-js-debug/pull/2002/) - faster stream splitting
 - [fastify](https://github.com/fastify/fastify/pull/5400) - `indexOf` -> `slice` to reduce worst-case runtime duration
 - [vitejs/vite](https://github.com/vitejs/vite/pull/12721) - caches repeated `import()` calls ([see also](https://github.com/nodejs/node/issues/52369#issuecomment-2071643229), [tweet](https://twitter.com/cyyynthia_/status/1782152295821492402))
