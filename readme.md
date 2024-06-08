@@ -91,6 +91,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [microsoft/vscode-js-debug](https://github.com/microsoft/vscode-js-debug/pull/2002/) - faster stream splitting
 - [fastify](https://github.com/fastify/fastify/pull/5400) - `indexOf` -> `slice` to reduce worst-case runtime duration
 - [vitejs/vite](https://github.com/vitejs/vite/pull/12721) - caches repeated `import()` calls ([see also](https://github.com/nodejs/node/issues/52369#issuecomment-2071643229), [tweet](https://twitter.com/cyyynthia_/status/1782152295821492402))
+- [nodejs/undici](https://github.com/nodejs/undici/pull/3302) - converts object argument to plain arguments (see also [DevTools & Preact hotpath](https://x.com/Jack_Franklin/status/1763824436799492340), Fastify, [Hermes](https://x.com/tmikov/status/1763790902458560658))
 
 ### Blog Posts with Code 📖
 
