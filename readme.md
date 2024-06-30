@@ -156,12 +156,13 @@ Patches focused on CSS performance improvements.
 - [Animating a blur](https://developer.chrome.com/blog/animated-blur/) - animating blur's the performant way
 - [CSS Box Shadows and Optimize Performance](https://www.sitepoint.com/css-box-shadow-animation-performance/) - animating box shadows the performant way
 
-## HTML & Web Vitals 📈
+## HTML & Core Web Vitals 📈
 
-Patches focused on HTML & Web Vitals performance improvements.
+Patches focused on HTML & Core Web Vitals performance improvements.
 
 - [sentry](https://github.com/getsentry/sentry/pull/64165) - replaces React's `autofocus` implementation with manual focus in the next task for improved INP
 - [radix-ui/primitives](https://github.com/radix-ui/primitives/pull/2855) - sets CSS inline style on `<body>` _after_ giving the browser a chance to paint for improved INP
+- [nkzw-tech/athena-crisis](https://github.com/nkzw-tech/athena-crisis/pull/32) - moves rendering of 1000 images from `<img>` to canvas to drastically reduce memory footprint
 
 Blog posts: 
 - [SVG icon stress test📖](https://cloudfour.com/thinks/svg-icon-stress-test/) - benchmarks the best way to embed `<svg>`s
