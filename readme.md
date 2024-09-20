@@ -12,7 +12,7 @@ For Web Performance, there are a few more lists of curated links of talks, newsl
 ➡️ [imteekay/web-performance-research](https://github.com/imteekay/web-performance-research)
 ➡️ [nucliweb/webperf-snippets](https://github.com/nucliweb/webperf-snippets)
 
-<sub>Hint: What improves performance might change over time; always re-validate assumptions by benchmarking.</sub><br />
+<sub>Hint: What improves performance might change over time; always re-validate assumptions by using a reliable benchmarking tool such as [bench-node](https://github.com/RafaelGSS/bench-node) or [Tachometer](https://nolanlawson.com/2024/08/05/reliable-javascript-benchmarking-with-tachometer/).</sub><br />
 <sub>Follow me on [Twitter](https://twitter.com/kurtextrem) for updates.</sub>
 
 ## Contents
@@ -29,6 +29,7 @@ For Web Performance, there are a few more lists of curated links of talks, newsl
     - [Animations 💫](#animations-)
 - [HTML & Web Vitals](#html--web-vitals-)
 - [TypeScript](#typescript)
+- [VSCode](#vscode)
 
 ## JavaScript
 
@@ -142,6 +143,7 @@ Patches focused on CSS performance improvements.
   - [recalculate style](https://github.com/mui/mui-x/pull/12019) - avoiding updating CSS variables on parents for shorter "recalculate style" tasks
   - [layerize](https://github.com/mui/mui-x/pull/11924) - make "layerize" tasks shorter by avoiding creating many layers
   - [scroll direction](https://github.com/mui/mui-x/pull/12353) - emphasize scroll direction for optimistic updates
+- [nolanlawson/emoji-picker-element](https://github.com/nolanlawson/emoji-picker-element/pull/445) [(#2)](https://github.com/nolanlawson/emoji-picker-element/pull/450) - [Improving rendering performance with CSS content-visibility📖](https://nolanlawson.com/2024/09/18/improving-rendering-performance-with-css-content-visibility/)
 
 ### Blog Posts with Code 📖
 
@@ -165,7 +167,7 @@ Patches focused on HTML & Core Web Vitals performance improvements.
 - [radix-ui/primitives](https://github.com/radix-ui/primitives/pull/2855) - sets CSS inline style on `<body>` _after_ giving the browser a chance to paint for improved INP
 - [nkzw-tech/athena-crisis](https://github.com/nkzw-tech/athena-crisis/pull/32) - moves rendering of 1000 images from `<img>` to canvas to drastically reduce memory footprint
 
-Blog posts: 
+Guides: 
 - [SVG icon stress test📖](https://cloudfour.com/thinks/svg-icon-stress-test/) - benchmarks the best way to embed `<svg>`s
 - [Avoid an excessive DOM size📖](https://developer.chrome.com/docs/lighthouse/performance/dom-size/)
 - [Redirect Liquidation📖](https://calendar.perfplanet.com/2021/redirect-liquidation/) - remove redirects using the Edge
@@ -175,6 +177,8 @@ Blog posts:
 - [INP on HTTPArchive📖](https://twitter.com/rick_viscomi/status/1754882706951864731) - defer offscreen components to improve early-load INP
 - [How PubTech reduced INP by up to 64%📖](https://web.dev/case-studies/pubconsent-inp) - "lazy de-rendering", by setting `display:none` first and then remove DOM nodes using `requestIdleCallback`; yield functions for high and background priority
 - [Optiming INP: Deep Dive 🎥](https://www.youtube.com/watch?v=cmtfM4emG5k) - yield to main thread, avoid layout trashing, avoid expensive polyfills and css props
+- [Speed up your Playwright tests📖](https://argos-ci.com/blog/speed-up-playwright)
+- [Speed Up Your Playwright Scripts with Request Interception📖](https://www.checklyhq.com/blog/speed-up-playwright-scripts-request-interception/) - intercept and cancel requests unrelated to your tests
 
 
 ## TypeScript
@@ -183,7 +187,11 @@ Patches focused on TypeScript runtime performance improvements (e.g. running `ts
 
 - [sentry](https://github.com/getsentry/sentry/pull/30847) - avoid large unions in favor of `interface`s
 - [tRPC](https://twitter.com/s4chinraja/status/1570658634039984128) - avoid disabling the lazy evaluation of TypeScript types
-- [TanStack/router](https://github.com/TanStack/router/pull/1453) 
+- [TanStack/router](https://github.com/TanStack/router/pull/1453)
+
+## VSCode
+
+- [Speeding up VSCode extensions in 2022📖](https://jason-williams.co.uk/posts/speeding-up-vscode-extensions-in-2022/)
 
 ## Contribute
 
