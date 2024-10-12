@@ -190,6 +190,9 @@ Patches focused on TypeScript runtime performance improvements (e.g. running `ts
 - [tRPC](https://twitter.com/s4chinraja/status/1570658634039984128) - avoid disabling the lazy evaluation of TypeScript types
 - [TanStack/router](https://github.com/TanStack/router/pull/1453)
 
+Guides:
+- [An approach to optimizing TypeScript type checking performance📖](https://www.edgedb.com/blog/an-approach-to-optimizing-typescript-type-checking-performance)
+
 ## VSCode
 
 - [Speeding up VSCode extensions in 2022📖](https://jason-williams.co.uk/posts/speeding-up-vscode-extensions-in-2022/)
