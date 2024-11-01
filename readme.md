@@ -150,9 +150,10 @@ Patches focused on CSS performance improvements.
 
 - [Selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/) - guidelines for performant CSS selectors
 - [Need cheap paint? Use getComputedStyle().opacity](https://webventures.rejh.nl/blog/2022/getcomputedstyle-element-opacity/) - replace double `requestAnimationFrame` callbacks for higher perf
-- [Style performance and concurrent rendering](https://nolanlawson.com/2022/10/22/style-performance-and-concurrent-rendering/)
-- [Style scoping versus shadow DOM: which is fastest?](https://nolanlawson.com/2022/06/22/style-scoping-versus-shadow-dom-which-is-fastest/)
-- [CSS runtime performance](https://nolanlawson.com/2023/01/17/my-talk-on-css-runtime-performance/)
+- [Style performance and concurrent rendering](https://nolanlawson.com/2022/10/22/style-performance-and-concurrent-rendering/) - analyzes frequent style inserts with React concurrent rendering
+- [Style scoping versus shadow DOM: which is fastest?](https://nolanlawson.com/2022/06/22/style-scoping-versus-shadow-dom-which-is-fastest/) - shadow DOM styles are slightly faster than class-prefixes
+- [CSS runtime performance🎥](https://nolanlawson.com/2023/01/17/my-talk-on-css-runtime-performance/) - summary presentation of the 2 links above
+- [Benchmarking the performance of CSS `@property`](https://web.dev/blog/at-property-performance) - registering `@property`'s has a cost, but once done is faster than regular props
 
 #### Animations 💫
 
