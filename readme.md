@@ -96,6 +96,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [nodejs/undici](https://github.com/nodejs/undici/pull/3302) - converts object argument to plain arguments (see also [DevTools & Preact hotpath](https://x.com/Jack_Franklin/status/1763824436799492340), Fastify, [Hermes](https://x.com/tmikov/status/1763790902458560658))
 - [unjs/unhead](https://github.com/unjs/unhead/pull/368) - reduces `Promise` use, optimizes arrays to `Set`, replaces `string.split` with `string.indexOf()` + `string.substring()` and more
 - [vuejs/core](https://github.com/vuejs/core/pull/11340) - avoid `Promise` use
+- [ariakit](https://github.com/ariakit/ariakit/pull/4212) - React: avoid too frequent calls to `useSyncExternalStore` ([blog](https://newsletter.ariakit.org/i/151844568/usesyncexternalstore))
 
 ### Blog Posts with Code 📖
 
