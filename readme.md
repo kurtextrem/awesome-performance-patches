@@ -41,6 +41,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [v8-perf](https://github.com/thlorenz/v8-perf) - Notes and resources related to v8 and thus Node.js performance.
 - [Optimizing Javascript for fun and for profit📖](https://romgrk.com/posts/optimizing-javascript) - Excellent post about micro-performance in JavaScript.
 - [V8's strings: implementation and optimizations📖](https://iliazeus.github.io/articles/js-string-optimizations-en/) - Sliced strings, how to reduce memory consumption of strings.
+- [V8. Working with Strings. Expanding Vocabulary📖](https://blog.frontend-almanac.com/v8-strings) - All of the V8 string types explained.
 
 </small>
 
