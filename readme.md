@@ -185,6 +185,7 @@ Guides:
 - [Optiming INP: Deep Dive 🎥](https://www.youtube.com/watch?v=cmtfM4emG5k) - yield to main thread, avoid layout trashing, avoid expensive polyfills and css props
 - [Speed up your Playwright tests📖](https://argos-ci.com/blog/speed-up-playwright)
 - [Speed Up Your Playwright Scripts with Request Interception📖](https://www.checklyhq.com/blog/speed-up-playwright-scripts-request-interception/) - intercept and cancel requests unrelated to your tests
+- [Better Code Rendering Through Virtualization📖](https://sentry.engineering/blog/better-code-rendering-through-virtualization) - virtualization with a textarea for Ctrl+F, disabling Pointer Events for Smoother Scrolling
 
 
 ## TypeScript
