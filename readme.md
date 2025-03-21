@@ -59,6 +59,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [jshttp/cookie](https://github.com/jshttp/cookie/pull/144) - cache `length` of string in `while` loop
 - [recharts](https://github.com/recharts/recharts/pull/3953) - avoid expensive DOM calculations by using an early-exit math calculation | [blog post📖](https://belchior.hashnode.dev/improving-recharts-performance-clp5w295y000b0ajq8hu6cnmm)
 - [microsoft/node-jsonc-parser](https://github.com/microsoft/node-jsonc-parser/pull/81) - cache frequently used characters in conditions to save memory and make runtime faster
+- [ckeditor](https://github.com/ckeditor/ckeditor5/pull/17296) [(PR#2)](https://github.com/ckeditor/ckeditor5/pull/17586) - caches & binary search | [blog post📖](https://ckeditor.com/blog/how-we-made-our-rich-text-editor-load-faster-part-2/)
 
 ### Data Structures
 
@@ -186,6 +187,7 @@ Guides:
 - [Speed up your Playwright tests📖](https://argos-ci.com/blog/speed-up-playwright)
 - [Speed Up Your Playwright Scripts with Request Interception📖](https://www.checklyhq.com/blog/speed-up-playwright-scripts-request-interception/) - intercept and cancel requests unrelated to your tests
 - [Better Code Rendering Through Virtualization📖](https://sentry.engineering/blog/better-code-rendering-through-virtualization) - virtualization with a textarea for Ctrl+F, disabling Pointer Events for Smoother Scrolling
+- [How Preply improved INP on a Next.js application (without React Server Components and App Router)📖](https://medium.com/preply-engineering/how-preply-improved-inp-on-a-next-js-application-without-react-server-components-and-app-router-491713149875)
 
 
 ## TypeScript
