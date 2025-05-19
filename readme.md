@@ -113,7 +113,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [A Tale of a JavaScript Memory Leak](https://www.just-bi.nl/a-tale-of-a-javascript-memory-leak/) - when working with global RegExp's (`/g`) and very large strings, make sure to check for memory leaks in V8/Chromium (possibly also includes other string functions like `substring`, `slice`, `trim` due to [v8/2869](https://bugs.chromium.org/p/v8/issues/detail?id=2869)
 - [High-performance input handling on the web](https://nolanlawson.com/2019/08/11/high-performance-input-handling-on-the-web/) - avoid layout trashing by splitting `requestAnimationFrame` into one for DOM reads and one for DOM writes
 - [[Typia] Hidden Class Optimization of v8 Engine](https://dev.to/samchon/secret-of-typia-how-it-could-be-20000x-faster-validator-hidden-class-optimization-in-v8-engine-1mfb) | ⭐
-- [npm scripts](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - lazy module load, prefer `Intl.Collator` over `String.prototype.localeCompare`
+- [npm scripts](https://marvinh.dev/blog/speeding-up-javascript-ecosystem-part-4/) - load modules lazily (_caution: switching to `Intl.Collator` might nowadays be slower._)
 - [How to optimize Date format operations](https://webperf.tips/tip/date-formatting/) - prefer `Intl.DateTimeFormat` over `Date.toLocaleDateString`
 - [My Node.js is a bit Rusty](https://gal.hagever.com/posts/my-node-js-is-a-bit-rusty) - replaces a JS based file parser with a Rust napi implementation for faster execution speed and less memory usage
 - [Dragging React performance forward](https://medium.com/@alexandereardon/dragging-react-performance-forward-688b30d40a33) & [Introducing Pragmatic drag and drop 🎥](https://www.youtube.com/watch?v=5SQkOyzZLHM)
