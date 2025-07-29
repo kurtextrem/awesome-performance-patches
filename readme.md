@@ -100,6 +100,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [vuejs/core](https://github.com/vuejs/core/pull/11340) - improve SSR perf by avoiding `Promise` creation
 - [astro](https://github.com/withastro/astro/pull/13195) - improve SSR perf by avoiding `Promise` creation
 - [ariakit](https://github.com/ariakit/ariakit/pull/4212) - React: avoid too frequent calls to `useSyncExternalStore` ([blog](https://newsletter.ariakit.org/i/151844568/usesyncexternalstore))
+- [ariakit](https://github.com/ariakit/ariakit/pull/4860) - Avoid high amount of calls to `addEventListener`
 
 ### Blog Posts with Code 📖
 
