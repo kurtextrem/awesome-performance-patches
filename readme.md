@@ -78,7 +78,7 @@ Patches focused on JavaScript performance improvements. Guides:
 
 ### Unsorted
 
-- [node-semver](https://github.com/npm/node-semver/pull/536/files) - bit flags instead of string manipulation
+- [node-semver](https://github.com/npm/node-semver/pull/536/files) - Bit flags instead of string manipulation
 - [node-semver](https://github.com/npm/node-semver/pull/528) - `Object#freeze` for lower memory consumption at around equal perf
 - [typescript](https://github.com/microsoft/TypeScript/pull/52656) - `var` is faster than `let/const` in the specific use case of TypeScript
 - [three.js](https://github.com/mrdoob/three.js/pull/9680) - prevent memory leak from sliced strings
@@ -101,6 +101,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [astro](https://github.com/withastro/astro/pull/13195) - improve SSR perf by avoiding `Promise` creation
 - [ariakit](https://github.com/ariakit/ariakit/pull/4212) - React: avoid too frequent calls to `useSyncExternalStore` ([blog](https://newsletter.ariakit.org/i/151844568/usesyncexternalstore))
 - [ariakit](https://github.com/ariakit/ariakit/pull/4860) - Avoid high amount of calls to `addEventListener`
+- [mrousavy/nitro](https://github.com/mrousavy/nitro/pull/767) - Replace `path.join` with `str.join`
 
 ### Blog Posts with Code 📖
 
