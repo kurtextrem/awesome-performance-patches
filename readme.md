@@ -102,6 +102,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [ariakit](https://github.com/ariakit/ariakit/pull/4212) - React: avoid too frequent calls to `useSyncExternalStore` ([blog](https://newsletter.ariakit.org/i/151844568/usesyncexternalstore))
 - [ariakit](https://github.com/ariakit/ariakit/pull/4860) - Avoid high amount of calls to `addEventListener`
 - [mrousavy/nitro](https://github.com/mrousavy/nitro/pull/767) - Replace `path.join` with `str.join`
+- [typescript](https://github.com/microsoft/TypeScript/pull/61822/) - Avoid "pass-through" function expressions (`const foo = (str) => bar(str)` -> `const foo = bar`)
 
 ### Blog Posts with Code 📖
 
