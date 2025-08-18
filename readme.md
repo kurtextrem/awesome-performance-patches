@@ -103,6 +103,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [ariakit](https://github.com/ariakit/ariakit/pull/4860) - Avoid high amount of calls to `addEventListener`
 - [mrousavy/nitro](https://github.com/mrousavy/nitro/pull/767) - Replace `path.join` with `str.join`
 - [typescript](https://github.com/microsoft/TypeScript/pull/61822/) - Avoid "pass-through" function expressions (`const foo = (str) => bar(str)` -> `const foo = bar`)
+- [remix-run/react-router](https://github.com/remix-run/react-router/pull/14084/) - Avoid writing to `new URL().searchParams`, use `new URLSearchParams()` instead.
 
 ### Blog Posts with Code 📖
 
