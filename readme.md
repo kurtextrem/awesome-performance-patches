@@ -157,12 +157,14 @@ Patches focused on CSS performance improvements.
 
 ### Blog Posts with Code 📖
 
+- [FLIP Your Animations](https://aerotwist.com/blog/flip-your-animations/) - Must read article for understanding CSS animation performance. | ⭐
 - [Selector performance](https://blogs.windows.com/msedgedev/2023/01/17/the-truth-about-css-selector-performance/) - guidelines for performant CSS selectors
 - [Need cheap paint? Use getComputedStyle().opacity](https://webventures.rejh.nl/blog/2022/getcomputedstyle-element-opacity/) - replace double `requestAnimationFrame` callbacks for higher perf
 - [Style performance and concurrent rendering](https://nolanlawson.com/2022/10/22/style-performance-and-concurrent-rendering/) - analyzes frequent style inserts with React concurrent rendering
 - [Style scoping versus shadow DOM: which is fastest?](https://nolanlawson.com/2022/06/22/style-scoping-versus-shadow-dom-which-is-fastest/) - shadow DOM styles are slightly faster than class-prefixes
 - [CSS runtime performance🎥](https://nolanlawson.com/2023/01/17/my-talk-on-css-runtime-performance/) - summary presentation of the 2 links above
 - [Benchmarking the performance of CSS `@property`](https://web.dev/blog/at-property-performance) - registering `@property`'s has a cost, but once done is faster than regular props
+- [View Transitions Applied: More performant `::view-transition-group(*)` animations](https://www.bram.us/2025/02/07/view-transitions-applied-more-performant-view-transition-group-animations/) - Optimize View Transition performance by calculating animation delta's upfront
 
 #### Animations 💫
 
