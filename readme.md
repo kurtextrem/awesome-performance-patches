@@ -127,6 +127,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [Promise chaining memory leak](https://cribl.io/blog/promise-chaining-memory-leak/) - avoid creating too long promise chains; as those cannot be garbage collected
 - [Canvas optimization & guide to chrome performance devtools tab](https://blog.jiayihu.net/comprenhensive-guide-chrome-performance/)
 - [Why is spawning a new process in Node so slow?](https://blog.val.town/blog/node-spawn-performance/) - various methods to improve the performance of spawning subprocesses / threads on Deno/Node/Bun
+- [Lazy Fields for 30x speedup without Decorators or Transforms](https://joist-orm.io/blog/lazy-fields/) - `Object.create(Foo.prototype)` over `new Foo()` plus getters to reduce initialization overhead
 
 #### Algorithmic 📖
 
