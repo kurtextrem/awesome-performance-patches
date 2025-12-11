@@ -104,6 +104,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [mrousavy/nitro](https://github.com/mrousavy/nitro/pull/767) - Replace `path.join` with `str.join`
 - [typescript](https://github.com/microsoft/TypeScript/pull/61822/) - Avoid "pass-through" function expressions (`const foo = (str) => bar(str)` -> `const foo = bar`)
 - [remix-run/react-router](https://github.com/remix-run/react-router/pull/14084/) - Avoid writing to `new URL().searchParams`, use `new URLSearchParams()` instead.
+- [immerjs/immer](https://github.com/immerjs/immer/pull/1188) - At >1020 props (in v8), `{…base}` is faster than `Object.keys()`
 
 ### Blog Posts with Code 📖
 
