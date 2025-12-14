@@ -75,6 +75,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [A 400% faster Performance panel through perf-ception📖](https://developer.chrome.com/blog/perf-panel-4x-faster) - replace `Set` with array to reduce memory consumption if uniqueness is guaranteed, discusses downsides of `Map` for frequent and large data sets, because of rehashing | ⭐
 - [kikobeats/superlock](https://github.com/Kikobeats/superlock/pull/7) - switches a large array to a linked list to make `shift` an `O(1)` operation
 - [microsoft/typescript](https://github.com/microsoft/TypeScript/pull/58928) - makes objects monomorphic by splitting them into 2 objects: one with common properties, one with the rest
+- [tldraw](https://github.com/tldraw/tldraw/pull/7364) - Encode x,y,z coordinates as 6 bytes (3 Float16 values) = 8 base64 characters to save storage | [Twitter Thread](https://x.com/tldraw/status/1999621373241458699)
 
 ### Unsorted
 
