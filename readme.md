@@ -130,6 +130,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [Canvas optimization & guide to chrome performance devtools tab](https://blog.jiayihu.net/comprenhensive-guide-chrome-performance/)
 - [Why is spawning a new process in Node so slow?](https://blog.val.town/blog/node-spawn-performance/) - various methods to improve the performance of spawning subprocesses / threads on Deno/Node/Bun
 - [Lazy Fields for 30x speedup without Decorators or Transforms](https://joist-orm.io/blog/lazy-fields/) - `Object.create(Foo.prototype)` over `new Foo()` plus getters to reduce initialization overhead
+- [The fastest JS color library](https://romgrk.com/posts/color-bits/) - Fast hex parsing, lookup arrays to avoid repeated string allocs, avoid `>>> 0` | ⭐
 
 #### Algorithmic 📖
 
