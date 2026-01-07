@@ -107,6 +107,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [typescript](https://github.com/microsoft/TypeScript/pull/61822/) - Avoid "pass-through" function expressions (`const foo = (str) => bar(str)` -> `const foo = bar`)
 - [remix-run/react-router](https://github.com/remix-run/react-router/pull/14084/) - Avoid writing to `new URL().searchParams`, use `new URLSearchParams()` instead.
 - [immerjs/immer](https://github.com/immerjs/immer/pull/1188) - At >1020 props (in v8), `{…base}` is faster than `Object.keys()`
+- [astro](https://github.com/withastro/astro/pull/15123/) - calling `TextEncode#encode` N times with small strings is slower than 1x with a large string
 
 ### Blog Posts with Code 📖
 
