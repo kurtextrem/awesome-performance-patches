@@ -60,6 +60,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [recharts](https://github.com/recharts/recharts/pull/3953) - avoid expensive DOM calculations by using an early-exit math calculation | [blog post📖](https://belchior.hashnode.dev/improving-recharts-performance-clp5w295y000b0ajq8hu6cnmm)
 - [microsoft/node-jsonc-parser](https://github.com/microsoft/node-jsonc-parser/pull/81) - cache frequently used characters in conditions to save memory and make runtime faster
 - [ckeditor](https://github.com/ckeditor/ckeditor5/pull/17296) [(PR#2)](https://github.com/ckeditor/ckeditor5/pull/17586) - caches & binary search | [blog post📖](https://ckeditor.com/blog/how-we-made-our-rich-text-editor-load-faster-part-2/)
+- [TanStack/start](https://github.com/TanStack/router/pull/6497) - skip React/Vue hooks on the server that aren't reactive during SSR ([PR #2](https://github.com/TanStack/router/pull/6482))
 
 ### Data Structures
 
@@ -75,7 +76,8 @@ Patches focused on JavaScript performance improvements. Guides:
 - [A 400% faster Performance panel through perf-ception📖](https://developer.chrome.com/blog/perf-panel-4x-faster) - replace `Set` with array to reduce memory consumption if uniqueness is guaranteed, discusses downsides of `Map` for frequent and large data sets, because of rehashing | ⭐
 - [kikobeats/superlock](https://github.com/Kikobeats/superlock/pull/7) - switches a large array to a linked list to make `shift` an `O(1)` operation
 - [microsoft/typescript](https://github.com/microsoft/TypeScript/pull/58928) - makes objects monomorphic by splitting them into 2 objects: one with common properties, one with the rest
-- [tldraw](https://github.com/tldraw/tldraw/pull/7364) - Encode x,y,z coordinates as 6 bytes (3 Float16 values) = 8 base64 characters to save storage | [Twitter Thread](https://x.com/tldraw/status/1999621373241458699)
+- [tldraw](https://github.com/tldraw/tldraw/pull/7364) - encode x,y,z coordinates as 6 bytes (3 Float16 values) = 8 base64 characters to save storage | [Twitter Thread](https://x.com/tldraw/status/1999621373241458699)
+- [TanStack/router](https://github.com/TanStack/router/pull/6456) - avoid `delete` ([PR #2](https://github.com/TanStack/router/pull/6515))
 
 ### Unsorted
 
@@ -108,6 +110,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [remix-run/react-router](https://github.com/remix-run/react-router/pull/14084/) - Avoid writing to `new URL().searchParams`, use `new URLSearchParams()` instead.
 - [immerjs/immer](https://github.com/immerjs/immer/pull/1188) - At >1020 props (in v8), `{…base}` is faster than `Object.keys()`
 - [astro](https://github.com/withastro/astro/pull/15123/) - calling `TextEncode#encode` N times with small strings is slower than 1x with a large string
+- [TanStack/router](https://github.com/TanStack/router/pull/6447) - `new URL` can be expensive; use simple checks to prevent obj alloc ([PR #2](https://github.com/TanStack/router/pull/6442), [PR #3](https://github.com/TanStack/router/pull/6516))
 
 ### Blog Posts with Code 📖
 
@@ -133,6 +136,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [Why is spawning a new process in Node so slow?](https://blog.val.town/blog/node-spawn-performance/) - various methods to improve the performance of spawning subprocesses / threads on Deno/Node/Bun
 - [Lazy Fields for 30x speedup without Decorators or Transforms](https://joist-orm.io/blog/lazy-fields/) - `Object.create(Foo.prototype)` over `new Foo()` plus getters to reduce initialization overhead
 - [The fastest JS color library](https://romgrk.com/posts/color-bits/) - Fast hex parsing, lookup arrays to avoid repeated string allocs, avoid `>>> 0` | ⭐
+- [5x SSR Throughput: Profiling SSR Hot Paths in TanStack Start](https://tanstack.com/blog/tanstack-start-5x-ssr-throughput) - how to profile, multiple perf PRs & explanations | ⭐
 
 #### Algorithmic 📖
 
