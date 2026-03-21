@@ -112,6 +112,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [astro](https://github.com/withastro/astro/pull/15123/) - calling `TextEncode#encode` N times with small strings is slower than 1x with a large string
 - [TanStack/router](https://github.com/TanStack/router/pull/6447) - `new URL` can be expensive; use simple checks to prevent obj alloc ([PR #2](https://github.com/TanStack/router/pull/6442), [PR #3](https://github.com/TanStack/router/pull/6516))
 - [Tweet](https://x.com/CherryJimbo/status/2026826252787564567) - `os.cpus().length` is slow, prefer `os.availableParallelism()`
+- [open-telemetry/opentelemetry-js](https://github.com/open-telemetry/opentelemetry-js/pull/6514) - prefer plain `for..in` and [pre-allocated arrays](https://github.com/open-telemetry/opentelemetry-js/pull/6287) (`new Array(len)`) over `Object.entries` ([PR #2](https://github.com/open-telemetry/opentelemetry-js/pull/5866))
 
 ### Blog Posts with Code 📖
 
