@@ -111,6 +111,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [immerjs/immer](https://github.com/immerjs/immer/pull/1188) - At >1020 props (in v8), `{…base}` is faster than `Object.keys()`
 - [astro](https://github.com/withastro/astro/pull/15123/) - calling `TextEncode#encode` N times with small strings is slower than 1x with a large string
 - [TanStack/router](https://github.com/TanStack/router/pull/6447) - `new URL` can be expensive; use simple checks to prevent obj alloc ([PR #2](https://github.com/TanStack/router/pull/6442), [PR #3](https://github.com/TanStack/router/pull/6516))
+- [Tweet](https://x.com/CherryJimbo/status/2026826252787564567) - `os.cpus().length` is slow, prefer `os.availableParallelism()`
 
 ### Blog Posts with Code 📖
 
