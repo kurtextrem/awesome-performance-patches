@@ -78,6 +78,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [microsoft/typescript](https://github.com/microsoft/TypeScript/pull/58928) - makes objects monomorphic by splitting them into 2 objects: one with common properties, one with the rest
 - [tldraw](https://github.com/tldraw/tldraw/pull/7364) - encode x,y,z coordinates as 6 bytes (3 Float16 values) = 8 base64 characters to save storage | [Twitter Thread](https://x.com/tldraw/status/1999621373241458699)
 - [TanStack/router](https://github.com/TanStack/router/pull/6456) - avoid `delete` ([PR #2](https://github.com/TanStack/router/pull/6515))
+- [rocicorp/mono](https://github.com/rocicorp/mono/pull/5801) - replace polymorphic object with monomorphic tuple array
 
 ### Unsorted
 
@@ -113,6 +114,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [TanStack/router](https://github.com/TanStack/router/pull/6447) - `new URL` can be expensive; use simple checks to prevent obj alloc ([PR #2](https://github.com/TanStack/router/pull/6442), [PR #3](https://github.com/TanStack/router/pull/6516))
 - [Tweet](https://x.com/CherryJimbo/status/2026826252787564567) - `os.cpus().length` is slow, prefer `os.availableParallelism()`
 - [open-telemetry/opentelemetry-js](https://github.com/open-telemetry/opentelemetry-js/pull/6514) - prefer plain `for..in` and [pre-allocated arrays](https://github.com/open-telemetry/opentelemetry-js/pull/6287) (`new Array(len)`) over `Object.entries` ([PR #2](https://github.com/open-telemetry/opentelemetry-js/pull/5866))
+- [rocicorp/mono](https://github.com/rocicorp/mono/pull/5834) - replace Iterators with manual implementation (for loop under the hood)
 
 ### Blog Posts with Code 📖
 
