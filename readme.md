@@ -179,6 +179,7 @@ Patches focused on CSS performance improvements.
 - [CSS runtime performance🎥](https://nolanlawson.com/2023/01/17/my-talk-on-css-runtime-performance/) - summary presentation of the 2 links above
 - [Benchmarking the performance of CSS `@property`](https://web.dev/blog/at-property-performance) - registering `@property`'s has a cost, but once done is faster than regular props
 - [View Transitions Applied: More performant `::view-transition-group(*)` animations](https://www.bram.us/2025/02/07/view-transitions-applied-more-performant-view-transition-group-animations/) - Optimize View Transition performance by calculating animation delta's upfront
+- [On Rendering diffs](https://pierre.computer/writing/on-rendering-diffs) - master class on very fast virtualization, including a novel "Inverse Sticky Technique" | ⭐
 
 #### Animations 💫
 
