@@ -219,8 +219,9 @@ Patches focused on TypeScript runtime performance improvements (e.g. running `ts
 - [tRPC](https://twitter.com/s4chinraja/status/1570658634039984128) - avoid disabling the lazy evaluation of TypeScript types
 - [TanStack/router](https://github.com/TanStack/router/pull/1453)
 
-Guides:
-- [An approach to optimizing TypeScript type checking performance📖](https://www.edgedb.com/blog/an-approach-to-optimizing-typescript-type-checking-performance)
+Guides 📖:
+- [An approach to optimizing TypeScript type checking performance](https://www.edgedb.com/blog/an-approach-to-optimizing-typescript-type-checking-performance)
+- [TypeScript Performance in TanStack Table V9](https://tanstack.com/blog/tanstack-table-v9-typescript-performance) - How to benchmark types; use interfaces over conditional-intersection aliases; annotate invariant type parameters with `in out` where possible; and more
 
 ## VSCode
 
