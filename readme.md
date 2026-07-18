@@ -115,6 +115,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [Tweet](https://x.com/CherryJimbo/status/2026826252787564567) - `os.cpus().length` is slow, prefer `os.availableParallelism()`
 - [open-telemetry/opentelemetry-js](https://github.com/open-telemetry/opentelemetry-js/pull/6514) - prefer plain `for..in` and [pre-allocated arrays](https://github.com/open-telemetry/opentelemetry-js/pull/6287) (`new Array(len)`) over `Object.entries` ([PR #2](https://github.com/open-telemetry/opentelemetry-js/pull/5866))
 - [rocicorp/mono](https://github.com/rocicorp/mono/pull/5834) - replace Iterators with manual implementation (for loop under the hood)
+- [ai/nanoid](https://github.com/ai/nanoid/pull/602) - faster string generation via `Buffer#toString` instead of `str += char` [explainer](https://x.com/sitnikcode/status/2076690054362050811)
 
 ### Blog Posts with Code 📖
 
