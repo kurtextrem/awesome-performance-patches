@@ -116,6 +116,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [open-telemetry/opentelemetry-js](https://github.com/open-telemetry/opentelemetry-js/pull/6514) - prefer plain `for..in` and [pre-allocated arrays](https://github.com/open-telemetry/opentelemetry-js/pull/6287) (`new Array(len)`) over `Object.entries` ([PR #2](https://github.com/open-telemetry/opentelemetry-js/pull/5866))
 - [rocicorp/mono](https://github.com/rocicorp/mono/pull/5834) - replace Iterators with manual implementation (for loop under the hood)
 - [ai/nanoid](https://github.com/ai/nanoid/pull/602) - faster string generation via `Buffer#toString` instead of `str += char` [explainer](https://x.com/sitnikcode/status/2076690054362050811)
+- [react](https://github.com/react/react/pull/37086) - `Error.stackTraceLimit = 10` to make throwing `Error` cheaper/faster to run
 
 ### Blog Posts with Code 📖
 
