@@ -117,6 +117,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [rocicorp/mono](https://github.com/rocicorp/mono/pull/5834) - replace Iterators with manual implementation (for loop under the hood)
 - [ai/nanoid](https://github.com/ai/nanoid/pull/602) - faster string generation via `Buffer#toString` instead of `str += char` [explainer](https://x.com/sitnikcode/status/2076690054362050811)
 - [react](https://github.com/react/react/pull/37086) - `Error.stackTraceLimit = 10` to make throwing `Error` cheaper/faster to run
+- [cometkim/unicode-segmenter](https://github.com/cometkim/unicode-segmenter/pull/144) - micro-optimization for the various v8 compilers (turbofan, meglev)
 
 ### Blog Posts with Code 📖
 
