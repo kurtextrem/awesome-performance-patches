@@ -171,6 +171,7 @@ Patches focused on CSS performance improvements.
   - [layerize](https://github.com/mui/mui-x/pull/11924) - make "layerize" tasks shorter by avoiding creating many layers
   - [scroll direction](https://github.com/mui/mui-x/pull/12353) - emphasize scroll direction for optimistic updates
 - [nolanlawson/emoji-picker-element](https://github.com/nolanlawson/emoji-picker-element/pull/445) [(#2)](https://github.com/nolanlawson/emoji-picker-element/pull/450) - [Improving rendering performance with CSS content-visibility📖](https://nolanlawson.com/2024/09/18/improving-rendering-performance-with-css-content-visibility/)
+- [anomalyco/opencode](https://github.com/anomalyco/opencode/pull/42952) - replace CSS opacity animations with APNG to reduce CPU usage
 
 ### Blog Posts with Code 📖
 
