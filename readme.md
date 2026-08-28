@@ -190,6 +190,7 @@ Patches focused on CSS performance improvements.
 - [Animation performance](https://motion.dev/guides/performance) - guidelines for performant CSS/JS animations
 - [Animating a blur](https://developer.chrome.com/blog/animated-blur/) - animating blur's the performant way
 - [CSS Box Shadows and Optimize Performance](https://www.sitepoint.com/css-box-shadow-animation-performance/) - animating box shadows the performant way
+- [Text shimmer animations](https://x.com/devongovett/status/2092991811157463500) - use `translate` and `mask` instead of `background-position` to render text shimmers
 
 ## HTML & Core Web Vitals 📈
 
