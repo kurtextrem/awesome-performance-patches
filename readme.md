@@ -144,6 +144,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [Lazy Fields for 30x speedup without Decorators or Transforms](https://joist-orm.io/blog/lazy-fields/) - `Object.create(Foo.prototype)` over `new Foo()` plus getters to reduce initialization overhead
 - [The fastest JS color library](https://romgrk.com/posts/color-bits/) - Fast hex parsing, lookup arrays to avoid repeated string allocs, avoid `>>> 0` | ⭐
 - [5x SSR Throughput: Profiling SSR Hot Paths in TanStack Start](https://tanstack.com/blog/tanstack-start-5x-ssr-throughput) - how to profile, multiple perf PRs & explanations | ⭐
+- [Making React Testing Library Tests 43% Faster](https://sigh.dev/posts/making-react-testing-library-faster/)
 
 #### Algorithmic 📖
 
