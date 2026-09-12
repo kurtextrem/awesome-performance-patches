@@ -145,6 +145,8 @@ Patches focused on JavaScript performance improvements. Guides:
 - [The fastest JS color library](https://romgrk.com/posts/color-bits/) - Fast hex parsing, lookup arrays to avoid repeated string allocs, avoid `>>> 0` | ⭐
 - [5x SSR Throughput: Profiling SSR Hot Paths in TanStack Start](https://tanstack.com/blog/tanstack-start-5x-ssr-throughput) - how to profile, multiple perf PRs & explanations | ⭐
 - [Making React Testing Library Tests 43% Faster](https://sigh.dev/posts/making-react-testing-library-faster/)
+- [TanStack Virtual just got a lot faster, and finally handles iOS](https://tanstack.com/blog/tanstack-virtual-perf-and-ios) - various things, e.g. Float64Array
+- [How we accidentally made route matching more performant by aiming for correctness](https://tanstack.com/blog/tanstack-router-route-matching-tree-rewrite) - Bitmasks, Uint16Array 
 
 #### Algorithmic 📖
 
