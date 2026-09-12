@@ -93,7 +93,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [fabianhiller/valibot](https://github.com/fabian-hiller/valibot/pull/180#issuecomment-1751250891) - avoid (negative) look-aheads for faster regexp execution
 - [ai/nanoid](https://github.com/ai/nanoid/pull/310/files) - re-ordered alphabet for smaller brotli compression
 - [astro](https://github.com/withastro/astro/pull/9614) - `AsyncIterable` instead of a `ReadableStream`
-- [TanStack/query](https://github.com/TanStack/query/issues/6489) - avoid too frequent `setTimeout` & `cancelTimeout`
+- ~[TanStack/query](https://github.com/TanStack/query/issues/6489) - avoid too frequent `setTimeout` & `cancelTimeout`~ -> `setTimeout` appears more expensive than it truly is in DevTools, [see this](https://github.com/TanStack/query/pull/9827#issuecomment-3530614157)
 - [react](https://github.com/facebook/react/pull/28569/) - maintain the same object key across the code to avoid causing de-opts
 - [typescript](https://github.com/microsoft/TypeScript/pull/58045/files) ([PR #2](https://github.com/microsoft/TypeScript/pull/57977/files)) - ensure objects have a consistent set of properties with a consistent initialization order ("monomorphism"), related to [hidden classes](https://x.com/sebmarkbage/status/1774082541357592739). See also [Monomorphic AST Nodes](https://github.com/microsoft/TypeScript/issues/59198)
 - [microsoft/vscode-js-debug](https://github.com/microsoft/vscode-js-debug/pull/2002/) - faster stream splitting
