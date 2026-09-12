@@ -185,6 +185,7 @@ Patches focused on CSS performance improvements.
 - [Benchmarking the performance of CSS `@property`](https://web.dev/blog/at-property-performance) - registering `@property`'s has a cost, but once done is faster than regular props
 - [View Transitions Applied: More performant `::view-transition-group(*)` animations](https://www.bram.us/2025/02/07/view-transitions-applied-more-performant-view-transition-group-animations/) - Optimize View Transition performance by calculating animation delta's upfront
 - [On Rendering diffs](https://pierre.computer/writing/on-rendering-diffs) - master class on very fast virtualization, including a novel "Inverse Sticky Technique" | ⭐
+- [border-radius can cost you 45 MB of GPU](https://x.com/penzington/status/2098513892460708142) - use an equal border-radius for less GPU usage
 
 #### Animations 💫
 
