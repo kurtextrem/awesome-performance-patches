@@ -146,7 +146,8 @@ Patches focused on JavaScript performance improvements. Guides:
 - [5x SSR Throughput: Profiling SSR Hot Paths in TanStack Start](https://tanstack.com/blog/tanstack-start-5x-ssr-throughput) - how to profile, multiple perf PRs & explanations | ⭐
 - [Making React Testing Library Tests 43% Faster](https://sigh.dev/posts/making-react-testing-library-faster/)
 - [TanStack Virtual just got a lot faster, and finally handles iOS](https://tanstack.com/blog/tanstack-virtual-perf-and-ios) - various things, e.g. Float64Array
-- [How we accidentally made route matching more performant by aiming for correctness](https://tanstack.com/blog/tanstack-router-route-matching-tree-rewrite) - Bitmasks, Uint16Array 
+- [How we accidentally made route matching more performant by aiming for correctness](https://tanstack.com/blog/tanstack-router-route-matching-tree-rewrite) - Bitmasks, Uint16Array
+- [Optimizing objects with null prototypes](https://adventures.nodeland.dev/archive/optimizing-objects-with-null-prototypes/) - prefer `Object.setPrototypeOf({ ... }, null)` or classes with a null prototype over `Object.create(null)`
 
 #### Algorithmic 📖
 
