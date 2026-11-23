@@ -12,7 +12,7 @@ For Web Performance, there are a few more lists of curated links of talks, newsl
 ➡️ [imteekay/web-performance-research](https://github.com/imteekay/web-performance-research)
 ➡️ [nucliweb/webperf-snippets](https://github.com/nucliweb/webperf-snippets)
 
-<sub>Hint: What improves performance might change over time; always re-validate assumptions by using a reliable benchmarking tool such as [bench-node](https://github.com/RafaelGSS/bench-node) or [Tachometer](https://nolanlawson.com/2024/08/05/reliable-javascript-benchmarking-with-tachometer/).</sub><br />
+<sub>Hint: What improves performance might change over time; always re-validate assumptions by using a reliable benchmarking tool such as [mitata](https://github.com/evanwashere/mitata) or [Tachometer](https://nolanlawson.com/2024/08/05/reliable-javascript-benchmarking-with-tachometer/).</sub><br />
 <sub>Follow me on [Twitter](https://twitter.com/kurtextrem) for updates.</sub>
 
 ## Contents
