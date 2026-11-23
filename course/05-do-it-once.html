@@ -28,8 +28,10 @@
   --c-soft-good: var(--c-card);
   --c-soft-warn: var(--c-card);
 }
+/* Theme: follows the system unless the reader picks one (data-theme on <html>) */
+:root[data-theme="light"] { color-scheme: light; }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --c-bg: #161616;
     --c-fg: #e8e8e6;
     --c-muted: #a3a3a0;
@@ -43,6 +45,21 @@
     --c-warn: #f5a524;
     --c-line-strong: #4a4a48;
   }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --c-bg: #161616;
+  --c-fg: #e8e8e6;
+  --c-muted: #a3a3a0;
+  --c-faint: #767674;
+  --c-line: #2c2c2b;
+  --c-card: #1e1e1d;
+  --c-code: #1f1f1e;
+  --c-accent: #5b93ff;
+  --c-bad: #f25f5c;
+  --c-good: #3ccf7a;
+  --c-warn: #f5a524;
+  --c-line-strong: #4a4a48;
 }
 
 /* Base */

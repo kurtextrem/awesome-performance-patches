@@ -28,8 +28,10 @@
   --c-soft-good: var(--c-card);
   --c-soft-warn: var(--c-card);
 }
+/* Theme: follows the system unless the reader picks one (data-theme on <html>) */
+:root[data-theme="light"] { color-scheme: light; }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --c-bg: #161616;
     --c-fg: #e8e8e6;
     --c-muted: #a3a3a0;
@@ -43,6 +45,21 @@
     --c-warn: #f5a524;
     --c-line-strong: #4a4a48;
   }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --c-bg: #161616;
+  --c-fg: #e8e8e6;
+  --c-muted: #a3a3a0;
+  --c-faint: #767674;
+  --c-line: #2c2c2b;
+  --c-card: #1e1e1d;
+  --c-code: #1f1f1e;
+  --c-accent: #5b93ff;
+  --c-bad: #f25f5c;
+  --c-good: #3ccf7a;
+  --c-warn: #f5a524;
+  --c-line-strong: #4a4a48;
 }
 
 /* Base */
@@ -241,6 +258,8 @@ html.app { scroll-padding-top: 76px; }
 .figure-scroll.is-scrollable > figcaption::before { content: "Scroll sideways to see the whole diagram. "; color: var(--c-fg); }
 .appbar-brand { display: none; }
 .sheet a.is-active { font-weight: 600; }
+.app #app-theme span { display: none; }
+@media (min-width: 1080px) { .app #app-theme span { display: inline; min-width: 2.6em; } }
 /* desktop: persistent lesson sidebar, then a right "on this page" column */
 @media (min-width: 1080px) {
   html.app { scroll-padding-top: 88px; }
@@ -269,7 +288,7 @@ html.app { scroll-padding-top: 76px; }
 }
 @media (max-width: 680px) { .app .appbar { margin: 0 -20px; padding: 0 6px; } }
 @media (max-width: 430px) { .appbar-btn span { display: none; } }
-</style>
+</style><script>try{var t=localStorage.getItem('perf-course-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
 <main>
@@ -278,6 +297,7 @@ html.app { scroll-padding-top: 76px; }
   <button class="appbar-btn" id="app-menu" aria-label="All lessons" aria-controls="app-drawer" aria-expanded="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg><span>Lessons</span></button>
   <div class="appbar-title" id="app-title"></div>
   <button class="appbar-btn" id="app-toc" aria-label="Sections in this lesson" aria-controls="app-sheet" aria-expanded="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 5h10M7 10h10M7 15h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="3.5" cy="5" r="1.2" fill="currentColor"/><circle cx="3.5" cy="10" r="1.2" fill="currentColor"/><circle cx="3.5" cy="15" r="1.2" fill="currentColor"/></svg><span>Sections</span></button>
+  <button class="appbar-btn" id="app-theme" type="button" aria-label="Theme"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M10 3a7 7 0 0 1 0 14z" fill="currentColor"/></svg><span>Auto</span></button>
   <div class="appbar-progress"><span id="app-read"></span></div>
 </div>
 <div class="scrim" id="app-scrim" hidden></div>
@@ -8927,6 +8947,21 @@ for (let i = 0; i &lt; entries.length; i++) {
   try { done = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
   function save() { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} }
   var current = null, spyTargets = [], spyQueued = false;
+
+  var TKEY = 'perf-course-theme', THEMES = ['auto', 'light', 'dark'], NAMES = { auto: 'Auto', light: 'Light', dark: 'Dark' };
+  var themeBtn = document.getElementById('app-theme'), theme = root.getAttribute('data-theme') || 'auto';
+  function applyTheme() {
+    if (theme === 'auto') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', theme);
+    themeBtn.querySelector('span').textContent = NAMES[theme];
+    themeBtn.setAttribute('aria-label', 'Theme: ' + NAMES[theme] + '. Change theme');
+    themeBtn.title = 'Theme: ' + NAMES[theme];
+  }
+  themeBtn.addEventListener('click', function () {
+    theme = THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length];
+    try { if (theme === 'auto') localStorage.removeItem(TKEY); else localStorage.setItem(TKEY, theme); } catch (e) {}
+    applyTheme();
+  });
+  applyTheme();
 
   arts.forEach(function (a) {
     var nn = a.id.slice(7);
