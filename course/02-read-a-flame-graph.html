@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 02: Read a flame graph</title>
+<style>
+/* course-v7: editorial, monochrome */
+:root {
+  color-scheme: light dark;
+  --c-bg: #ffffff;
+  --c-fg: #242424;
+  --c-muted: #6b6b6b;
+  --c-faint: #9a9a9a;
+  --c-line: #e8e8e8;
+  --c-card: #f7f7f7;
+  --c-code: #f5f5f4;
+  --c-accent: #2563d9;
+  --c-bad: #d93a3a;
+  --c-good: #1f9d55;
+  --c-warn: #d98a00;
+  --c-line-strong: #c9c9c9;
+  --c-radius: 8px;
+  --c-serif: Charter, "Bitstream Charter", "Iowan Old Style", "Sitka Text", Cambria, Georgia, serif;
+  --c-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --c-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --c-soft-accent: var(--c-card);
+  --c-soft-good: var(--c-card);
+  --c-soft-warn: var(--c-card);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #161616;
+    --c-fg: #e8e8e6;
+    --c-muted: #a3a3a0;
+    --c-faint: #767674;
+    --c-line: #2c2c2b;
+    --c-card: #1e1e1d;
+    --c-code: #1f1f1e;
+    --c-accent: #5b93ff;
+    --c-bad: #f25f5c;
+    --c-good: #3ccf7a;
+    --c-warn: #f5a524;
+    --c-line-strong: #4a4a48;
+  }
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--c-bg); }
+body { margin: 0; background: var(--c-bg); color: var(--c-fg); font: 20px/1.62 var(--c-serif); overflow-wrap: break-word; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+main { max-width: 704px; margin: 0 auto; padding: 0 24px 80px; }
+h1, h2, h3, p { margin: 0; }
+p + p, ul + p, ol + p, pre + p, .table-wrap + p { margin-top: 1.1em; }
+ul, ol { margin: 0.9em 0 0; padding-inline-start: 1.3em; }
+li { padding-inline-start: 0.2em; }
+li + li { margin-top: 0.45em; }
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; text-decoration-color: var(--c-faint); }
+a:hover { text-decoration-color: currentColor; }
+strong, b { font-weight: 700; }
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 3px; }
+
+/* Header */
+header { padding-top: 48px; }
+.kicker { font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+h1 { margin-top: 14px; font: 700 clamp(32px, 6vw, 42px)/1.18 var(--c-sans); letter-spacing: -0.018em; }
+.lede { margin-top: 14px; color: var(--c-muted); font-size: 1.1em; line-height: 1.5; }
+.lede + .lede { margin-top: 0.6em; }
+header .box { margin: 32px 0 0; padding: 0; border: 0; background: none; }
+header .box > strong:first-child { font: 700 16px/1.4 var(--c-sans); color: var(--c-fg); }
+header .box ul { margin-top: 8px; }
+
+/* In-page section nav (the app bar replaces it in the single-page build) */
+/* sticky-nav */
+html { scroll-padding-top: 72px; }
+nav.pills { position: sticky; top: 0; z-index: 20; display: flex; gap: 20px; margin: 36px -24px 0; padding: 14px 24px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; background: var(--c-bg); border-bottom: 1px solid var(--c-line); font: 500 14px/1.4 var(--c-sans); }
+nav.pills::-webkit-scrollbar { display: none; }
+nav.pills a { flex: none; color: var(--c-muted); text-decoration: none; }
+nav.pills a:hover { color: var(--c-fg); }
+
+/* Sections */
+section { margin-top: 56px; }
+h2 { margin-bottom: 14px; font: 700 26px/1.25 var(--c-sans); letter-spacing: -0.012em; }
+h3 { margin: 36px 0 10px; font: 700 19px/1.35 var(--c-sans); }
+section > h3.label { margin: 36px 0 8px; font: 700 18px/1.35 var(--c-sans); color: var(--c-fg); }
+section.concept > h2::before { content: none; }
+
+/* Boxes */
+.box { margin: 28px 0; padding: 18px 22px; border: 1px solid var(--c-line); border-radius: var(--c-radius); background: none; font-size: 0.92em; }
+.box > strong:first-child { display: block; margin-bottom: 6px; font: 700 15px/1.4 var(--c-sans); color: var(--c-fg); }
+.box ul { margin-top: 6px; }
+.box p + p, .box > p:first-of-type { margin-top: 0.5em; }
+.box pre { margin-top: 12px; }
+section .tldr { margin: 8px 0 28px; padding: 2px 0 2px 22px; border: 0; border-left: 3px solid var(--c-fg); border-radius: 0; font-size: 1em; }
+section .tldr > strong:first-child { margin-bottom: 4px; font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+section .tldr > b, section .tldr > p { display: block; font-size: 1.12em; line-height: 1.5; font-weight: 400; font-style: italic; }
+h3.label-watch + ul { list-style: disc; margin: 0; padding: 0 0 0 1.3em; background: none; }
+h3.label-watch + ul li { padding-inline-start: 0.2em; }
+h3.label-watch + ul li::before { content: none; }
+h3.label-evidence + p { padding: 0; background: none; box-shadow: none; }
+
+/* Figures */
+figure { margin: 36px 0; padding: 0; min-width: 0; border: 0; background: none; }
+figcaption { margin-top: 12px; color: var(--c-muted); font: 14px/1.5 var(--c-sans); text-align: center; }
+.figure-scroll { overflow: visible; }
+.figure-scroll > svg { min-width: 0; }
+svg { display: block; width: 100%; height: auto; margin-inline: auto; font-family: var(--c-sans); }
+svg text { fill: var(--c-fg); }
+svg .muted { fill: var(--c-muted); }
+svg .svg-bad { fill: var(--c-bad); }
+svg .svg-good { fill: var(--c-good); }
+svg .svg-warn { fill: var(--c-warn); }
+svg .svg-accent { fill: var(--c-accent); }
+svg .mono { font-family: var(--c-mono); }
+svg .on-color { fill: #ffffff; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; gap: 24px; margin-top: 12px; }
+.split > figure { margin-top: 0; }
+.scroll-hint { display: none; color: var(--c-muted); font: 14px var(--c-sans); }
+
+/* Code */
+code { font-family: var(--c-mono); font-size: 0.8em; padding: 0.12em 0.32em; border-radius: 4px; background: var(--c-code); }
+pre { margin: 24px 0 0; padding: 18px 20px; overflow: auto; border-radius: var(--c-radius); background: var(--c-code); font-size: 15px; line-height: 1.6; }
+pre code { padding: 0; background: none; font-size: inherit; }
+h2 code, h3 code { font-size: 0.85em; background: none; padding: 0; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin-top: 16px; }
+table { width: 100%; border-collapse: collapse; font: 16px/1.5 var(--c-sans); }
+th, td { text-align: left; vertical-align: top; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--c-line); }
+thead th, table > tr:first-child > th { color: var(--c-muted); font-weight: 500; font-size: 14px; }
+tbody th[scope="row"] { font-weight: 600; }
+td:first-child { font-weight: 400; }
+.bad { color: var(--c-bad); } .good { color: var(--c-good); } .warn { color: var(--c-warn); }
+
+/* Quick check */
+details { border-bottom: 1px solid var(--c-line); }
+details:first-of-type { border-top: 1px solid var(--c-line); }
+summary { position: relative; padding: 16px 36px 16px 0; cursor: pointer; list-style: none; font: 600 17px/1.45 var(--c-sans); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; position: absolute; right: 4px; top: 14px; color: var(--c-muted); font: 400 22px/1 var(--c-sans); }
+details[open] summary::after { content: "\2212"; }
+details > p, details > pre, details > ul { margin: 0 0 18px; }
+details > p + p { margin-top: 0.7em; }
+
+/* Sources */
+ul.sources { font-size: 0.9em; }
+ul.sources li + li { margin-top: 0.6em; }
+
+/* Pager */
+nav.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 72px 0 0; padding-top: 28px; border-top: 1px solid var(--c-line); font: 16px/1.4 var(--c-sans); }
+nav.pager > span:empty { display: block; }
+nav.pager a { display: block; padding: 14px 16px; border: 1px solid var(--c-line); border-radius: var(--c-radius); text-decoration: none; font-weight: 600; }
+nav.pager a:hover { border-color: var(--c-faint); }
+nav.pager a span { display: block; margin-bottom: 2px; color: var(--c-muted); font-size: 13px; font-weight: 400; }
+nav.pager .next { text-align: right; grid-column: 2; }
+nav.pager .home { grid-column: 1 / -1; grid-row: 2; padding: 4px 0; border: 0; color: var(--c-muted); font-weight: 400; text-align: center; }
+
+/* Desktop: keep diagram labels near body size and tall diagrams on one screen */
+@media (min-width: 681px) { figure > svg { max-width: min(100%, 500px) !important; max-height: 600px; } }
+
+@media (max-width: 680px) {
+  body { font-size: 17px; }
+  main { padding: 0 20px 64px; }
+  nav.pills { margin-inline: -20px; padding-inline: 20px; }
+  header { padding-top: 32px; }
+  h2 { font-size: 23px; }
+  section { margin-top: 48px; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  pre { margin-inline: -20px; border-radius: 0; padding: 16px 20px; font-size: 14px; }
+}
+@media (max-width: 480px) { .scroll-hint { display: block; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="kicker">Measure first · Lesson 02 of 28 · about 10 minutes</p>
+    <h1>Read a flame graph</h1>
+    <p class="lede">Once you know a step is computing, you still need to know which function keeps the processor busy. After this lesson you can record a CPU profile and read its flame graph down to the one function worth fixing.</p>
+
+    <div class="box tldr">
+      <strong>What you will learn</strong>
+      <ul>
+        <li>How a sampling profiler works, and why it counts snapshots instead of timing every call.</li>
+        <li>The difference between total time and self time, and why self time points at the work.</li>
+        <li>How to walk a flame graph from the widest bar down to the target.</li>
+      </ul>
+    </div>
+  </header>
+
+  <nav class="pills" aria-label="On this page">
+    <a href="#c1">1 Samples</a>
+    <a href="#c2">2 Total and self</a>
+    <a href="#c3">3 Follow the widest bar</a>
+    <a href="#try">Try it</a>
+    <a href="#remember">Remember</a>
+    <a href="#words">Words</a>
+    <a href="#quiz">Quick check</a>
+    <a href="#read">Read more</a>
+  </nav>
+
+  <section class="concept" aria-labelledby="c1">
+    <h2 id="c1">How does a profiler see where the time goes?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      A sampling profiler pauses your program about once per millisecond and notes which functions are running. The function caught in the most snapshots is where the time goes.
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>The <strong>call stack</strong> is the chain of function calls active at one moment. In the lesson 01 demo, <code>report</code> calls <code>buildRows</code>, and <code>buildRows</code> calls the <code>find()</code> callback (called "find cb" in the diagrams). While the callback runs, all three are on the stack, and the callback is the one doing the work.</p>
+    <p>A <strong>sampling profiler</strong>, such as the one Node starts with <code>node --cpu-prof</code>, does not time each call. About once per millisecond it pauses the program and copies the stack. Each copy is called a <strong>sample</strong>.</p>
+    <p>Pretend the profiler took only 10 samples of the demo. In the diagram, samples 1 to 4 land while fetch waits, so no JavaScript is running and the profiler writes down <code>(idle)</code>. Samples 5 to 10 land in build. Five of them caught the callback running, and sample 7 caught <code>buildRows</code> itself, between two calls.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 206" style="max-width: 560px" role="img" aria-labelledby="l02-smp-title l02-smp-desc">
+        <title id="l02-smp-title">Ten samples of the call stack, in time order</title>
+        <desc id="l02-smp-desc">Ten columns, one per sample, in time order from left to right. Samples 1 to 4 are idle while the program waits. Samples 5 to 10 each show report, then buildRows, then the find callback below it, except sample 7, where buildRows itself is running with nothing below it. The bottom box of each column, solid red, is the function running at that moment. Legend below.</desc>
+        <defs><marker id="l02-smp-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--c-line-strong)"/></marker></defs>
+        <g font-size="14" text-anchor="end">
+          <text x="84" y="53">report</text>
+          <text x="84" y="81">buildRows</text>
+          <text x="84" y="109">find cb</text>
+        </g>
+        <g font-size="14" text-anchor="middle" font-weight="600">
+          <text x="144" y="24" class="muted">waiting (idle)</text>
+          <text x="274" y="24">computing</text>
+        </g>
+        <g fill="none" stroke="var(--c-line-strong)" stroke-width="2" stroke-dasharray="4 3">
+          <rect x="93" y="37" width="20" height="22" rx="3"/>
+          <rect x="119" y="37" width="20" height="22" rx="3"/>
+          <rect x="145" y="37" width="20" height="22" rx="3"/>
+          <rect x="171" y="37" width="20" height="22" rx="3"/>
+        </g>
+        <g fill="var(--c-card)" stroke="var(--c-accent)" stroke-width="2">
+          <rect x="197" y="37" width="20" height="22" rx="3"/>
+          <rect x="197" y="65" width="20" height="22" rx="3"/>
+          <rect x="223" y="37" width="20" height="22" rx="3"/>
+          <rect x="223" y="65" width="20" height="22" rx="3"/>
+          <rect x="249" y="37" width="20" height="22" rx="3"/>
+          <rect x="275" y="37" width="20" height="22" rx="3"/>
+          <rect x="275" y="65" width="20" height="22" rx="3"/>
+          <rect x="301" y="37" width="20" height="22" rx="3"/>
+          <rect x="301" y="65" width="20" height="22" rx="3"/>
+          <rect x="327" y="37" width="20" height="22" rx="3"/>
+          <rect x="327" y="65" width="20" height="22" rx="3"/>
+        </g>
+        <g fill="var(--c-bad)">
+          <rect x="196" y="92" width="22" height="24" rx="3"/>
+          <rect x="222" y="92" width="22" height="24" rx="3"/>
+          <rect x="248" y="64" width="22" height="24" rx="3"/>
+          <rect x="274" y="92" width="22" height="24" rx="3"/>
+          <rect x="300" y="92" width="22" height="24" rx="3"/>
+          <rect x="326" y="92" width="22" height="24" rx="3"/>
+        </g>
+        <g font-size="13" text-anchor="middle" class="muted">
+          <text x="103" y="136">1</text>
+          <text x="129" y="136">2</text>
+          <text x="155" y="136">3</text>
+          <text x="181" y="136">4</text>
+          <text x="207" y="136">5</text>
+          <text x="233" y="136">6</text>
+          <text x="259" y="136">7</text>
+          <text x="285" y="136">8</text>
+          <text x="311" y="136">9</text>
+          <text x="337" y="136">10</text>
+        </g>
+        <path d="M92 148H348" stroke="var(--c-line-strong)" stroke-width="2" marker-end="url(#l02-smp-arrow)"/>
+        <text x="84" y="153" text-anchor="end" font-size="13" class="muted">time</text>
+        <rect x="8" y="168" width="16" height="16" fill="var(--c-bad)"/>
+        <text x="30" y="181" font-size="13">running when sampled</text>
+        <rect x="9" y="189" width="14" height="14" fill="var(--c-card)" stroke="var(--c-accent)" stroke-width="2"/>
+        <text x="30" y="201" font-size="13">waiting for the function below</text>
+      </svg>
+      <figcaption>Each column is one sample, taken at even intervals. Count the red boxes in the find cb row: the callback was caught running in 5 of the 10 samples.</figcaption>
+    </figure>
+
+    <p>The real run lasts about 740 ms, so it collects about 740 samples, not 10. The proportions stay roughly the same. A function that runs for 300 ms shows up in about 300 samples, which is why counting samples works as a clock.</p>
+
+    <h3 class="label">The fix</h3>
+    <p>Stop adding timers around hunches. Let the profiler watch every function at once, with no code changes, and open the file it writes in a viewer.</p>
+<pre><code>// Before: timers only where you already suspect a problem
+console.time('find'); /* ... */ console.timeEnd('find');
+
+// After: sample every function, then open the file
+// node --cpu-prof --cpu-prof-dir=/tmp/prof demos/stages.js
+// Open the .cpuprofile in Chrome DevTools (Performance panel) or speedscope</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>A CPU profile only sees computing. Waiting shows up as <code>(idle)</code>, so an I/O-bound step looks empty rather than slow.</li>
+      <li>Samples are an estimate. Tiny functions called very often can be missed, and a short run gives few samples, so repeat the action or use bigger input.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>A profile of one large pnpm install found two functions redoing the same work. Fixing them took the install from about 64 seconds to about 14.</p>
+  </section>
+
+  <section class="concept" aria-labelledby="c2">
+    <h2 id="c2">What is the difference between total time and self time?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      Total time counts every sample a function appears in. Self time counts only the samples that caught it running its own lines, so self time points at the work.
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>A <strong>flame graph</strong> merges the samples. Matching stack entries are joined into one bar, and each bar's width is the number of samples it appeared in. In DevTools and speedscope, callers sit above the functions they call. Merged views, such as speedscope's Left Heavy, sort the bars, so left to right is not time order. The DevTools Performance panel shows a flame chart instead, which keeps time order.</p>
+    <p>In the diagram, <code>report</code> is 6 samples wide, because it was on the stack in all six build samples. <code>buildRows</code> is also 6 wide. The callback is 5 wide.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 184" style="max-width: 560px" role="img" aria-labelledby="l02-mrg-title l02-mrg-desc">
+        <title id="l02-mrg-title">The ten samples merged into a flame graph</title>
+        <desc id="l02-mrg-desc">Idle is 4 samples wide. report is 6 wide, buildRows under it is 6 wide, and the find callback under that, solid red, is 5 wide. One sample's width under buildRows is an empty dashed red slot: that is buildRows' self time of 1. The find callback has nothing below it, so its self time is all 5. Notes below the bars give total and self for both.</desc>
+        <defs><marker id="l02-mrg-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="var(--c-line-strong)"/></marker></defs>
+        <g font-size="14" class="muted">
+          <text x="8" y="38">caller</text>
+          <text x="8" y="106">callee</text>
+        </g>
+        <path d="M28 46V88" stroke="var(--c-line-strong)" stroke-width="2" marker-end="url(#l02-mrg-arrow)"/>
+        <rect x="73" y="21" width="110" height="24" rx="3" fill="none" stroke="var(--c-line-strong)" stroke-width="2" stroke-dasharray="4 3"/>
+        <g fill="var(--c-card)" stroke="var(--c-accent)" stroke-width="2">
+          <rect x="185" y="21" width="166" height="24" rx="3"/>
+          <rect x="185" y="55" width="166" height="24" rx="3"/>
+        </g>
+        <rect x="184" y="88" width="140" height="26" rx="3" fill="var(--c-bad)"/>
+        <rect x="327" y="89" width="24" height="24" rx="3" fill="none" stroke="var(--c-bad)" stroke-width="2" stroke-dasharray="4 3"/>
+        <g font-size="14" text-anchor="middle">
+          <text x="128" y="38" class="muted">(idle) 4</text>
+          <text x="268" y="38">report 6</text>
+          <text x="268" y="72">buildRows 6</text>
+          <text x="254" y="106" class="on-color">find cb 5</text>
+        </g>
+        <path d="M184 122v6H324v-6" fill="none" stroke="var(--c-bad)" stroke-width="2"/>
+        <text x="322" y="148" text-anchor="end" font-size="14">find cb: total 5, self 5</text>
+        <path d="M339 116V156" stroke="var(--c-bad)" stroke-width="2"/>
+        <text x="352" y="176" text-anchor="end" font-size="14">buildRows: total 6, self 1</text>
+      </svg>
+      <figcaption>Self time is the part of a bar with nothing underneath. The dashed red slot is the one sample where buildRows ran its own code.</figcaption>
+    </figure>
+
+    <p><strong>Total time</strong> is the full width of a bar. <strong>Self time</strong> is the part of a bar with nothing underneath it, because those are the samples where that function itself was running. So <code>buildRows</code> has a big total but a small self, and the callback is all self:</p>
+    <div class="table-wrap"><table>
+      <tr><th>Function</th><th>Total (samples)</th><th>Self (samples)</th></tr>
+      <tr><td><code>report</code></td><td>6</td><td>0</td></tr>
+      <tr><td><code>buildRows</code></td><td>6</td><td>1</td></tr>
+      <tr><td>find callback</td><td>5</td><td><strong class="bad">5</strong></td></tr>
+    </table></div>
+    <p>In a real profile with hundreds of functions, the biggest totals belong to the outer callers, such as a request handler. They are wide because everything runs under them, not because their own lines are slow. Sort by self time to find the lines that actually use the processor.</p>
+
+    <h3 class="label">The fix</h3>
+    <p>Make self time easy to read by naming hot callbacks. An arrow function passed inline has no name, so profiles show it as <code>(anonymous)</code>. A named function expression shows up under its name.</p>
+<pre><code>// Before: appears in the profile as "(anonymous)"
+orders.map((o) =&gt; customers.find((c) =&gt; c.id === o.customerId));
+
+// After: appears as "matchCustomer"
+orders.map((o) =&gt; customers.find(function matchCustomer(c) {
+  return c.id === o.customerId;
+}));</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>High total with low self means "look further down", not "optimise this function".</li>
+      <li>Most viewers also show the file and line of each function, which helps when a name is missing.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>Profiles of one build pipeline showed a regex in a CSS plugin running on every rule. Skipping it in files without the special comments it looks for saved about 4.6 seconds.</p>
+  </section>
+
+  <section class="concept" aria-labelledby="c3">
+    <h2 id="c3">Which bar do you fix?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      Start at the widest bar and step down while the bars stay wide. Stop at a wide bar with nothing underneath: its own code is the target.
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>Real flame graphs have hundreds of bars, so you need a route. The diagram shows an illustrative profile of a server building a report under load. Its top row splits all samples between <code>(idle)</code>, <code>handleRequest</code> and the garbage collector, which frees unused memory.</p>
+    <p>Step 1: pick the widest bar that is not idle. Here that is <code>handleRequest</code>, at about 55 percent of all samples. Step 2: look at the bars directly under it and follow the widest one, <code>buildReport</code> (44 percent), then <code>buildRows</code> (40 percent). Each is still wide, so the time is still further down.</p>
+    <p>Step 3: <code>matchCustomer</code> is about 34 percent wide and has nothing underneath it. Its self time is its whole width, so its own lines do the work, and it is the target. In the demo, this is the <code>find()</code> callback. It scans up to 5,000 customers for each of 20,000 orders, which is up to 100 million comparisons.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 178" style="max-width: 560px" role="img" aria-labelledby="l02-ann-title l02-ann-desc">
+        <title id="l02-ann-title">Annotated flame graph: from the widest bar to the target</title>
+        <desc id="l02-ann-desc">Top row: idle 35 percent, handleRequest 55 percent, garbage collector 10 percent. Under handleRequest, buildReport is 44 percent, with small grey bars beside it. Under buildReport, buildRows is 40 percent. Under buildRows, matchCustomer is 34 percent, solid red, and has nothing below it, so it is the target. Numbered markers: 1 on handleRequest, 2 on buildRows, 3 on matchCustomer; the caption explains them.</desc>
+        <rect x="9" y="21" width="118" height="24" rx="3" fill="none" stroke="var(--c-line-strong)" stroke-width="2" stroke-dasharray="4 3"/>
+        <g fill="var(--c-card)" stroke="var(--c-line-strong)" stroke-width="2">
+          <rect x="319" y="21" width="32" height="24" rx="3"/>
+          <rect x="129" y="51" width="26" height="24" rx="2"/>
+          <rect x="308" y="51" width="9" height="24" rx="2"/>
+          <rect x="295" y="81" width="11" height="24" rx="2"/>
+          <rect x="274" y="111" width="12" height="24" rx="2"/>
+        </g>
+        <g fill="var(--c-card)" stroke="var(--c-accent)" stroke-width="2">
+          <rect x="129" y="21" width="188" height="24" rx="3"/>
+          <rect x="157" y="51" width="149" height="24" rx="3"/>
+          <rect x="157" y="81" width="136" height="24" rx="3"/>
+        </g>
+        <rect x="156" y="110" width="117" height="26" rx="3" fill="var(--c-bad)"/>
+        <g font-size="14">
+          <text x="68" y="38" text-anchor="middle" class="muted">(idle)</text>
+          <text x="335" y="38" text-anchor="middle">gc</text>
+          <text x="158" y="38">handleRequest</text>
+          <text x="164" y="68">buildReport</text>
+          <text x="164" y="98">buildRows</text>
+          <text x="162" y="128" class="on-color">matchCustomer</text>
+        </g>
+        <path d="M156 142v6H273v-6" fill="none" stroke="var(--c-bad)" stroke-width="2"/>
+        <text x="214" y="168" text-anchor="middle" font-size="14" class="svg-bad">nothing below: high self</text>
+        <circle cx="142" cy="33" r="9" fill="var(--c-accent)"/>
+        <circle cx="142" cy="93" r="9" fill="var(--c-accent)"/>
+        <circle cx="142" cy="123" r="9" fill="var(--c-bad)"/>
+        <g font-size="13" font-weight="700" text-anchor="middle">
+          <text x="142" y="38" class="on-color">1</text>
+          <text x="142" y="98" class="on-color">2</text>
+          <text x="142" y="128" class="on-color">3</text>
+        </g>
+      </svg>
+      <figcaption>Illustrative profile. Width is the share of samples; callers sit on top. 1: start at the widest bar that is not idle. 2: step down while the bar stays wide. 3: wide with nothing below, so fix this one. The blue outlined bars are the route, the red bar is the target, and the grey bars can wait.</figcaption>
+    </figure>
+
+    <p>The small grey bars, such as the 4 percent ones beside <code>buildRows</code> and <code>matchCustomer</code>, are cheap to ignore. Even making them free would save only a few percent.</p>
+
+    <h3 class="label">The fix</h3>
+    <p>Fix the target, then profile again. Here the fix is a <code>Map</code> built once, which lesson 07 explains in detail. After the change, the old target should shrink to a sliver, and a different bar becomes the widest.</p>
+<pre><code>// Before: each of 20,000 orders scans up to 5,000 customers
+const name = customers.find((c) =&gt; c.id === o.customerId).name;
+
+// After: build the lookup once; each order is then one direct jump
+const byId = new Map(customers.map((c) =&gt; [c.id, c]));
+const name = byId.get(o.customerId).name;</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>Change one thing at a time and measure after each change, so you know which change helped.</li>
+      <li>Garbage collector time is real time too. A wide garbage collector bar means the code creates many short-lived objects (lesson 12).</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>The TanStack Start team repeated this loop on one server-rendered page and went from about 430 to about 2,360 requests per second.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 136" style="max-width: 560px" role="img" aria-labelledby="l02-tsr-title l02-tsr-desc">
+        <title id="l02-tsr-title">Requests per second before and after</title>
+        <desc id="l02-tsr-desc">Two bars stacked, before above after. Before the profiling fixes: 427 requests per second, a short red bar. After: 2,357 requests per second, a long green bar, about 5.5 times as many.</desc>
+        <g font-size="14" font-weight="600">
+          <text x="8" y="20">Before</text>
+          <text x="8" y="76">After</text>
+        </g>
+        <rect x="8" y="28" width="44" height="26" rx="3" fill="var(--c-bad)"/>
+        <rect x="8" y="84" width="240" height="26" rx="3" fill="var(--c-good)"/>
+        <g font-size="14">
+          <text x="60" y="46">427 req/s</text>
+          <text x="256" y="102">2,357 req/s</text>
+        </g>
+        <path d="M8 24V114" stroke="var(--c-line-strong)" stroke-width="2"/>
+        <text x="8" y="130" font-size="13" class="muted">0</text>
+        <text x="352" y="130" text-anchor="end" font-size="13" class="muted">higher is better</text>
+      </svg>
+      <figcaption>One page with 100 links, load-tested on one laptop. Source: the TanStack Start SSR throughput post.</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="try">
+    <h2 id="try">Try it</h2>
+    <div class="box try">
+      <strong>Try it (3 minutes)</strong>
+      <p>From the course folder, record a profile of the lesson 01 demo, then list the functions by self time.</p>
+<pre><code>node --cpu-prof --cpu-prof-dir=/tmp/prof demos/stages.js
+node demos/top-self.js /tmp/prof/*.cpuprofile</code></pre>
+      <p>The second command prints one line per function, largest self time first, like this (one run on Node 22; your numbers will differ):</p>
+<pre><code>self ms  share   function  file:line
+    400    50%   (idle)
+    273    34%   (anonymous)  stages.js:23
+     73     9%   buildRows  stages.js:22</code></pre>
+      <p><code>(idle)</code> is the 400 milliseconds of waiting from lesson 01, not work. The real target is <code>stages.js:23</code>: that is the <code>find()</code> callback inside <code>buildRows</code>. Then open the same file in Chrome DevTools or speedscope to see the flame graph itself.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="remember">
+    <h2 id="remember">Remember</h2>
+    <ul>
+      <li>A profiler counts samples; a function caught in many samples is where the time goes.</li>
+      <li>Total time includes everything a function calls; self time is its own work. Fix high self time.</li>
+      <li>Follow the widest bar down to a wide bar with nothing under it, fix it, then profile again.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="words">
+    <h2 id="words">Words used in this lesson</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Term</th><th>Plain meaning</th></tr>
+      <tr><td>Call stack</td><td>The chain of function calls active at one moment, from the outer caller to the function running now.</td></tr>
+      <tr><td>Sampling profiler</td><td>A tool that pauses the program at a fixed interval and records the call stack each time.</td></tr>
+      <tr><td>Sample</td><td>One recorded copy of the call stack.</td></tr>
+      <tr><td>Flame graph</td><td>A picture of many samples merged into bars, where a bar's width is how many samples it appeared in.</td></tr>
+      <tr><td>Total time</td><td>All samples where a function was on the stack, including time spent in the functions it called.</td></tr>
+      <tr><td>Self time</td><td>Only the samples where the function was running its own code.</td></tr>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="quiz">
+    <h2 id="quiz">Quick check</h2>
+    <details><summary>A function has a large total time but almost no self time. Should you optimise its body?</summary><p>No. Total time includes everything it calls, and a low self time means its own lines are cheap. Follow the flame graph down to the function beneath it with high self time, because that is where the processor actually works.</p></details>
+    <details><summary>The profile of a slow page is mostly <code>(idle)</code>. What does that tell you?</summary><p>The slow part is waiting, not computing, so a CPU profile is the wrong tool for it. Go back to the two clocks from lesson 01, then count the requests or queries the page waits for.</p></details>
+    <details><summary>Why give a hot inline callback a name?</summary><p>An unnamed arrow function shows up as <code>(anonymous)</code>, and a profile can hold many of those. A name makes the self-time list readable at a glance, without looking up each file and line.</p></details>
+  </section>
+
+  <section aria-labelledby="read">
+    <h2 id="read">Read more</h2>
+    <ul class="sources">
+      <li><a href="https://tanstack.com/blog/tanstack-start-5x-ssr-throughput">5x SSR throughput in TanStack Start</a>: the profile, fix, measure again loop, with flame graphs.</li>
+      <li><a href="https://jakebailey.dev/posts/pnpm-dt-2/">pnpm and DefinitelyTyped, part 2</a>: profiling a slow install and finding repeated work.</li>
+      <li><a href="https://marvinh.dev/blog/speeding-up-javascript-ecosystem/">Speeding up the JavaScript ecosystem, part 1</a>: six fixes, each found in a CPU profile.</li>
+      <li><a href="https://github.com/thlorenz/v8-perf">v8-perf</a>: why sampling profilers can miss tiny, very frequent functions.</li>
+    </ul>
+  </section>
+
+  <nav class="pager" aria-label="Lessons">
+    <a class="prev" href="01-computing-or-waiting.html"><span>Previous</span>Is it computing or waiting?</a>
+    <a class="home" href="00-start-here.html">All lessons</a>
+    <a class="next" href="03-benchmarks-you-can-trust.html"><span>Next</span>Benchmarks you can trust</a>
+  </nav>
+</main>
+</body>
+</html>

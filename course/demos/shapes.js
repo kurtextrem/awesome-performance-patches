@@ -1,0 +1,10 @@
+const a = { x: 1, y: 2 };
+const b = { x: 3, y: 4 };
+const c = { y: 5, x: 6 };
+const d = { x: 7 }; d.y = 8;
+const e = { x: 1, y: 2, tmp: 0 }; delete e.tmp;
+console.log("a vs b (same order):", %HaveSameMap(a, b));
+console.log("a vs c (y first):   ", %HaveSameMap(a, c));
+console.log("a vs d (y added later):", %HaveSameMap(a, d));
+console.log("a vs e (delete):    ", %HaveSameMap(a, e));
+console.log("e after delete has fast properties:", %HasFastProperties(e));

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Performance course: start here</title>
+<style>
+/* course-v7: editorial, monochrome */
+:root {
+  color-scheme: light dark;
+  --c-bg: #ffffff;
+  --c-fg: #242424;
+  --c-muted: #6b6b6b;
+  --c-faint: #9a9a9a;
+  --c-line: #e8e8e8;
+  --c-card: #f7f7f7;
+  --c-code: #f5f5f4;
+  --c-accent: #2563d9;
+  --c-bad: #d93a3a;
+  --c-good: #1f9d55;
+  --c-warn: #d98a00;
+  --c-line-strong: #c9c9c9;
+  --c-radius: 8px;
+  --c-serif: Charter, "Bitstream Charter", "Iowan Old Style", "Sitka Text", Cambria, Georgia, serif;
+  --c-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --c-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --c-soft-accent: var(--c-card);
+  --c-soft-good: var(--c-card);
+  --c-soft-warn: var(--c-card);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #161616;
+    --c-fg: #e8e8e6;
+    --c-muted: #a3a3a0;
+    --c-faint: #767674;
+    --c-line: #2c2c2b;
+    --c-card: #1e1e1d;
+    --c-code: #1f1f1e;
+    --c-accent: #5b93ff;
+    --c-bad: #f25f5c;
+    --c-good: #3ccf7a;
+    --c-warn: #f5a524;
+    --c-line-strong: #4a4a48;
+  }
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--c-bg); }
+body { margin: 0; background: var(--c-bg); color: var(--c-fg); font: 20px/1.62 var(--c-serif); overflow-wrap: break-word; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+main { max-width: 704px; margin: 0 auto; padding: 0 24px 80px; }
+h1, h2, h3, p { margin: 0; }
+p + p, ul + p, ol + p, pre + p, .table-wrap + p { margin-top: 1.1em; }
+ul, ol { margin: 0.9em 0 0; padding-inline-start: 1.3em; }
+li { padding-inline-start: 0.2em; }
+li + li { margin-top: 0.45em; }
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; text-decoration-color: var(--c-faint); }
+a:hover { text-decoration-color: currentColor; }
+strong, b { font-weight: 700; }
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 3px; }
+
+/* Header */
+header { padding-top: 48px; }
+.kicker { font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+h1 { margin-top: 14px; font: 700 clamp(32px, 6vw, 42px)/1.18 var(--c-sans); letter-spacing: -0.018em; }
+.lede { margin-top: 14px; color: var(--c-muted); font-size: 1.1em; line-height: 1.5; }
+.lede + .lede { margin-top: 0.6em; }
+header .box { margin: 32px 0 0; padding: 0; border: 0; background: none; }
+header .box > strong:first-child { font: 700 16px/1.4 var(--c-sans); color: var(--c-fg); }
+header .box ul { margin-top: 8px; }
+
+/* In-page section nav (the app bar replaces it in the single-page build) */
+/* sticky-nav */
+html { scroll-padding-top: 72px; }
+nav.pills { position: sticky; top: 0; z-index: 20; display: flex; gap: 20px; margin: 36px -24px 0; padding: 14px 24px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; background: var(--c-bg); border-bottom: 1px solid var(--c-line); font: 500 14px/1.4 var(--c-sans); }
+nav.pills::-webkit-scrollbar { display: none; }
+nav.pills a { flex: none; color: var(--c-muted); text-decoration: none; }
+nav.pills a:hover { color: var(--c-fg); }
+
+/* Sections */
+section { margin-top: 56px; }
+h2 { margin-bottom: 14px; font: 700 26px/1.25 var(--c-sans); letter-spacing: -0.012em; }
+h3 { margin: 36px 0 10px; font: 700 19px/1.35 var(--c-sans); }
+section > h3.label { margin: 36px 0 8px; font: 700 18px/1.35 var(--c-sans); color: var(--c-fg); }
+section.concept > h2::before { content: none; }
+
+/* Boxes */
+.box { margin: 28px 0; padding: 18px 22px; border: 1px solid var(--c-line); border-radius: var(--c-radius); background: none; font-size: 0.92em; }
+.box > strong:first-child { display: block; margin-bottom: 6px; font: 700 15px/1.4 var(--c-sans); color: var(--c-fg); }
+.box ul { margin-top: 6px; }
+.box p + p, .box > p:first-of-type { margin-top: 0.5em; }
+.box pre { margin-top: 12px; }
+section .tldr { margin: 8px 0 28px; padding: 2px 0 2px 22px; border: 0; border-left: 3px solid var(--c-fg); border-radius: 0; font-size: 1em; }
+section .tldr > strong:first-child { margin-bottom: 4px; font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+section .tldr > b, section .tldr > p { display: block; font-size: 1.12em; line-height: 1.5; font-weight: 400; font-style: italic; }
+h3.label-watch + ul { list-style: disc; margin: 0; padding: 0 0 0 1.3em; background: none; }
+h3.label-watch + ul li { padding-inline-start: 0.2em; }
+h3.label-watch + ul li::before { content: none; }
+h3.label-evidence + p { padding: 0; background: none; box-shadow: none; }
+
+/* Figures */
+figure { margin: 36px 0; padding: 0; min-width: 0; border: 0; background: none; }
+figcaption { margin-top: 12px; color: var(--c-muted); font: 14px/1.5 var(--c-sans); text-align: center; }
+.figure-scroll { overflow: visible; }
+.figure-scroll > svg { min-width: 0; }
+svg { display: block; width: 100%; height: auto; margin-inline: auto; font-family: var(--c-sans); }
+svg text { fill: var(--c-fg); }
+svg .muted { fill: var(--c-muted); }
+svg .svg-bad { fill: var(--c-bad); }
+svg .svg-good { fill: var(--c-good); }
+svg .svg-warn { fill: var(--c-warn); }
+svg .svg-accent { fill: var(--c-accent); }
+svg .mono { font-family: var(--c-mono); }
+svg .on-color { fill: #ffffff; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; gap: 24px; margin-top: 12px; }
+.split > figure { margin-top: 0; }
+.scroll-hint { display: none; color: var(--c-muted); font: 14px var(--c-sans); }
+
+/* Code */
+code { font-family: var(--c-mono); font-size: 0.8em; padding: 0.12em 0.32em; border-radius: 4px; background: var(--c-code); }
+pre { margin: 24px 0 0; padding: 18px 20px; overflow: auto; border-radius: var(--c-radius); background: var(--c-code); font-size: 15px; line-height: 1.6; }
+pre code { padding: 0; background: none; font-size: inherit; }
+h2 code, h3 code { font-size: 0.85em; background: none; padding: 0; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin-top: 16px; }
+table { width: 100%; border-collapse: collapse; font: 16px/1.5 var(--c-sans); }
+th, td { text-align: left; vertical-align: top; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--c-line); }
+thead th, table > tr:first-child > th { color: var(--c-muted); font-weight: 500; font-size: 14px; }
+tbody th[scope="row"] { font-weight: 600; }
+td:first-child { font-weight: 400; }
+.bad { color: var(--c-bad); } .good { color: var(--c-good); } .warn { color: var(--c-warn); }
+
+/* Quick check */
+details { border-bottom: 1px solid var(--c-line); }
+details:first-of-type { border-top: 1px solid var(--c-line); }
+summary { position: relative; padding: 16px 36px 16px 0; cursor: pointer; list-style: none; font: 600 17px/1.45 var(--c-sans); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; position: absolute; right: 4px; top: 14px; color: var(--c-muted); font: 400 22px/1 var(--c-sans); }
+details[open] summary::after { content: "\2212"; }
+details > p, details > pre, details > ul { margin: 0 0 18px; }
+details > p + p { margin-top: 0.7em; }
+
+/* Sources */
+ul.sources { font-size: 0.9em; }
+ul.sources li + li { margin-top: 0.6em; }
+
+/* Pager */
+nav.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 72px 0 0; padding-top: 28px; border-top: 1px solid var(--c-line); font: 16px/1.4 var(--c-sans); }
+nav.pager > span:empty { display: block; }
+nav.pager a { display: block; padding: 14px 16px; border: 1px solid var(--c-line); border-radius: var(--c-radius); text-decoration: none; font-weight: 600; }
+nav.pager a:hover { border-color: var(--c-faint); }
+nav.pager a span { display: block; margin-bottom: 2px; color: var(--c-muted); font-size: 13px; font-weight: 400; }
+nav.pager .next { text-align: right; grid-column: 2; }
+nav.pager .home { grid-column: 1 / -1; grid-row: 2; padding: 4px 0; border: 0; color: var(--c-muted); font-weight: 400; text-align: center; }
+
+/* Desktop: keep diagram labels near body size and tall diagrams on one screen */
+@media (min-width: 681px) { figure > svg { max-width: min(100%, 500px) !important; max-height: 600px; } }
+
+@media (max-width: 680px) {
+  body { font-size: 17px; }
+  main { padding: 0 20px 64px; }
+  nav.pills { margin-inline: -20px; padding-inline: 20px; }
+  header { padding-top: 32px; }
+  h2 { font-size: 23px; }
+  section { margin-top: 48px; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  pre { margin-inline: -20px; border-radius: 0; padding: 16px 20px; font-size: 14px; }
+}
+@media (max-width: 480px) { .scroll-hint { display: block; } }
+.kicker.version { margin-top: 18px; }
+.kicker.version code { font-size: 0.95em; }
+.toc-track { padding-top: 20px; }
+.toc-track + .toc-track { margin-top: 12px; border-top: 1px solid var(--c-line); }
+.toc-track h3 { margin: 0 0 4px; font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+.toc ol { list-style: none; margin: 0; padding: 0; }
+.toc li { margin: 0; padding: 0; }
+.toc a { display: grid; grid-template-columns: 2rem 1fr; column-gap: 8px; padding: 10px 0; text-decoration: none; }
+.toc .n { padding-top: 2px; color: var(--c-faint); font: 500 15px/1.5 var(--c-sans); font-variant-numeric: tabular-nums; }
+.toc .t { font: 600 18px/1.4 var(--c-sans); }
+.toc .d { grid-column: 2; margin-top: 2px; color: var(--c-muted); font-size: 0.85em; line-height: 1.45; }
+.toc a:hover .t { text-decoration: underline; text-underline-offset: 0.18em; }
+ol.ladder { padding-inline-start: 1.4em; }
+ol.ladder li + li { margin-top: 0.7em; }
+ol.ladder .muted { color: var(--c-muted); }
+table.plain td:first-child { font-weight: 400; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="kicker">Performance course · Start here · 28 short lessons, about 10 minutes each</p>
+    <h1>Make it fast: a practical performance course</h1>
+    <p class="lede">A quick, self-paced intro to the findings in this list. Proven fixes from open-source projects such as pnpm, React, TypeScript and Vue, taken from the links in <a href="https://github.com/kurtextrem/awesome-performance-patches">awesome-performance-patches</a> and grouped the way that list groups them.</p>
+    <p class="lede">Each lesson teaches 2 or 3 ideas, each with a small worked example and a diagram.</p>
+    <p class="kicker version">Reflects the list at commit <a href="https://github.com/kurtextrem/awesome-performance-patches/commit/cfaa56c4f994d9348a33761d3b0f8be7e972f702"><code>cfaa56c</code></a> (27 September 2026). Last updated 22 November 2026.</p>
+
+    <div class="box try">
+      <strong>Start now (10 minutes)</strong>
+      Open <a href="01-computing-or-waiting.html">01 Is it computing or waiting?</a>. Every lesson stands alone, so you can also jump straight to the symptom you have, using the table further down.
+    </div>
+  </header>
+
+  <nav class="pills" aria-label="On this page">
+      <a href="#map">Lessons</a>
+      <a href="#where">Where wins come from</a>
+      <a href="#symptom">Pick by symptom</a>
+      <a href="#demos">Demos</a>
+      <a href="#read">Sources</a>
+    </nav>
+
+  <section aria-labelledby="map">
+    <h2 id="map">Lessons</h2>
+    <p>Eleven tracks, in the order to read them: measure first, then JavaScript and Node, then the browser, then tools and engine internals.</p>
+    <div class="toc">
+      <div class="toc-track"><h3>Measure first</h3><ol><li><a href="01-computing-or-waiting.html"><span class="n">01</span><span class="t">Is it computing or waiting?</span><span class="d">Tell CPU work from waiting before you change anything.</span></a></li><li><a href="02-read-a-flame-graph.html"><span class="n">02</span><span class="t">Read a flame graph</span><span class="d">Find the function that really burns the time.</span></a></li><li><a href="03-benchmarks-you-can-trust.html"><span class="n">03</span><span class="t">Benchmarks you can trust</span><span class="d">Avoid the traps that make micro-benchmarks lie.</span></a></li></ol></div>
+      <div class="toc-track"><h3>Do less work</h3><ol><li><a href="04-skip-or-defer.html"><span class="n">04</span><span class="t">Skip it or put it off</span><span class="d">Exit early and compute values only when used.</span></a></li><li><a href="05-do-it-once.html"><span class="n">05</span><span class="t">Do it once, reuse the result</span><span class="d">Hoist setup out of loops and cache results safely.</span></a></li><li><a href="06-calls-that-look-cheap.html"><span class="n">06</span><span class="t">Calls that look cheap but are not</span><span class="d">URL parsing, stack traces and tiny calls that add up.</span></a></li></ol></div>
+      <div class="toc-track"><h3>Data structures</h3><ol><li><a href="07-index-your-lookups.html"><span class="n">07</span><span class="t">Index your lookups</span><span class="d">Build a Map once instead of searching a list per row.</span></a></li><li><a href="08-grow-and-drain-lists.html"><span class="n">08</span><span class="t">Growing and draining lists</span><span class="d">Push instead of copying; drain queues with an index.</span></a></li><li><a href="09-compact-data.html"><span class="n">09</span><span class="t">Pack data tightly</span><span class="d">Bit flags and typed arrays for large, hot data.</span></a></li></ol></div>
+      <div class="toc-track"><h3>Async</h3><ol><li><a href="10-stop-waiting-in-line.html"><span class="n">10</span><span class="t">Stop waiting in line</span><span class="d">Run independent waits together and batch requests.</span></a></li><li><a href="11-fewer-awaits-bigger-writes.html"><span class="n">11</span><span class="t">Fewer awaits, bigger writes</span><span class="d">What one await costs, and why bigger writes win.</span></a></li></ol></div>
+      <div class="toc-track"><h3>Memory</h3><ol><li><a href="12-garbage-in-hot-loops.html"><span class="n">12</span><span class="t">Garbage in hot loops</span><span class="d">Short-lived objects and what cleaning them up costs.</span></a></li><li><a href="13-leaks-follow-the-references.html"><span class="n">13</span><span class="t">Leaks: follow the references</span><span class="d">A leak is something still holding on. Find what.</span></a></li><li><a href="14-peak-memory.html"><span class="n">14</span><span class="t">Peak memory: do not hold it all</span><span class="d">Load less and stream instead of building it all.</span></a></li></ol></div>
+      <div class="toc-track"><h3>Strings and parsing</h3><ol><li><a href="15-strings-and-slices.html"><span class="n">15</span><span class="t">Strings: slices and scanning</span><span class="d">Small slices can keep huge strings alive.</span></a></li><li><a href="16-regex-and-parsing.html"><span class="n">16</span><span class="t">Regex and parsing</span><span class="d">Backtracking, and when a simple scanner is faster.</span></a></li></ol></div>
+      <div class="toc-track"><h3>Rendering and CSS</h3><ol><li><a href="17-layout-thrashing.html"><span class="n">17</span><span class="t">One frame, and layout thrashing</span><span class="d">How a frame is drawn; read first, then write.</span></a></li><li><a href="18-style-and-layers.html"><span class="n">18</span><span class="t">Keep style changes small</span><span class="d">How far a style change spreads, and layer costs.</span></a></li><li><a href="19-dont-render-the-unseen.html"><span class="n">19</span><span class="t">Do not render what nobody sees</span><span class="d">Virtual lists and content-visibility.</span></a></li><li><a href="20-react-re-renders.html"><span class="n">20</span><span class="t">React re-renders</span><span class="d">Why children re-render and how to stop it.</span></a></li></ol></div>
+      <div class="toc-track"><h3>Animations</h3><ol><li><a href="21-smooth-animations.html"><span class="n">21</span><span class="t">Smooth animations</span><span class="d">Stay inside the frame budget: transform, opacity, FLIP.</span></a></li><li><a href="22-expensive-effects.html"><span class="n">22</span><span class="t">Effects that cost a lot</span><span class="d">Blur, shadows and big layers, and cheaper versions.</span></a></li></ol></div>
+      <div class="toc-track"><h3>Page load and Core Web Vitals</h3><ol><li><a href="23-respond-to-clicks.html"><span class="n">23</span><span class="t">Respond to clicks fast (INP)</span><span class="d">Break long tasks so a click is handled quickly.</span></a></li><li><a href="24-show-the-first-screen-sooner.html"><span class="n">24</span><span class="t">Show the first screen sooner</span><span class="d">Shorten the critical path: redirects, preflights, scripts.</span></a></li></ol></div>
+      <div class="toc-track"><h3>TypeScript and tooling</h3><ol><li><a href="25-faster-scripts-and-tests.html"><span class="n">25</span><span class="t">Faster scripts and tests</span><span class="d">Load only what a command needs; test only what matters.</span></a></li><li><a href="26-faster-type-checking.html"><span class="n">26</span><span class="t">Faster type checking</span><span class="d">Find where tsc spends time; simpler types check faster.</span></a></li></ol></div>
+      <div class="toc-track"><h3>Engine internals</h3><ol><li><a href="27-object-shapes.html"><span class="n">27</span><span class="t">Object shapes and inline caches</span><span class="d">Why objects with the same layout are faster to read.</span></a></li><li><a href="28-deopts-and-build-output.html"><span class="n">28</span><span class="t">Deopts and what your build emits</span><span class="d">Why optimised code gets thrown away, and old syntax costs.</span></a></li></ol></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="where">
+    <h2 id="where">Where the big wins come from</h2>
+    <p>Fixes fall into four levels. Work from the top, and stop when it is fast enough.</p>
+    <ol class="ladder">
+      <li><strong>Skip it, do it once, index it.</strong> <span class="muted">Lessons 04 to 09. One pnpm step went from 35 seconds to 0.2.</span></li>
+      <li><strong>Stop waiting in line.</strong> <span class="muted">Lessons 10, 11 and 24. Fewer round trips.</span></li>
+      <li><strong>Hold less memory.</strong> <span class="muted">Lessons 12 to 15.</span></li>
+      <li><strong>Help the engine.</strong> <span class="muted">Lessons 27 and 28. Usually 10 to 20 percent, so do this last.</span></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="symptom">
+    <h2 id="symptom">Pick a lesson by symptom</h2>
+    <div class="table-wrap"><table class="plain">
+      <tr><th>What you notice</th><th>Read</th></tr>
+      <tr><td>Something is slow and you do not know why</td><td><a href="01-computing-or-waiting.html">01 Is it computing or waiting?</a>, <a href="02-read-a-flame-graph.html">02 Read a flame graph</a></td></tr>
+      <tr><td>Time grows much faster than the number of rows</td><td><a href="07-index-your-lookups.html">07 Index your lookups</a>, <a href="08-grow-and-drain-lists.html">08 Growing and draining lists</a></td></tr>
+      <tr><td>The same work repeats on every row or request</td><td><a href="04-skip-or-defer.html">04 Skip it or put it off</a>, <a href="05-do-it-once.html">05 Do it once, reuse the result</a></td></tr>
+      <tr><td>The CPU is idle but the request still takes seconds</td><td><a href="10-stop-waiting-in-line.html">10 Stop waiting in line</a>, <a href="11-fewer-awaits-bigger-writes.html">11 Fewer awaits, bigger writes</a></td></tr>
+      <tr><td>Memory climbs, or a job crashes with &quot;heap out of memory&quot;</td><td><a href="13-leaks-follow-the-references.html">13 Leaks: follow the references</a>, <a href="14-peak-memory.html">14 Peak memory: do not hold it all</a></td></tr>
+      <tr><td>Text processing or a regex shows up in a profile</td><td><a href="15-strings-and-slices.html">15 Strings: slices and scanning</a>, <a href="16-regex-and-parsing.html">16 Regex and parsing</a></td></tr>
+      <tr><td>A list or page is janky when you scroll or type</td><td><a href="17-layout-thrashing.html">17 One frame, and layout thrashing</a>, <a href="19-dont-render-the-unseen.html">19 Do not render what nobody sees</a></td></tr>
+      <tr><td>A React screen re-renders too much</td><td><a href="20-react-re-renders.html">20 React re-renders</a></td></tr>
+      <tr><td>Spinners or transitions stutter or eat CPU</td><td><a href="21-smooth-animations.html">21 Smooth animations</a>, <a href="22-expensive-effects.html">22 Effects that cost a lot</a></td></tr>
+      <tr><td>The page freezes after a click, or is slow to open</td><td><a href="23-respond-to-clicks.html">23 Respond to clicks fast (INP)</a>, <a href="24-show-the-first-screen-sooner.html">24 Show the first screen sooner</a></td></tr>
+      <tr><td>tsc, tests or scripts are slow</td><td><a href="25-faster-scripts-and-tests.html">25 Faster scripts and tests</a>, <a href="26-faster-type-checking.html">26 Faster type checking</a></td></tr>
+      <tr><td>A hot loop is still slow after all of the above</td><td><a href="27-object-shapes.html">27 Object shapes and inline caches</a>, <a href="28-deopts-and-build-output.html">28 Deopts and what your build emits</a></td></tr>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="demos">
+    <h2 id="demos">Runnable demos</h2>
+    <p>Small Node scripts in the <code>demos/</code> folder next to this page. No packages needed. Run them from the course folder, for example <code>node demos/lookup.js</code>.</p>
+    <div class="table-wrap"><table class="plain">
+      <tr><th>Demo</th><th>Lessons</th></tr>
+      <tr><td><code>lookup</code></td><td>03, 07</td></tr>
+      <tr><td><code>stages and top-self</code></td><td>01, 02</td></tr>
+      <tr><td><code>spread-vs-push</code></td><td>08</td></tr>
+      <tr><td><code>serial-vs-parallel</code></td><td>10, 11</td></tr>
+      <tr><td><code>entries-vs-forin</code></td><td>12</td></tr>
+      <tr><td><code>date-format</code></td><td>05</td></tr>
+      <tr><td><code>yield</code></td><td>11, 23</td></tr>
+      <tr><td><code>shapes, ic-cliff, deopt</code></td><td>27, 28</td></tr>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="read">
+    <h2 id="read">Sources</h2>
+    <ul class="sources">
+      <li><a href="https://github.com/kurtextrem/awesome-performance-patches">kurtextrem/awesome-performance-patches</a>, README at commit <code>cfaa56c</code> (27 September 2026). 187 links were read; about 20 could not be fetched (mostly X/Twitter and Medium).</li>
+      <li>Researched and drafted with AI assistance from the linked sources, then reviewed by a human. Numbers come from those sources or from the demos in this folder.</li>
+      <li>Engine details change between versions. Re-check anything engine-specific on your own Node or browser version before relying on it.</li>
+    </ul>
+  </section>
+
+  <nav class="pager" aria-label="Lessons">
+    <span></span>
+    <a class="next" href="01-computing-or-waiting.html"><span>Start with</span>Is it computing or waiting?</a>
+  </nav>
+</main>
+</body>
+</html>

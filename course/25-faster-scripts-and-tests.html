@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 25: Faster scripts and tests</title>
+<style>
+/* course-v7: editorial, monochrome */
+:root {
+  color-scheme: light dark;
+  --c-bg: #ffffff;
+  --c-fg: #242424;
+  --c-muted: #6b6b6b;
+  --c-faint: #9a9a9a;
+  --c-line: #e8e8e8;
+  --c-card: #f7f7f7;
+  --c-code: #f5f5f4;
+  --c-accent: #2563d9;
+  --c-bad: #d93a3a;
+  --c-good: #1f9d55;
+  --c-warn: #d98a00;
+  --c-line-strong: #c9c9c9;
+  --c-radius: 8px;
+  --c-serif: Charter, "Bitstream Charter", "Iowan Old Style", "Sitka Text", Cambria, Georgia, serif;
+  --c-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --c-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --c-soft-accent: var(--c-card);
+  --c-soft-good: var(--c-card);
+  --c-soft-warn: var(--c-card);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #161616;
+    --c-fg: #e8e8e6;
+    --c-muted: #a3a3a0;
+    --c-faint: #767674;
+    --c-line: #2c2c2b;
+    --c-card: #1e1e1d;
+    --c-code: #1f1f1e;
+    --c-accent: #5b93ff;
+    --c-bad: #f25f5c;
+    --c-good: #3ccf7a;
+    --c-warn: #f5a524;
+    --c-line-strong: #4a4a48;
+  }
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--c-bg); }
+body { margin: 0; background: var(--c-bg); color: var(--c-fg); font: 20px/1.62 var(--c-serif); overflow-wrap: break-word; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+main { max-width: 704px; margin: 0 auto; padding: 0 24px 80px; }
+h1, h2, h3, p { margin: 0; }
+p + p, ul + p, ol + p, pre + p, .table-wrap + p { margin-top: 1.1em; }
+ul, ol { margin: 0.9em 0 0; padding-inline-start: 1.3em; }
+li { padding-inline-start: 0.2em; }
+li + li { margin-top: 0.45em; }
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; text-decoration-color: var(--c-faint); }
+a:hover { text-decoration-color: currentColor; }
+strong, b { font-weight: 700; }
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 3px; }
+
+/* Header */
+header { padding-top: 48px; }
+.kicker { font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+h1 { margin-top: 14px; font: 700 clamp(32px, 6vw, 42px)/1.18 var(--c-sans); letter-spacing: -0.018em; }
+.lede { margin-top: 14px; color: var(--c-muted); font-size: 1.1em; line-height: 1.5; }
+.lede + .lede { margin-top: 0.6em; }
+header .box { margin: 32px 0 0; padding: 0; border: 0; background: none; }
+header .box > strong:first-child { font: 700 16px/1.4 var(--c-sans); color: var(--c-fg); }
+header .box ul { margin-top: 8px; }
+
+/* In-page section nav (the app bar replaces it in the single-page build) */
+/* sticky-nav */
+html { scroll-padding-top: 72px; }
+nav.pills { position: sticky; top: 0; z-index: 20; display: flex; gap: 20px; margin: 36px -24px 0; padding: 14px 24px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; background: var(--c-bg); border-bottom: 1px solid var(--c-line); font: 500 14px/1.4 var(--c-sans); }
+nav.pills::-webkit-scrollbar { display: none; }
+nav.pills a { flex: none; color: var(--c-muted); text-decoration: none; }
+nav.pills a:hover { color: var(--c-fg); }
+
+/* Sections */
+section { margin-top: 56px; }
+h2 { margin-bottom: 14px; font: 700 26px/1.25 var(--c-sans); letter-spacing: -0.012em; }
+h3 { margin: 36px 0 10px; font: 700 19px/1.35 var(--c-sans); }
+section > h3.label { margin: 36px 0 8px; font: 700 18px/1.35 var(--c-sans); color: var(--c-fg); }
+section.concept > h2::before { content: none; }
+
+/* Boxes */
+.box { margin: 28px 0; padding: 18px 22px; border: 1px solid var(--c-line); border-radius: var(--c-radius); background: none; font-size: 0.92em; }
+.box > strong:first-child { display: block; margin-bottom: 6px; font: 700 15px/1.4 var(--c-sans); color: var(--c-fg); }
+.box ul { margin-top: 6px; }
+.box p + p, .box > p:first-of-type { margin-top: 0.5em; }
+.box pre { margin-top: 12px; }
+section .tldr { margin: 8px 0 28px; padding: 2px 0 2px 22px; border: 0; border-left: 3px solid var(--c-fg); border-radius: 0; font-size: 1em; }
+section .tldr > strong:first-child { margin-bottom: 4px; font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+section .tldr > b, section .tldr > p { display: block; font-size: 1.12em; line-height: 1.5; font-weight: 400; font-style: italic; }
+h3.label-watch + ul { list-style: disc; margin: 0; padding: 0 0 0 1.3em; background: none; }
+h3.label-watch + ul li { padding-inline-start: 0.2em; }
+h3.label-watch + ul li::before { content: none; }
+h3.label-evidence + p { padding: 0; background: none; box-shadow: none; }
+
+/* Figures */
+figure { margin: 36px 0; padding: 0; min-width: 0; border: 0; background: none; }
+figcaption { margin-top: 12px; color: var(--c-muted); font: 14px/1.5 var(--c-sans); text-align: center; }
+.figure-scroll { overflow: visible; }
+.figure-scroll > svg { min-width: 0; }
+svg { display: block; width: 100%; height: auto; margin-inline: auto; font-family: var(--c-sans); }
+svg text { fill: var(--c-fg); }
+svg .muted { fill: var(--c-muted); }
+svg .svg-bad { fill: var(--c-bad); }
+svg .svg-good { fill: var(--c-good); }
+svg .svg-warn { fill: var(--c-warn); }
+svg .svg-accent { fill: var(--c-accent); }
+svg .mono { font-family: var(--c-mono); }
+svg .on-color { fill: #ffffff; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; gap: 24px; margin-top: 12px; }
+.split > figure { margin-top: 0; }
+.scroll-hint { display: none; color: var(--c-muted); font: 14px var(--c-sans); }
+
+/* Code */
+code { font-family: var(--c-mono); font-size: 0.8em; padding: 0.12em 0.32em; border-radius: 4px; background: var(--c-code); }
+pre { margin: 24px 0 0; padding: 18px 20px; overflow: auto; border-radius: var(--c-radius); background: var(--c-code); font-size: 15px; line-height: 1.6; }
+pre code { padding: 0; background: none; font-size: inherit; }
+h2 code, h3 code { font-size: 0.85em; background: none; padding: 0; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin-top: 16px; }
+table { width: 100%; border-collapse: collapse; font: 16px/1.5 var(--c-sans); }
+th, td { text-align: left; vertical-align: top; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--c-line); }
+thead th, table > tr:first-child > th { color: var(--c-muted); font-weight: 500; font-size: 14px; }
+tbody th[scope="row"] { font-weight: 600; }
+td:first-child { font-weight: 400; }
+.bad { color: var(--c-bad); } .good { color: var(--c-good); } .warn { color: var(--c-warn); }
+
+/* Quick check */
+details { border-bottom: 1px solid var(--c-line); }
+details:first-of-type { border-top: 1px solid var(--c-line); }
+summary { position: relative; padding: 16px 36px 16px 0; cursor: pointer; list-style: none; font: 600 17px/1.45 var(--c-sans); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; position: absolute; right: 4px; top: 14px; color: var(--c-muted); font: 400 22px/1 var(--c-sans); }
+details[open] summary::after { content: "\2212"; }
+details > p, details > pre, details > ul { margin: 0 0 18px; }
+details > p + p { margin-top: 0.7em; }
+
+/* Sources */
+ul.sources { font-size: 0.9em; }
+ul.sources li + li { margin-top: 0.6em; }
+
+/* Pager */
+nav.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 72px 0 0; padding-top: 28px; border-top: 1px solid var(--c-line); font: 16px/1.4 var(--c-sans); }
+nav.pager > span:empty { display: block; }
+nav.pager a { display: block; padding: 14px 16px; border: 1px solid var(--c-line); border-radius: var(--c-radius); text-decoration: none; font-weight: 600; }
+nav.pager a:hover { border-color: var(--c-faint); }
+nav.pager a span { display: block; margin-bottom: 2px; color: var(--c-muted); font-size: 13px; font-weight: 400; }
+nav.pager .next { text-align: right; grid-column: 2; }
+nav.pager .home { grid-column: 1 / -1; grid-row: 2; padding: 4px 0; border: 0; color: var(--c-muted); font-weight: 400; text-align: center; }
+
+/* Desktop: keep diagram labels near body size and tall diagrams on one screen */
+@media (min-width: 681px) { figure > svg { max-width: min(100%, 500px) !important; max-height: 600px; } }
+
+@media (max-width: 680px) {
+  body { font-size: 17px; }
+  main { padding: 0 20px 64px; }
+  nav.pills { margin-inline: -20px; padding-inline: 20px; }
+  header { padding-top: 32px; }
+  h2 { font-size: 23px; }
+  section { margin-top: 48px; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  pre { margin-inline: -20px; border-radius: 0; padding: 16px 20px; font-size: 14px; }
+}
+@media (max-width: 480px) { .scroll-hint { display: block; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="kicker">TypeScript and tooling · Lesson 25 of 28 · about 10 minutes</p>
+    <h1>Faster scripts and tests</h1>
+    <p class="lede">A short command can spend most of its time loading files, and a small test can do extra work on the way to one check. You will learn to trim that work while keeping the command and the test doing their jobs.</p>
+    <div class="box tldr">
+      <strong>What you will learn</strong>
+      <ul>
+        <li>Move an import to the command that uses it.</li>
+        <li>Make a test search less of the page while keeping the same check.</li>
+        <li>Skip browser requests that the test can do without.</li>
+      </ul>
+    </div>
+  </header>
+
+  <nav class="pills" aria-label="On this page">
+    <a href="#l25-load">Load on demand</a>
+    <a href="#l25-test">Focus the test</a>
+    <a href="#l25-remember">Remember</a>
+    <a href="#l25-words">Glossary</a>
+    <a href="#l25-quiz">Quick check</a>
+    <a href="#l25-read">Read more</a>
+  </nav>
+
+  <section class="concept" aria-labelledby="l25-load">
+    <h2 id="l25-load">Why does a tiny command take so long to start?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      <b>Load each module when the command reaches the code that needs it.</b>
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>A notes tool exports plain text or a PDF. Each writer lives in a <strong>module</strong>, a file that provides code another file can use. When Node first loads a module, it finds the file, reads and runs it, and loads the other files it asks for.</p>
+    <p>Suppose the PDF writer loads two helper files and the text writer loads none. If the entry file loads both writers before it checks the format, a text export loads four files beyond the entry file. The load diagram marks the three that a text export can skip.</p>
+    <figure>
+      <svg viewBox="0 0 380 372" style="max-width: 560px" role="img" aria-labelledby="l25-load-title l25-load-desc">
+        <title id="l25-load-title">A text export skips the PDF writer and its helpers</title>
+        <desc id="l25-load-desc">Before, at the top, the entry file loads the PDF writer, which loads two helpers, and the entry file also loads the text writer. After, below, only the text writer is loaded for a text export.</desc>
+        <defs>
+          <marker id="l25-load-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 0L10 5L0 10Z" fill="var(--c-accent)"/>
+          </marker>
+        </defs>
+        <g fill="var(--c-card)" stroke="var(--c-line-strong)">
+          <rect x="125" y="34" width="130" height="36" rx="5"/>
+          <rect x="125" y="262" width="130" height="36" rx="5"/>
+        </g>
+        <g fill="var(--c-bad)">
+          <rect x="30" y="100" width="140" height="36" rx="5"/>
+          <rect x="20" y="166" width="90" height="36" rx="5"/>
+          <rect x="120" y="166" width="110" height="36" rx="5"/>
+        </g>
+        <g fill="var(--c-good)">
+          <rect x="210" y="100" width="140" height="36" rx="5"/>
+          <rect x="120" y="328" width="140" height="36" rx="5"/>
+        </g>
+        <path d="M8 232H372" stroke="var(--c-line-strong)" stroke-dasharray="4 4"/>
+        <g fill="none" stroke="var(--c-accent)" stroke-width="2" marker-end="url(#l25-load-arrow)">
+          <path d="M170 70L113 97"/>
+          <path d="M210 70L267 97"/>
+          <path d="M90 136L69 162"/>
+          <path d="M115 136L163 162"/>
+          <path d="M190 298V324"/>
+        </g>
+        <g font-size="14">
+          <text x="8" y="22" class="muted">Before</text>
+          <text x="8" y="252" class="muted">After</text>
+        </g>
+        <g font-size="14" text-anchor="middle">
+          <text x="190" y="57">Load both</text>
+          <text x="100" y="123" class="on-color">PDF writer</text>
+          <text x="280" y="123" class="on-color">Text writer</text>
+          <text x="65" y="189" class="on-color">Fonts</text>
+          <text x="175" y="189" class="on-color">Page layout</text>
+          <text x="190" y="285">Pick first</text>
+          <text x="190" y="351" class="on-color">Text writer</text>
+        </g>
+      </svg>
+      <figcaption>Follow the arrows for one text export. Red files load for no benefit to this run. The green writer produces the output.</figcaption>
+    </figure>
+    <p>If the PDF writer and its helpers pull in 30 more files, choosing the text writer first skips all 33. The text writer does the same work once it starts.</p>
+
+    <h3 class="label">The fix</h3>
+    <p>Read the format first and load the matching writer inside that branch. This is <strong>lazy loading</strong>, which means waiting until the code needs a file before loading it.</p>
+    <pre><code>// Before: both writers load on every run.
+const pdf = require('./pdf');
+const text = require('./text');
+const writer = format === 'pdf' ? pdf : text;
+writer.write(notes);
+
+// After: load only the chosen writer.
+if (format === 'pdf') require('./pdf').write(notes);
+else require('./text').write(notes);</code></pre>
+    <p>The same idea works in a VS Code extension, an add-on that runs inside the editor. An activation trigger such as <code>onLanguage:typescript</code> tells the editor to start the extension when a TypeScript file opens.</p>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>Check whether an import sets up anything both commands need. Keep shared setup where both commands run it.</li>
+      <li>Time each format with a fresh process, because the first use of the PDF writer still has to load its files.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>Delaying and narrowing module loads saved about 40 milliseconds per run in one benchmark of <code>npm run echo</code>.</p>
+  </section>
+
+  <section class="concept" aria-labelledby="l25-test">
+    <h2 id="l25-test">How much of the page does this test need?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      <b>Keep the checks that prove the behavior and cut setup or searching that adds nothing to them.</b>
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>A page has a note form and a settings form. Each has two text fields. A test checks for the textbox named Title inside the note form.</p>
+    <p><code>getByRole</code> looks for an element by its job, such as textbox. It can also match the <strong>accessible name</strong>, which is the name a screen reader would announce. The first diagram shows the candidates in the page's tree of elements, called the <strong>DOM</strong>.</p>
+    <figure>
+      <svg viewBox="0 0 380 286" style="max-width: 560px" role="img" aria-labelledby="l25-scope-title l25-scope-desc">
+        <title id="l25-scope-title">Scoping the textbox search to one form</title>
+        <desc id="l25-scope-desc">The page has two forms with two eligible textboxes each. A page search can consider all four. A note form search considers Title and Body only.</desc>
+        <rect x="8" y="32" width="364" height="244" rx="7" fill="none" stroke="var(--c-accent)" stroke-width="2"/>
+        <rect x="22" y="46" width="336" height="100" rx="5" fill="none" stroke="var(--c-good)" stroke-width="2"/>
+        <rect x="22" y="162" width="336" height="100" rx="5" fill="none" stroke="var(--c-bad)" stroke-width="2" stroke-dasharray="5 4"/>
+        <g fill="var(--c-card)" stroke="var(--c-line-strong)">
+          <rect x="38" y="86" width="148" height="40" rx="4"/>
+          <rect x="194" y="86" width="148" height="40" rx="4"/>
+          <rect x="38" y="202" width="148" height="40" rx="4"/>
+          <rect x="194" y="202" width="148" height="40" rx="4"/>
+        </g>
+        <g font-size="14">
+          <text x="190" y="22" text-anchor="middle" class="svg-accent">Whole page</text>
+          <text x="38" y="72" class="svg-good">Note form</text>
+          <text x="38" y="188" class="svg-bad">Settings form</text>
+        </g>
+        <g font-size="14" text-anchor="middle">
+          <text x="112" y="111">Title</text>
+          <text x="268" y="111">Body</text>
+          <text x="112" y="227">Name</text>
+          <text x="268" y="227">Email</text>
+        </g>
+      </svg>
+      <figcaption>The page search can consider all four boxes. The green form limits the search to two and leaves the red form outside it.</figcaption>
+    </figure>
+    <p>If each form grows to 50 fields, the scoped query has 50 textbox candidates instead of 100. It still checks the role and the name of the field it returns.</p>
+    <p>A browser test that checks whether Save adds a note also loads a preview image. Playwright usually waits for the page's <strong>load event</strong>, which fires after the page and its resources finish loading. If the image cannot affect Save, stopping its request can remove that wait, as the second diagram shows.</p>
+    <figure>
+      <svg viewBox="0 0 380 254" style="max-width: 560px" role="img" aria-labelledby="l25-net-title l25-net-desc">
+        <title id="l25-net-title">The preview image can hold up the load event</title>
+        <desc id="l25-net-desc">With the image, the load event follows the longer image request. When the test blocks that request before navigating, the page code still loads and the load event can happen earlier.</desc>
+        <defs>
+          <marker id="l25-time-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0 0L10 5L0 10Z" fill="var(--c-muted)"/>
+          </marker>
+        </defs>
+        <g fill="var(--c-good)">
+          <rect x="12" y="48" width="154" height="24" rx="4"/>
+          <rect x="12" y="176" width="154" height="24" rx="4"/>
+        </g>
+        <rect x="85" y="106" width="279" height="24" rx="4" fill="var(--c-bad)"/>
+        <g stroke="var(--c-accent)" stroke-width="2">
+          <path d="M364 30V138"/>
+          <path d="M166 162V208"/>
+        </g>
+        <path d="M12 222H366" fill="none" stroke="var(--c-muted)" marker-end="url(#l25-time-arrow)"/>
+        <g font-size="14">
+          <text x="12" y="40">Page code</text>
+          <text x="12" y="98">Preview image</text>
+          <text x="12" y="168">With image blocked</text>
+          <text x="356" y="22" text-anchor="end" class="svg-accent">Load event</text>
+          <text x="176" y="193" class="svg-accent">Load event</text>
+        </g>
+        <g font-size="13" class="muted">
+          <text x="12" y="242">Navigation starts</text>
+          <text x="372" y="242" text-anchor="end">Time</text>
+        </g>
+      </svg>
+      <figcaption>The red image request finishes after the green page code. When the request is blocked, the earlier vertical mark shows when the load event can fire.</figcaption>
+    </figure>
+
+    <h3 class="label">The fix</h3>
+    <p>Component tests usually run in Node with jsdom, a tool that imitates the browser's page structure (the DOM). Two small changes make these tests faster.</p>
+    <p>Use <code>within(noteForm)</code> to bind the query to the note form. In the browser test, use Playwright's <code>page.route()</code> to stop the preview request before the page loads.</p>
+    <pre><code>// Testing Library, before
+screen.getByRole('textbox', { name: 'Title' });
+// Testing Library, after
+within(noteForm).getByRole('textbox', { name: 'Title' });
+
+// Playwright, before navigation
+await page.route('**/previews/**', route =&gt; route.abort());
+// Both versions still navigate and check that Save works.
+await page.goto('/notes');</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>Search the whole page if the test should catch duplicate controls anywhere on the page.</li>
+      <li>Keep the image request if Save depends on it or the test checks how the image appears.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>Changes to how jsdom finds elements and handles events cut the run time of one large form test by about 40 percent.</p>
+  </section>
+
+  <section aria-labelledby="l25-remember">
+    <h2 id="l25-remember">Remember</h2>
+    <ul>
+      <li>Choose the command before you load the code unique to it.</li>
+      <li>Search the smallest area where the test should find the control.</li>
+      <li>Block a browser request only when you can still prove the same behavior.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="l25-words">
+    <h2 id="l25-words">Words used in this lesson</h2>
+    <div class="table-wrap">
+      <table>
+        <tr><th scope="col">Term</th><th scope="col">Plain meaning</th></tr>
+        <tr><th scope="row">Module</th><td>A file that provides code other files can use.</td></tr>
+        <tr><th scope="row">Lazy loading</th><td>The program waits until it needs code before it loads it.</td></tr>
+        <tr><th scope="row">DOM</th><td>The tree of elements that represents a page.</td></tr>
+        <tr><th scope="row">Accessible name</th><td>The name a screen reader uses for a control.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="l25-quiz">
+    <h2 id="l25-quiz">Quick check</h2>
+    <details>
+      <summary>What work does a text export skip when the PDF import moves?</summary>
+      <p>The text export never reaches the branch that loads the PDF writer. That skips the writer itself and every file it alone would have loaded.</p>
+    </details>
+    <details>
+      <summary>When should the title field test still search the whole page?</summary>
+      <p>Keep the whole-page query if the test should fail when two textboxes named Title appear anywhere. A form query only checks the candidates inside that form.</p>
+    </details>
+    <details>
+      <summary>Can a test of the preview image block its request?</summary>
+      <p>The test needs the request because it checks whether the image appears. Blocking that request makes the page take a different path from the one the test should cover.</p>
+    </details>
+  </section>
+
+  <section aria-labelledby="l25-read">
+    <h2 id="l25-read">Read more</h2>
+    <ul class="sources">
+      <li>See which module loads npm delayed in <a href="https://viniciusl.com.br/posts/2024/06/29-reducing-overhead-of-npm-run/">Reducing overhead of npm run</a>.</li>
+      <li>See how an editor add-on can start on demand in <a href="https://jason-williams.co.uk/posts/speeding-up-vscode-extensions-in-2022/">Speeding up VS Code extensions</a>.</li>
+      <li>See how jsdom cut repeated label searches in <a href="https://sigh.dev/posts/making-react-testing-library-faster/">Making React Testing Library tests faster</a>.</li>
+      <li>See a browser example in <a href="https://www.checklyhq.com/blog/speed-up-playwright-scripts-request-interception/">Playwright request interception</a>.</li>
+    </ul>
+  </section>
+
+  <nav class="pager" aria-label="Lessons">
+    <a class="prev" href="24-show-the-first-screen-sooner.html"><span>Previous</span>Show the first screen sooner</a>
+    <a class="home" href="00-start-here.html">All lessons</a>
+    <a class="next" href="26-faster-type-checking.html"><span>Next</span>Faster type checking</a>
+  </nav>
+</main>
+</body>
+</html>

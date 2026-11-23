@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 22: Effects that cost a lot</title>
+<style>
+/* course-v7: editorial, monochrome */
+:root {
+  color-scheme: light dark;
+  --c-bg: #ffffff;
+  --c-fg: #242424;
+  --c-muted: #6b6b6b;
+  --c-faint: #9a9a9a;
+  --c-line: #e8e8e8;
+  --c-card: #f7f7f7;
+  --c-code: #f5f5f4;
+  --c-accent: #2563d9;
+  --c-bad: #d93a3a;
+  --c-good: #1f9d55;
+  --c-warn: #d98a00;
+  --c-line-strong: #c9c9c9;
+  --c-radius: 8px;
+  --c-serif: Charter, "Bitstream Charter", "Iowan Old Style", "Sitka Text", Cambria, Georgia, serif;
+  --c-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --c-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --c-soft-accent: var(--c-card);
+  --c-soft-good: var(--c-card);
+  --c-soft-warn: var(--c-card);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #161616;
+    --c-fg: #e8e8e6;
+    --c-muted: #a3a3a0;
+    --c-faint: #767674;
+    --c-line: #2c2c2b;
+    --c-card: #1e1e1d;
+    --c-code: #1f1f1e;
+    --c-accent: #5b93ff;
+    --c-bad: #f25f5c;
+    --c-good: #3ccf7a;
+    --c-warn: #f5a524;
+    --c-line-strong: #4a4a48;
+  }
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--c-bg); }
+body { margin: 0; background: var(--c-bg); color: var(--c-fg); font: 20px/1.62 var(--c-serif); overflow-wrap: break-word; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+main { max-width: 704px; margin: 0 auto; padding: 0 24px 80px; }
+h1, h2, h3, p { margin: 0; }
+p + p, ul + p, ol + p, pre + p, .table-wrap + p { margin-top: 1.1em; }
+ul, ol { margin: 0.9em 0 0; padding-inline-start: 1.3em; }
+li { padding-inline-start: 0.2em; }
+li + li { margin-top: 0.45em; }
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; text-decoration-color: var(--c-faint); }
+a:hover { text-decoration-color: currentColor; }
+strong, b { font-weight: 700; }
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 3px; }
+
+/* Header */
+header { padding-top: 48px; }
+.kicker { font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+h1 { margin-top: 14px; font: 700 clamp(32px, 6vw, 42px)/1.18 var(--c-sans); letter-spacing: -0.018em; }
+.lede { margin-top: 14px; color: var(--c-muted); font-size: 1.1em; line-height: 1.5; }
+.lede + .lede { margin-top: 0.6em; }
+header .box { margin: 32px 0 0; padding: 0; border: 0; background: none; }
+header .box > strong:first-child { font: 700 16px/1.4 var(--c-sans); color: var(--c-fg); }
+header .box ul { margin-top: 8px; }
+
+/* In-page section nav (the app bar replaces it in the single-page build) */
+/* sticky-nav */
+html { scroll-padding-top: 72px; }
+nav.pills { position: sticky; top: 0; z-index: 20; display: flex; gap: 20px; margin: 36px -24px 0; padding: 14px 24px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; background: var(--c-bg); border-bottom: 1px solid var(--c-line); font: 500 14px/1.4 var(--c-sans); }
+nav.pills::-webkit-scrollbar { display: none; }
+nav.pills a { flex: none; color: var(--c-muted); text-decoration: none; }
+nav.pills a:hover { color: var(--c-fg); }
+
+/* Sections */
+section { margin-top: 56px; }
+h2 { margin-bottom: 14px; font: 700 26px/1.25 var(--c-sans); letter-spacing: -0.012em; }
+h3 { margin: 36px 0 10px; font: 700 19px/1.35 var(--c-sans); }
+section > h3.label { margin: 36px 0 8px; font: 700 18px/1.35 var(--c-sans); color: var(--c-fg); }
+section.concept > h2::before { content: none; }
+
+/* Boxes */
+.box { margin: 28px 0; padding: 18px 22px; border: 1px solid var(--c-line); border-radius: var(--c-radius); background: none; font-size: 0.92em; }
+.box > strong:first-child { display: block; margin-bottom: 6px; font: 700 15px/1.4 var(--c-sans); color: var(--c-fg); }
+.box ul { margin-top: 6px; }
+.box p + p, .box > p:first-of-type { margin-top: 0.5em; }
+.box pre { margin-top: 12px; }
+section .tldr { margin: 8px 0 28px; padding: 2px 0 2px 22px; border: 0; border-left: 3px solid var(--c-fg); border-radius: 0; font-size: 1em; }
+section .tldr > strong:first-child { margin-bottom: 4px; font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+section .tldr > b, section .tldr > p { display: block; font-size: 1.12em; line-height: 1.5; font-weight: 400; font-style: italic; }
+h3.label-watch + ul { list-style: disc; margin: 0; padding: 0 0 0 1.3em; background: none; }
+h3.label-watch + ul li { padding-inline-start: 0.2em; }
+h3.label-watch + ul li::before { content: none; }
+h3.label-evidence + p { padding: 0; background: none; box-shadow: none; }
+
+/* Figures */
+figure { margin: 36px 0; padding: 0; min-width: 0; border: 0; background: none; }
+figcaption { margin-top: 12px; color: var(--c-muted); font: 14px/1.5 var(--c-sans); text-align: center; }
+.figure-scroll { overflow: visible; }
+.figure-scroll > svg { min-width: 0; }
+svg { display: block; width: 100%; height: auto; margin-inline: auto; font-family: var(--c-sans); }
+svg text { fill: var(--c-fg); }
+svg .muted { fill: var(--c-muted); }
+svg .svg-bad { fill: var(--c-bad); }
+svg .svg-good { fill: var(--c-good); }
+svg .svg-warn { fill: var(--c-warn); }
+svg .svg-accent { fill: var(--c-accent); }
+svg .mono { font-family: var(--c-mono); }
+svg .on-color { fill: #ffffff; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; gap: 24px; margin-top: 12px; }
+.split > figure { margin-top: 0; }
+.scroll-hint { display: none; color: var(--c-muted); font: 14px var(--c-sans); }
+
+/* Code */
+code { font-family: var(--c-mono); font-size: 0.8em; padding: 0.12em 0.32em; border-radius: 4px; background: var(--c-code); }
+pre { margin: 24px 0 0; padding: 18px 20px; overflow: auto; border-radius: var(--c-radius); background: var(--c-code); font-size: 15px; line-height: 1.6; }
+pre code { padding: 0; background: none; font-size: inherit; }
+h2 code, h3 code { font-size: 0.85em; background: none; padding: 0; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin-top: 16px; }
+table { width: 100%; border-collapse: collapse; font: 16px/1.5 var(--c-sans); }
+th, td { text-align: left; vertical-align: top; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--c-line); }
+thead th, table > tr:first-child > th { color: var(--c-muted); font-weight: 500; font-size: 14px; }
+tbody th[scope="row"] { font-weight: 600; }
+td:first-child { font-weight: 400; }
+.bad { color: var(--c-bad); } .good { color: var(--c-good); } .warn { color: var(--c-warn); }
+
+/* Quick check */
+details { border-bottom: 1px solid var(--c-line); }
+details:first-of-type { border-top: 1px solid var(--c-line); }
+summary { position: relative; padding: 16px 36px 16px 0; cursor: pointer; list-style: none; font: 600 17px/1.45 var(--c-sans); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; position: absolute; right: 4px; top: 14px; color: var(--c-muted); font: 400 22px/1 var(--c-sans); }
+details[open] summary::after { content: "\2212"; }
+details > p, details > pre, details > ul { margin: 0 0 18px; }
+details > p + p { margin-top: 0.7em; }
+
+/* Sources */
+ul.sources { font-size: 0.9em; }
+ul.sources li + li { margin-top: 0.6em; }
+
+/* Pager */
+nav.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 72px 0 0; padding-top: 28px; border-top: 1px solid var(--c-line); font: 16px/1.4 var(--c-sans); }
+nav.pager > span:empty { display: block; }
+nav.pager a { display: block; padding: 14px 16px; border: 1px solid var(--c-line); border-radius: var(--c-radius); text-decoration: none; font-weight: 600; }
+nav.pager a:hover { border-color: var(--c-faint); }
+nav.pager a span { display: block; margin-bottom: 2px; color: var(--c-muted); font-size: 13px; font-weight: 400; }
+nav.pager .next { text-align: right; grid-column: 2; }
+nav.pager .home { grid-column: 1 / -1; grid-row: 2; padding: 4px 0; border: 0; color: var(--c-muted); font-weight: 400; text-align: center; }
+
+/* Desktop: keep diagram labels near body size and tall diagrams on one screen */
+@media (min-width: 681px) { figure > svg { max-width: min(100%, 500px) !important; max-height: 600px; } }
+
+@media (max-width: 680px) {
+  body { font-size: 17px; }
+  main { padding: 0 20px 64px; }
+  nav.pills { margin-inline: -20px; padding-inline: 20px; }
+  header { padding-top: 32px; }
+  h2 { font-size: 23px; }
+  section { margin-top: 48px; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  pre { margin-inline: -20px; border-radius: 0; padding: 16px 20px; font-size: 14px; }
+}
+@media (max-width: 480px) { .scroll-hint { display: block; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="kicker">Animations · Lesson 22 of 28 · about 10 minutes</p>
+    <h1>Effects that cost a lot</h1>
+    <p class="lede">Shadows and blurs look simple, but animating them makes the browser draw new pixels on every frame. After this lesson you can fade a fixed effect instead, and estimate what the extra layers cost in memory.</p>
+
+    <div class="box tldr">
+      <strong>What you will learn</strong>
+      <ul>
+        <li>Why animating a shadow or blur repaints every frame, and how fading a fixed copy avoids it.</li>
+        <li>How a cross-fade between pre-blurred copies works.</li>
+        <li>How to estimate layer memory, and why many cheap animations still cost CPU.</li>
+      </ul>
+    </div>
+
+  </header>
+
+  <nav class="pills" aria-label="On this page">
+      <a href="#s1">1 Shadows</a>
+      <a href="#s2">2 Blur</a>
+      <a href="#s3">3 Layers and counts</a>
+      <a href="#remember">Remember</a>
+      <a href="#words">Words</a>
+      <a href="#quiz">Quick check</a>
+      <a href="#read">Read more</a>
+    </nav>
+
+
+  <section class="concept" aria-labelledby="s1">
+    <h2 id="s1">Why is animating a shadow slow?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      Every new shadow size has to be painted from scratch, so paint one fixed shadow and fade it in with opacity.
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>A card lifts on hover: its shadow grows from nothing to a soft 24 px edge over 300 ms. At 60 Hz that is 18 frames (lesson 21). Each frame has a different shadow, so the browser must paint it again. Painting here means working out the soft edge and turning it into pixels, which is called <strong>rasterising</strong>.</p>
+    <p>Now paint the full shadow once, on a separate box behind the card, and change only that box's opacity. Opacity is applied when layers are stacked, so the stored shadow pixels are reused. In the diagram, each red cell is a paint and each green cell is a cheap blend. The top row paints 18 times; the bottom row paints once.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 212" style="max-width: 560px" role="img" aria-labelledby="l22-paint-title l22-paint-desc">
+        <title id="l22-paint-title">Growing a shadow paints 18 times; fading a fixed shadow paints once</title>
+        <desc id="l22-paint-desc">A 300 ms hover at 60 Hz has 18 frames. Growing the shadow paints new pixels in all 18 frames. Fading a fixed shadow paints once, then blends the stored pixels in the other 17 frames.</desc>
+        <defs>
+          <pattern id="l22-paint-red" x="18" y="34" width="18" height="24" patternUnits="userSpaceOnUse">
+            <rect width="15" height="24" rx="2" fill="var(--c-bad)"/>
+          </pattern>
+          <pattern id="l22-paint-green" x="18" y="98" width="18" height="24" patternUnits="userSpaceOnUse">
+            <rect width="15" height="24" rx="2" fill="var(--c-good)"/>
+          </pattern>
+        </defs>
+        <g font-size="14">
+          <text x="18" y="23" font-weight="600">Grow shadow</text>
+          <text x="339" y="23" text-anchor="end">18 paints</text>
+          <text x="18" y="87" font-weight="600">Fade shadow</text>
+          <text x="339" y="87" text-anchor="end">1 paint, 17 blends</text>
+        </g>
+        <rect x="18" y="34" width="321" height="24" fill="url(#l22-paint-red)"/>
+        <rect x="18" y="98" width="15" height="24" rx="2" fill="var(--c-bad)"/>
+        <rect x="36" y="98" width="303" height="24" fill="url(#l22-paint-green)"/>
+        <path d="M18 134H339M18 130V138M339 130V138" stroke="var(--c-line-strong, var(--c-muted))"/>
+        <g font-size="13" class="muted">
+          <text x="18" y="154">0 ms</text>
+          <text x="339" y="154" text-anchor="end">300 ms</text>
+        </g>
+        <rect x="18" y="180" width="12" height="12" rx="2" fill="var(--c-bad)"/>
+        <rect x="182" y="180" width="12" height="12" rx="2" fill="var(--c-good)"/>
+        <g font-size="14">
+          <text x="37" y="191">Paint new pixels</text>
+          <text x="201" y="191">Blend stored pixels</text>
+        </g>
+      </svg>
+      <figcaption>Each cell is one 16.7 ms frame. Red cells redraw the shadow; green cells reuse it.</figcaption>
+    </figure>
+
+    <h3 class="label">The fix</h3>
+    <p>Put the shadow on <code>::after</code>, a box that CSS generates for you. Keep the shadow itself fixed and transition only its opacity.</p>
+<pre><code>/* Before: a new shadow is painted on every frame */
+.card { transition: box-shadow 300ms; }
+.card:hover { box-shadow: 0 8px 24px #0004; }
+/* After: one fixed shadow, only its opacity changes */
+.card { position: relative; }
+.card::after { content: ""; position: absolute; inset: 0;
+  border-radius: inherit; pointer-events: none;
+  box-shadow: 0 8px 24px #0004; opacity: 0; transition: opacity 300ms; }
+.card:hover::after { opacity: 1; }</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>The <code>::after</code> box may get its own layer while it fades, which costs memory (section 3).</li>
+      <li>The Motion guide lists <code>filter: drop-shadow()</code> as a swap for animating <code>box-shadow</code>. Check either choice with Paint flashing.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>None of the sources measured this exact case, so treat it as a rule of thumb. The Motion guide ranks <code>box-shadow</code> as paint-only: cheaper than layout, dearer than transform and opacity.</p>
+  </section>
+
+  <section class="concept" aria-labelledby="s2">
+    <h2 id="s2">Why is a blur so expensive, and how do you fade one in?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      A blur mixes every pixel with its neighbours, so blur a few fixed copies once and cross-fade between them with opacity.
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>To blur, each output pixel becomes an average of the pixels around it. The <strong>blur radius</strong> says how far around it looks. With a radius of 4 px, a simple blur reads a 9 by 9 square, which is 81 pixels, for every pixel. At 8 px it reads 17 by 17, which is 289. Real blurs take shortcuts, but the cost still grows with the radius and the area.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 257" style="max-width: 560px" role="img" aria-labelledby="l22-kernel-title l22-kernel-desc">
+        <title id="l22-kernel-title">Pixels mixed for one output pixel at radius 4 and radius 8</title>
+        <desc id="l22-kernel-desc">At radius 4 px, one output pixel mixes a 9 by 9 square, 81 pixels. At radius 8 px it mixes a 17 by 17 square, 289 pixels, about 3.6 times as many.</desc>
+        <defs>
+          <pattern id="l22-kernel-grid" x="20" y="38" width="8" height="8" patternUnits="userSpaceOnUse">
+            <path d="M8 0H0V8" fill="none" stroke="var(--c-line-strong, var(--c-muted))" stroke-width="1"/>
+          </pattern>
+          <pattern id="l22-kernel-mixed" x="20" y="38" width="8" height="8" patternUnits="userSpaceOnUse">
+            <rect x="0.5" y="0.5" width="7" height="7" fill="var(--c-bad)"/>
+          </pattern>
+        </defs>
+        <g fill="var(--c-card)" stroke="var(--c-line-strong, var(--c-muted))">
+          <rect x="20" y="38" width="136" height="136"/>
+          <rect x="204" y="38" width="136" height="136"/>
+        </g>
+        <rect x="20" y="38" width="136" height="136" fill="url(#l22-kernel-grid)"/>
+        <rect x="52" y="70" width="72" height="72" fill="url(#l22-kernel-mixed)"/>
+        <rect x="204" y="38" width="136" height="136" fill="url(#l22-kernel-mixed)"/>
+        <g fill="var(--c-accent)">
+          <rect x="84" y="102" width="8" height="8"/>
+          <rect x="268" y="102" width="8" height="8"/>
+          <rect x="20" y="225" width="12" height="12" rx="2"/>
+        </g>
+        <rect x="204" y="225" width="12" height="12" rx="2" fill="var(--c-bad)"/>
+        <g font-size="14" text-anchor="middle">
+          <text x="88" y="25" font-weight="600">Radius 4 px</text>
+          <text x="272" y="25" font-weight="600">Radius 8 px</text>
+          <text x="88" y="198">9 × 9 = 81 pixels</text>
+          <text x="272" y="198">17 × 17 = 289 pixels</text>
+        </g>
+        <g font-size="14">
+          <text x="39" y="236">Output pixel</text>
+          <text x="223" y="236">Pixels it mixes</text>
+        </g>
+      </svg>
+      <figcaption>Illustrative, for a simple square blur. Doubling the radius makes each pixel mix about 3.6 times as many neighbours.</figcaption>
+    </figure>
+
+    <p>Now animate a backdrop's blur from 0 to 8 px over 300 ms. Every frame has a new radius, so every pixel of the backdrop is blurred again, 18 times. The cheaper way is a <strong>cross-fade</strong>, which blends one picture out while another comes in. Keep a sharp copy, a 2 px copy and an 8 px copy, each blurred once, and change only opacity. In the diagram, each pair of lines crosses at a 50/50 mix, so the blur seems to grow smoothly.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 252" style="max-width: 560px" role="img" aria-labelledby="l22-fade-title l22-fade-desc">
+        <title id="l22-fade-title">Cross-fading a sharp, a 2 px and an 8 px copy over 300 ms</title>
+        <desc id="l22-fade-desc">The sharp copy's share falls from 100 to 0 percent over the first 150 ms while the 2 px copy rises to 100 percent. Over the next 150 ms the 2 px copy falls to 0 and the 8 px copy rises to 100 percent. The lines cross at 50 percent at 75 ms and 225 ms.</desc>
+        <text x="12" y="20" font-size="14">Share of what you see</text>
+        <path d="M52 43V173H326M52 108H326" fill="none" stroke="var(--c-line-strong, var(--c-muted))" stroke-dasharray="3 4"/>
+        <g font-size="13" class="muted" text-anchor="end">
+          <text x="45" y="48">100%</text>
+          <text x="45" y="113">50%</text>
+          <text x="45" y="178">0%</text>
+        </g>
+        <g fill="none" stroke-width="2.5">
+          <path d="M52 43L189 173" stroke="var(--c-line-strong, var(--c-muted))"/>
+          <path d="M52 173L189 43L326 173" stroke="var(--c-accent)"/>
+          <path d="M189 173L326 43" stroke="var(--c-good)"/>
+        </g>
+        <g fill="var(--c-card)" stroke="var(--c-line-strong, var(--c-muted))" stroke-width="2">
+          <circle cx="120.5" cy="108" r="5"/>
+          <circle cx="257.5" cy="108" r="5"/>
+        </g>
+        <g font-size="13" class="muted" text-anchor="middle">
+          <text x="52" y="194">0</text>
+          <text x="189" y="194">150</text>
+          <text x="326" y="194">300 ms</text>
+        </g>
+        <rect x="18" y="222" width="12" height="12" rx="2" fill="var(--c-line-strong, var(--c-muted))"/>
+        <rect x="116" y="222" width="12" height="12" rx="2" fill="var(--c-accent)"/>
+        <rect x="240" y="222" width="12" height="12" rx="2" fill="var(--c-good)"/>
+        <g font-size="14">
+          <text x="37" y="233">Sharp</text>
+          <text x="135" y="233">2 px copy</text>
+          <text x="259" y="233">8 px copy</text>
+        </g>
+      </svg>
+      <figcaption>Only opacity changes, so no copy is blurred again. The circles mark the moments when two copies are mixed half and half.</figcaption>
+    </figure>
+
+    <h3 class="label">The fix</h3>
+    <p>Stack the copies, promote their shared wrapper to a layer, and transition opacity in turn. Each copy on top hides the one below as it fades in, which gives the crossing lines above.</p>
+<pre><code>/* Before: the blur radius changes on every frame */
+.backdrop { transition: filter 300ms; }
+.dim .backdrop { filter: blur(8px); }
+/* After: blurred once, only opacity changes */
+.stack { will-change: transform; }  /* promote the wrapper */
+.copy-2 { filter: blur(2px); } .copy-8 { filter: blur(8px); }
+.copy-2, .copy-8 { opacity: 0; transition: opacity 150ms; }
+.dim .copy-2 { opacity: 1; }
+.dim .copy-8 { opacity: 1; transition-delay: 150ms; }</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>This only works for content that does not change, because each copy is blurred once. For live content, a plain translucent tint may be enough.</li>
+      <li>Every copy is another full-size layer. Start with one blurred copy and add levels only if the fade looks wrong.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>In the blur article, four cross-faded copies held a steady 60 frames per second, even on a low-end phone.</p>
+  </section>
+
+  <section class="concept" aria-labelledby="s3">
+    <h2 id="s3">What do layers and many small animations cost?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      A layer costs about 4 bytes of memory per device pixel, and every running animation costs CPU on every frame, so keep both counts small.
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>A <strong>layer</strong> is a piece of the page stored as its own picture, so it can be moved or faded without painting again. That picture needs memory, often on the graphics card (GPU). A rough estimate is width times height in device pixels, times 4 bytes, one each for red, green, blue and transparency.</p>
+    <p><strong>Device pixels</strong> are the screen's real dots. On a high-density screen with 2 device pixels per CSS pixel, a 300 by 200 card becomes 600 by 400. That is 240,000 pixels, or about 1 MB. A full-screen 1440 by 900 backdrop becomes 2880 by 1800, about 21 MB. The three blur copies from section 2 are about 62 MB.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 226" style="max-width: 560px" role="img" aria-labelledby="l22-mem-title l22-mem-desc">
+        <title id="l22-mem-title">Estimated memory for three layer sizes</title>
+        <desc id="l22-mem-desc">At 2 device pixels per CSS pixel and 4 bytes per pixel: a 300 by 200 card is about 1 MB, one full-screen 1440 by 900 layer is about 21 MB, and three full-screen copies are about 62 MB.</desc>
+        <g font-size="14" font-weight="600">
+          <text x="12" y="22">Card, 300 by 200</text>
+          <text x="12" y="83">Full-screen layer</text>
+          <text x="12" y="144">3 full-screen copies</text>
+        </g>
+        <rect x="12" y="31" width="4.5" height="18" rx="2" fill="var(--c-good)"/>
+        <rect x="12" y="92" width="94.8" height="18" rx="3" fill="var(--c-accent)"/>
+        <rect x="12" y="153" width="280" height="18" rx="3" fill="var(--c-bad)"/>
+        <g font-size="14">
+          <text x="26" y="45">1 MB</text>
+          <text x="116" y="106">21 MB</text>
+          <text x="302" y="167">62 MB</text>
+        </g>
+        <path d="M12 183H292M12 178V188" stroke="var(--c-line-strong, var(--c-muted))"/>
+        <text x="12" y="204" font-size="13" class="muted">0 MB</text>
+      </svg>
+      <figcaption>Estimated pixel storage on a shared scale, at 2 device pixels per CSS pixel and 4 bytes per device pixel. Real layer memory varies by browser and device.</figcaption>
+    </figure>
+
+    <p>Animation count is a separate cost, paid in CPU instead of memory. Even a cheap opacity animation needs a new value on every frame. One spinner with 25 pulsing dots runs 25 animations, so 20 spinners run 500, as the grid shows.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 511" style="max-width: 560px" role="img" aria-labelledby="l22-count-title l22-count-desc">
+        <title id="l22-count-title">500 dot animations versus 20 animated images</title>
+        <desc id="l22-count-desc">Top: 20 spinners each have 25 dots running their own animations, 500 animations in total. Bottom: 20 spinners each play one pre-made animated image. No CSS animations run, but 20 images must be decoded as they play.</desc>
+        <defs>
+          <pattern id="l22-count-dots" x="36" y="42" width="7" height="7" patternUnits="userSpaceOnUse">
+            <circle cx="3.5" cy="3.5" r="2" fill="var(--c-bad)"/>
+          </pattern>
+          <rect id="l22-count-tile" width="35" height="35" rx="3"/>
+          <g id="l22-count-tiles">
+            <use href="#l22-count-tile" x="36"/><use href="#l22-count-tile" x="99"/>
+            <use href="#l22-count-tile" x="162"/><use href="#l22-count-tile" x="225"/>
+            <use href="#l22-count-tile" x="288"/>
+          </g>
+          <g id="l22-count-images">
+            <circle cx="53.5" cy="17.5" r="9"/><circle cx="116.5" cy="17.5" r="9"/>
+            <circle cx="179.5" cy="17.5" r="9"/><circle cx="242.5" cy="17.5" r="9"/>
+            <circle cx="305.5" cy="17.5" r="9"/>
+          </g>
+        </defs>
+        <g font-size="14" text-anchor="middle" font-weight="600">
+          <text x="180" y="24">25 dots per spinner</text>
+          <text x="180" y="270">One image per spinner</text>
+        </g>
+        <g fill="var(--c-card)" stroke="var(--c-line-strong, var(--c-muted))">
+          <use href="#l22-count-tiles" y="42"/><use href="#l22-count-tiles" y="84"/>
+          <use href="#l22-count-tiles" y="126"/><use href="#l22-count-tiles" y="168"/>
+          <use href="#l22-count-tiles" y="287"/><use href="#l22-count-tiles" y="329"/>
+          <use href="#l22-count-tiles" y="371"/><use href="#l22-count-tiles" y="413"/>
+        </g>
+        <g fill="url(#l22-count-dots)">
+          <use href="#l22-count-tiles" y="42"/><use href="#l22-count-tiles" y="84"/>
+          <use href="#l22-count-tiles" y="126"/><use href="#l22-count-tiles" y="168"/>
+        </g>
+        <g fill="none" stroke="var(--c-good)" stroke-width="2">
+          <use href="#l22-count-images" y="287"/><use href="#l22-count-images" y="329"/>
+          <use href="#l22-count-images" y="371"/><use href="#l22-count-images" y="413"/>
+        </g>
+        <g font-size="14" text-anchor="middle">
+          <text x="180" y="228">500 animations per frame</text>
+          <text x="180" y="474">0 CSS animations</text>
+          <text x="180" y="494">20 images to decode</text>
+        </g>
+      </svg>
+      <figcaption>Each square is one spinner. Each red dot is one running animation; each green ring is one image playing the whole effect.</figcaption>
+    </figure>
+
+    <h3 class="label">The fix</h3>
+    <p>Promote an element to a layer only while it moves, and replace many tiny animations with one pre-made animated image per spinner.</p>
+<pre><code>/* Before: a permanent layer on every card */
+.card { will-change: transform; }
+/* After: a layer only while it is dragged */
+.card.dragging { will-change: transform; }
+
+/* Before: 25 animations per spinner */
+.spinner .dot { animation: pulse 1.2s infinite; }
+/* After: one animated image, tinted with the text colour */
+.spinner { mask-image: url(spinner.apng); background: currentColor; }</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>Rotating one wrapper is cheaper still, but it changes the look: the dots spin together instead of pulsing in turn.</li>
+      <li>An animated image still has to be decoded as it plays, and it needs a build step. Respect reduced-motion settings in both versions.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>With 20 spinners on screen, switching to one animated image each cut total CPU use by about three quarters.</p>
+  </section>
+
+  <div class="box try">
+    <strong>Try it (2 min)</strong>
+    <p>In Chrome DevTools, open the Rendering panel and turn on Paint flashing. Hover a card whose shadow grows, then one that fades a fixed shadow: the first flashes green on every frame. Then open the Layers panel, pick a layer, and compare its memory estimate with width times height times 4.</p>
+  </div>
+
+  <section aria-labelledby="remember">
+    <h2 id="remember">Remember</h2>
+    <ul>
+      <li>Animating a shadow or blur repaints every frame. Paint the effect once and fade it with opacity.</li>
+      <li>For a blur, cross-fade a few pre-blurred copies, and only for content that does not change.</li>
+      <li>Layers cost about 4 bytes per device pixel, and animations cost CPU on every frame. Count both.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="words">
+    <h2 id="words">Words used in this lesson</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Term</th><th>Plain meaning</th></tr>
+      <tr><td>Rasterise</td><td>Turn drawing instructions, such as a soft shadow edge, into actual pixels.</td></tr>
+      <tr><td>Blur radius</td><td>How far around each pixel a blur looks when it mixes neighbours.</td></tr>
+      <tr><td>Cross-fade</td><td>Blending one picture out while another fades in, using only opacity.</td></tr>
+      <tr><td>Layer</td><td>A piece of the page stored as its own picture, so it can move or fade without a new paint.</td></tr>
+      <tr><td>Device pixel</td><td>One real dot on the screen. High-density screens use several per CSS pixel.</td></tr>
+      <tr><td><code>will-change</code></td><td>A CSS hint that an element is about to animate, which often gives it its own layer.</td></tr>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="quiz">
+    <h2 id="quiz">Quick check</h2>
+    <details><summary>Why does fading a fixed shadow cost less than growing it?</summary><p>A growing shadow has new pixels on every frame, so paint runs 18 times in 300 ms. A fixed shadow is painted once. Fading it only changes how strongly the stored pixels are blended, which happens when layers are stacked.</p></details>
+    <details><summary>Estimate the memory of one full-screen 1440 by 900 layer on a screen with 2 device pixels per CSS pixel.</summary><p>That is 2880 by 1800 device pixels, about 5.2 million. At 4 bytes each it is about 21 MB. Three such copies would be about 62 MB, which is why you start with one copy.</p></details>
+    <details><summary>500 opacity animations are all the cheap kind. Why can they still be slow?</summary><p>Cheap per animation is not free. The browser still works out 500 new values on every frame, which costs CPU. Memory and CPU are separate budgets, so check both.</p></details>
+  </section>
+
+  <section aria-labelledby="read">
+    <h2 id="read">Read more</h2>
+    <ul class="sources">
+      <li><a href="https://developer.chrome.com/blog/animated-blur/">Animating a blur</a>: blurred copies at 1, 2, 4 and 8 px, cross-faded with opacity.</li>
+      <li><a href="https://www.sitepoint.com/css-box-shadow-animation-performance/">CSS box shadows and performance</a>: the list's link on animating shadows (not checked for this course).</li>
+      <li><a href="https://github.com/anomalyco/opencode/pull/42952">opencode PR #42952</a>: 500 dot animations replaced by one animated image per spinner.</li>
+      <li><a href="https://motion.dev/guides/performance">Animation performance (Motion)</a>: paint-only properties, and why <code>will-change</code> costs memory.</li>
+    </ul>
+  </section>
+
+  <nav class="pager" aria-label="Lessons">
+    <a class="prev" href="21-smooth-animations.html"><span>Previous</span>Smooth animations</a>
+    <a class="home" href="00-start-here.html">All lessons</a>
+    <a class="next" href="23-respond-to-clicks.html"><span>Next</span>Respond to clicks fast (INP)</a>
+  </nav>
+</main>
+</body>
+</html>

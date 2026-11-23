@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 20: React re-renders</title>
+<style>
+/* course-v7: editorial, monochrome */
+:root {
+  color-scheme: light dark;
+  --c-bg: #ffffff;
+  --c-fg: #242424;
+  --c-muted: #6b6b6b;
+  --c-faint: #9a9a9a;
+  --c-line: #e8e8e8;
+  --c-card: #f7f7f7;
+  --c-code: #f5f5f4;
+  --c-accent: #2563d9;
+  --c-bad: #d93a3a;
+  --c-good: #1f9d55;
+  --c-warn: #d98a00;
+  --c-line-strong: #c9c9c9;
+  --c-radius: 8px;
+  --c-serif: Charter, "Bitstream Charter", "Iowan Old Style", "Sitka Text", Cambria, Georgia, serif;
+  --c-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --c-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --c-soft-accent: var(--c-card);
+  --c-soft-good: var(--c-card);
+  --c-soft-warn: var(--c-card);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #161616;
+    --c-fg: #e8e8e6;
+    --c-muted: #a3a3a0;
+    --c-faint: #767674;
+    --c-line: #2c2c2b;
+    --c-card: #1e1e1d;
+    --c-code: #1f1f1e;
+    --c-accent: #5b93ff;
+    --c-bad: #f25f5c;
+    --c-good: #3ccf7a;
+    --c-warn: #f5a524;
+    --c-line-strong: #4a4a48;
+  }
+}
+
+/* Base */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--c-bg); }
+body { margin: 0; background: var(--c-bg); color: var(--c-fg); font: 20px/1.62 var(--c-serif); overflow-wrap: break-word; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+main { max-width: 704px; margin: 0 auto; padding: 0 24px 80px; }
+h1, h2, h3, p { margin: 0; }
+p + p, ul + p, ol + p, pre + p, .table-wrap + p { margin-top: 1.1em; }
+ul, ol { margin: 0.9em 0 0; padding-inline-start: 1.3em; }
+li { padding-inline-start: 0.2em; }
+li + li { margin-top: 0.45em; }
+a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; text-decoration-color: var(--c-faint); }
+a:hover { text-decoration-color: currentColor; }
+strong, b { font-weight: 700; }
+:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 2px; border-radius: 3px; }
+
+/* Header */
+header { padding-top: 48px; }
+.kicker { font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+h1 { margin-top: 14px; font: 700 clamp(32px, 6vw, 42px)/1.18 var(--c-sans); letter-spacing: -0.018em; }
+.lede { margin-top: 14px; color: var(--c-muted); font-size: 1.1em; line-height: 1.5; }
+.lede + .lede { margin-top: 0.6em; }
+header .box { margin: 32px 0 0; padding: 0; border: 0; background: none; }
+header .box > strong:first-child { font: 700 16px/1.4 var(--c-sans); color: var(--c-fg); }
+header .box ul { margin-top: 8px; }
+
+/* In-page section nav (the app bar replaces it in the single-page build) */
+/* sticky-nav */
+html { scroll-padding-top: 72px; }
+nav.pills { position: sticky; top: 0; z-index: 20; display: flex; gap: 20px; margin: 36px -24px 0; padding: 14px 24px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; background: var(--c-bg); border-bottom: 1px solid var(--c-line); font: 500 14px/1.4 var(--c-sans); }
+nav.pills::-webkit-scrollbar { display: none; }
+nav.pills a { flex: none; color: var(--c-muted); text-decoration: none; }
+nav.pills a:hover { color: var(--c-fg); }
+
+/* Sections */
+section { margin-top: 56px; }
+h2 { margin-bottom: 14px; font: 700 26px/1.25 var(--c-sans); letter-spacing: -0.012em; }
+h3 { margin: 36px 0 10px; font: 700 19px/1.35 var(--c-sans); }
+section > h3.label { margin: 36px 0 8px; font: 700 18px/1.35 var(--c-sans); color: var(--c-fg); }
+section.concept > h2::before { content: none; }
+
+/* Boxes */
+.box { margin: 28px 0; padding: 18px 22px; border: 1px solid var(--c-line); border-radius: var(--c-radius); background: none; font-size: 0.92em; }
+.box > strong:first-child { display: block; margin-bottom: 6px; font: 700 15px/1.4 var(--c-sans); color: var(--c-fg); }
+.box ul { margin-top: 6px; }
+.box p + p, .box > p:first-of-type { margin-top: 0.5em; }
+.box pre { margin-top: 12px; }
+section .tldr { margin: 8px 0 28px; padding: 2px 0 2px 22px; border: 0; border-left: 3px solid var(--c-fg); border-radius: 0; font-size: 1em; }
+section .tldr > strong:first-child { margin-bottom: 4px; font: 500 14px/1.4 var(--c-sans); color: var(--c-muted); }
+section .tldr > b, section .tldr > p { display: block; font-size: 1.12em; line-height: 1.5; font-weight: 400; font-style: italic; }
+h3.label-watch + ul { list-style: disc; margin: 0; padding: 0 0 0 1.3em; background: none; }
+h3.label-watch + ul li { padding-inline-start: 0.2em; }
+h3.label-watch + ul li::before { content: none; }
+h3.label-evidence + p { padding: 0; background: none; box-shadow: none; }
+
+/* Figures */
+figure { margin: 36px 0; padding: 0; min-width: 0; border: 0; background: none; }
+figcaption { margin-top: 12px; color: var(--c-muted); font: 14px/1.5 var(--c-sans); text-align: center; }
+.figure-scroll { overflow: visible; }
+.figure-scroll > svg { min-width: 0; }
+svg { display: block; width: 100%; height: auto; margin-inline: auto; font-family: var(--c-sans); }
+svg text { fill: var(--c-fg); }
+svg .muted { fill: var(--c-muted); }
+svg .svg-bad { fill: var(--c-bad); }
+svg .svg-good { fill: var(--c-good); }
+svg .svg-warn { fill: var(--c-warn); }
+svg .svg-accent { fill: var(--c-accent); }
+svg .mono { font-family: var(--c-mono); }
+svg .on-color { fill: #ffffff; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; gap: 24px; margin-top: 12px; }
+.split > figure { margin-top: 0; }
+.scroll-hint { display: none; color: var(--c-muted); font: 14px var(--c-sans); }
+
+/* Code */
+code { font-family: var(--c-mono); font-size: 0.8em; padding: 0.12em 0.32em; border-radius: 4px; background: var(--c-code); }
+pre { margin: 24px 0 0; padding: 18px 20px; overflow: auto; border-radius: var(--c-radius); background: var(--c-code); font-size: 15px; line-height: 1.6; }
+pre code { padding: 0; background: none; font-size: inherit; }
+h2 code, h3 code { font-size: 0.85em; background: none; padding: 0; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin-top: 16px; }
+table { width: 100%; border-collapse: collapse; font: 16px/1.5 var(--c-sans); }
+th, td { text-align: left; vertical-align: top; padding: 12px 16px 12px 0; border-bottom: 1px solid var(--c-line); }
+thead th, table > tr:first-child > th { color: var(--c-muted); font-weight: 500; font-size: 14px; }
+tbody th[scope="row"] { font-weight: 600; }
+td:first-child { font-weight: 400; }
+.bad { color: var(--c-bad); } .good { color: var(--c-good); } .warn { color: var(--c-warn); }
+
+/* Quick check */
+details { border-bottom: 1px solid var(--c-line); }
+details:first-of-type { border-top: 1px solid var(--c-line); }
+summary { position: relative; padding: 16px 36px 16px 0; cursor: pointer; list-style: none; font: 600 17px/1.45 var(--c-sans); }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; position: absolute; right: 4px; top: 14px; color: var(--c-muted); font: 400 22px/1 var(--c-sans); }
+details[open] summary::after { content: "\2212"; }
+details > p, details > pre, details > ul { margin: 0 0 18px; }
+details > p + p { margin-top: 0.7em; }
+
+/* Sources */
+ul.sources { font-size: 0.9em; }
+ul.sources li + li { margin-top: 0.6em; }
+
+/* Pager */
+nav.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 72px 0 0; padding-top: 28px; border-top: 1px solid var(--c-line); font: 16px/1.4 var(--c-sans); }
+nav.pager > span:empty { display: block; }
+nav.pager a { display: block; padding: 14px 16px; border: 1px solid var(--c-line); border-radius: var(--c-radius); text-decoration: none; font-weight: 600; }
+nav.pager a:hover { border-color: var(--c-faint); }
+nav.pager a span { display: block; margin-bottom: 2px; color: var(--c-muted); font-size: 13px; font-weight: 400; }
+nav.pager .next { text-align: right; grid-column: 2; }
+nav.pager .home { grid-column: 1 / -1; grid-row: 2; padding: 4px 0; border: 0; color: var(--c-muted); font-weight: 400; text-align: center; }
+
+/* Desktop: keep diagram labels near body size and tall diagrams on one screen */
+@media (min-width: 681px) { figure > svg { max-width: min(100%, 500px) !important; max-height: 600px; } }
+
+@media (max-width: 680px) {
+  body { font-size: 17px; }
+  main { padding: 0 20px 64px; }
+  nav.pills { margin-inline: -20px; padding-inline: 20px; }
+  header { padding-top: 32px; }
+  h2 { font-size: 23px; }
+  section { margin-top: 48px; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  pre { margin-inline: -20px; border-radius: 0; padding: 16px 20px; font-size: 14px; }
+}
+@media (max-width: 480px) { .scroll-hint { display: block; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="kicker">Rendering and CSS · Lesson 20 of 28 · about 10 minutes</p>
+    <h1>React re-renders</h1>
+    <p class="lede">Ticking one checkbox in a long list can make React redo every row, because a parent update re-renders its children by default. After this lesson you can make unchanged rows skip, and keep per-row setup from multiplying.</p>
+
+    <div class="box tldr">
+      <strong>What you will learn</strong>
+      <ul>
+        <li>Why one state change re-renders a whole list, and how <code>memo</code> lets unchanged rows skip.</li>
+        <li>Why <code>memo</code> often does nothing, and how to give it props that stay the same.</li>
+        <li>Why per-row listeners and store subscriptions add up, and how to do them once.</li>
+      </ul>
+    </div>
+
+  </header>
+
+  <nav class="pills" aria-label="On this page">
+      <a href="#l20-s1">1 Parent re-renders</a>
+      <a href="#l20-s2">2 When memo fails</a>
+      <a href="#l20-s3">3 Per-row setup</a>
+      <a href="#l20-try">Try it</a>
+      <a href="#l20-remember">Remember</a>
+      <a href="#l20-words">Words</a>
+      <a href="#l20-quiz">Quick check</a>
+      <a href="#l20-read">Read more</a>
+    </nav>
+
+
+  <section class="concept" aria-labelledby="l20-s1">
+    <h2 id="l20-s1">Why does one checkbox re-render the whole list?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      <strong>When a component's state changes, React re-renders it and every child below it, unless a child is wrapped in <code>memo</code> and its props did not change.</strong>
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>A <strong>re-render</strong> means React calls a component function again and compares the result with last time. Take an order list with 5 cards. The list keeps the selected ids in its state, as a <code>Set</code>, and passes that set to every card.</p>
+    <p>Tick the checkbox on card 2. The list's state changes, so the list renders again, and so do all 5 cards. Only card 2 looks different, but React still called all 5 functions. In the top tree of the diagram, every red box is a card that rendered for nothing but card 2.</p>
+    <p>With 1,000 rows, one click means 1,000 component calls, plus the comparison work for each.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 366" style="max-width: 560px" role="img" aria-labelledby="l20-d1-title l20-d1-desc">
+        <title id="l20-d1-title">Which cards re-render when card 2 is ticked</title>
+        <desc id="l20-d1-desc">Top: the list's state changes and all five cards render again. Bottom: with memo and a boolean selected prop, only card 2 renders and cards 1, 3, 4 and 5 are skipped.</desc>
+        <text x="180" y="18" text-anchor="middle" font-size="14">Without memo</text>
+        <path d="M180 58L60 96M180 58L120 96M180 58L180 96M180 58L240 96M180 58L300 96" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <rect x="145" y="30" width="70" height="28" rx="5" fill="var(--c-accent)"/>
+        <text x="180" y="49" text-anchor="middle" font-size="14" class="on-color">List</text>
+        <rect x="40" y="96" width="40" height="30" rx="4" fill="var(--c-bad)"/>
+        <text x="60" y="116" text-anchor="middle" font-size="14" class="on-color">1</text>
+        <rect x="100" y="96" width="40" height="30" rx="4" fill="var(--c-bad)"/>
+        <text x="120" y="116" text-anchor="middle" font-size="14" class="on-color">2</text>
+        <rect x="160" y="96" width="40" height="30" rx="4" fill="var(--c-bad)"/>
+        <text x="180" y="116" text-anchor="middle" font-size="14" class="on-color">3</text>
+        <rect x="220" y="96" width="40" height="30" rx="4" fill="var(--c-bad)"/>
+        <text x="240" y="116" text-anchor="middle" font-size="14" class="on-color">4</text>
+        <rect x="280" y="96" width="40" height="30" rx="4" fill="var(--c-bad)"/>
+        <text x="300" y="116" text-anchor="middle" font-size="14" class="on-color">5</text>
+        <text x="180" y="150" text-anchor="middle" font-size="14" class="svg-bad">5 cards rendered</text>
+        <text x="180" y="168" text-anchor="middle" font-size="13" class="muted">state changed in List</text>
+        <text x="180" y="206" text-anchor="middle" font-size="14">memo, selected as a boolean</text>
+        <path d="M180 246L60 284M180 246L120 284M180 246L180 284M180 246L240 284M180 246L300 284" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <rect x="145" y="218" width="70" height="28" rx="5" fill="var(--c-accent)"/>
+        <text x="180" y="237" text-anchor="middle" font-size="14" class="on-color">List</text>
+        <rect x="40" y="284" width="40" height="30" rx="4" fill="var(--c-good)"/>
+        <text x="60" y="304" text-anchor="middle" font-size="14" class="on-color">1</text>
+        <rect x="100" y="284" width="40" height="30" rx="4" fill="var(--c-bad)"/>
+        <text x="120" y="304" text-anchor="middle" font-size="14" class="on-color">2</text>
+        <rect x="160" y="284" width="40" height="30" rx="4" fill="var(--c-good)"/>
+        <text x="180" y="304" text-anchor="middle" font-size="14" class="on-color">3</text>
+        <rect x="220" y="284" width="40" height="30" rx="4" fill="var(--c-good)"/>
+        <text x="240" y="304" text-anchor="middle" font-size="14" class="on-color">4</text>
+        <rect x="280" y="284" width="40" height="30" rx="4" fill="var(--c-good)"/>
+        <text x="300" y="304" text-anchor="middle" font-size="14" class="on-color">5</text>
+        <text x="180" y="338" text-anchor="middle" font-size="14" class="svg-good">1 rendered, 4 skipped</text>
+        <text x="180" y="356" text-anchor="middle" font-size="13" class="muted">only card 2's props changed</text>
+      </svg>
+      <figcaption>Blue is where the state changed. Red cards rendered again; green cards were skipped because their props were the same.</figcaption>
+    </figure>
+
+    <h3 class="label">The fix</h3>
+    <p>Wrap the card in <code>memo</code>, which skips a render when every prop is the same as last time. Then pass each card only what it needs: a <code>selected</code> true or false, not the whole set. Ticking makes a new set, which would count as a changed prop for every card, but the boolean only changes for card 2.</p>
+<pre><code>// Before: every card gets the whole set, which is new on every tick
+function OrderCard({ order, selectedIds }) { /* ... */ }
+&lt;OrderCard order={order} selectedIds={selectedIds} /&gt;
+
+// After: memo, and a boolean that only changes for the ticked card
+const OrderCard = memo(function OrderCard({ order, selected }) { /* ... */ });
+&lt;OrderCard order={order} selected={selectedIds.has(order.id)} /&gt;</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li><code>memo</code> is not free, because it compares props on every render. Use it on components that render often with mostly unchanged props, such as list rows.</li>
+      <li>A re-render is not a page update. React only touches the page for what changed, but the function calls and comparisons still cost time.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>After a spreadsheet app removed needless re-renders and repeated work around each cell edit, it did about a quarter of the JavaScript work per edit.</p>
+  </section>
+
+  <section class="concept" aria-labelledby="l20-s2">
+    <h2 id="l20-s2">Why does memo sometimes do nothing?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      <strong><code>memo</code> checks whether each prop is the very same value as last time, so a function or object created during render makes it re-render every time.</strong>
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p><code>memo</code> does a <strong>shallow compare</strong>. It checks each prop with <code>Object.is</code>, which asks "is this the very same value or object?", not "does it look the same?". This sameness of objects is called <strong>identity</strong>.</p>
+    <p>Follow card 3 after card 2 is ticked, in the diagram. <code>order</code> is the same object as last time. <code>selected</code> was false and is still false. But <code>onSelect</code> is an arrow function written inside the list, so each list render makes a new function. A new function is never the same object as the old one, even with identical code, so card 3 renders anyway.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 214" style="max-width: 560px" role="img" aria-labelledby="l20-d2-title l20-d2-desc">
+        <title id="l20-d2-title">memo comparing card 3's props, one by one</title>
+        <desc id="l20-d2-desc">A table for card 3. order: same object both times. selected: false both times. onSelect: function A last time, function B this time, so it is new. One new prop means card 3 renders. With useCallback, onSelect is function A both times and card 3 is skipped.</desc>
+        <g font-size="13" class="muted">
+          <text x="8" y="20">prop</text><text x="100" y="20">last render</text><text x="200" y="20">this render</text><text x="300" y="20">same?</text>
+        </g>
+        <path d="M8 30H352M8 62H352M8 94H352M8 126H352" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <rect x="194" y="98" width="92" height="24" rx="4" fill="var(--c-bad)"/>
+        <g font-size="14" class="mono">
+          <text x="8" y="52">order</text><text x="100" y="52">order 3</text><text x="200" y="52">order 3</text>
+          <text x="8" y="84">selected</text><text x="100" y="84">false</text><text x="200" y="84">false</text>
+          <text x="8" y="116">onSelect</text><text x="100" y="116">function A</text><text x="200" y="116" class="on-color">function B</text>
+        </g>
+        <g font-size="14">
+          <text x="300" y="52" class="svg-good">same</text>
+          <text x="300" y="84" class="svg-good">same</text>
+          <text x="300" y="116" class="svg-bad">new</text>
+          <text x="8" y="156" class="svg-bad">One new prop, so card 3 renders.</text>
+          <text x="8" y="186" class="svg-good">With useCallback: function A</text>
+          <text x="8" y="204" class="svg-good">both times, so card 3 is skipped.</text>
+        </g>
+      </svg>
+      <figcaption>Each row is one <code>Object.is</code> check. A single red "new" is enough to make the card render.</figcaption>
+    </figure>
+
+    <h3 class="label">The fix</h3>
+    <p>Give <code>memo</code> props that keep their identity between renders. <code>useCallback</code> returns the same function until one of its dependencies changes, and <code>useMemo</code> does the same for a computed object or array. A constant object can move out of the component, so it is made only once.</p>
+<pre><code>// Before: a new function and a new object every render, so memo never skips
+&lt;OrderCard order={order} style={{ margin: 8 }} onSelect={(id) =&gt; setSelected((s) =&gt; toggle(s, id))} /&gt;
+
+// After: the same references every render, so unchanged cards are skipped
+const cardStyle = { margin: 8 };                       // outside the component
+const onSelect = useCallback((id) =&gt; setSelected((s) =&gt; toggle(s, id)), []);
+&lt;OrderCard order={order} style={cardStyle} onSelect={onSelect} /&gt;</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>A <code>useCallback</code> with a missing dependency keeps an old copy of the function that reads stale state. The updater form, <code>setSelected((s) =&gt; ...)</code>, avoids needing that state as a dependency.</li>
+      <li>Arrays built in render, such as <code>items.filter(...)</code>, are new every time too. Wrap them in <code>useMemo</code> if a memo child receives them.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>In one spreadsheet app, a grid library rebuilt an array on every render, so <code>memo</code> never matched and a single cell edit caused 1,568 re-renders.</p>
+  </section>
+
+  <section class="concept" aria-labelledby="l20-s3">
+    <h2 id="l20-s3">Why does per-row setup add up so fast?</h2>
+    <div class="box tldr">
+      <strong>The idea</strong>
+      <strong>Setup that every row repeats, such as adding the same global listener or reading the same store many times, multiplies by the row count, so do it once.</strong>
+    </div>
+
+    <h3 class="label">Walk through it</h3>
+    <p>A dropdown has 100 items. When each item mounts, it adds the same two listeners, for <code>keydown</code> and <code>mousedown</code>, to the document. Opening the dropdown makes 200 <code>addEventListener</code> calls. The browser ignores the duplicates, but it still pays for every call.</p>
+    <p>In the diagram, 4 items make 8 calls at the top. At the bottom, the first item installs the listeners and the other 3 see a flag and skip. Store reads multiply the same way. If each of 1,000 items reads shared state through 10 separate <code>useSyncExternalStore</code> calls, that is 10,000 hook calls per render. One library merged them into one call per item and its large lists rendered 20 to 30 percent faster.</p>
+
+    <figure>
+      <svg viewBox="0 0 360 402" style="max-width: 560px" role="img" aria-labelledby="l20-d3-title l20-d3-desc">
+        <title id="l20-d3-title">Each item adding global listeners versus adding them once</title>
+        <desc id="l20-d3-desc">Top: four items each draw two lines to the document, eight addEventListener calls. Bottom: only item 1 draws two lines; items 2, 3 and 4 skip because a flag says the listeners are already installed.</desc>
+        <text x="180" y="18" text-anchor="middle" font-size="14">Every item adds them</text>
+        <rect x="20" y="30" width="80" height="26" rx="4" fill="var(--c-card)" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <text x="60" y="48" text-anchor="middle" font-size="14">item 1</text>
+        <rect x="20" y="64" width="80" height="26" rx="4" fill="var(--c-card)" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <text x="60" y="82" text-anchor="middle" font-size="14">item 2</text>
+        <rect x="20" y="98" width="80" height="26" rx="4" fill="var(--c-card)" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <text x="60" y="116" text-anchor="middle" font-size="14">item 3</text>
+        <rect x="20" y="132" width="80" height="26" rx="4" fill="var(--c-card)" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <text x="60" y="150" text-anchor="middle" font-size="14">item 4</text>
+        <rect x="240" y="64" width="100" height="62" rx="5" fill="var(--c-card)" stroke="var(--c-accent)" stroke-width="2"/>
+        <text x="290" y="100" text-anchor="middle" font-size="14">document</text>
+        <path d="M100 40L240 82M100 46L240 86M100 74L240 90M100 80L240 94M100 108L240 98M100 114L240 102M100 142L240 106M100 148L240 110" stroke="var(--c-bad)" stroke-width="2" fill="none"/>
+        <text x="180" y="186" text-anchor="middle" font-size="14" class="svg-bad">8 addEventListener calls</text>
+        <text x="180" y="224" text-anchor="middle" font-size="14">Added once, with a flag</text>
+        <rect x="20" y="236" width="80" height="26" rx="4" fill="var(--c-card)" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <text x="60" y="254" text-anchor="middle" font-size="14">item 1</text>
+        <rect x="20" y="270" width="80" height="26" rx="4" fill="var(--c-card)" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <text x="60" y="288" text-anchor="middle" font-size="14" class="muted">skip</text>
+        <rect x="20" y="304" width="80" height="26" rx="4" fill="var(--c-card)" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <text x="60" y="322" text-anchor="middle" font-size="14" class="muted">skip</text>
+        <rect x="20" y="338" width="80" height="26" rx="4" fill="var(--c-card)" stroke="var(--c-line-strong)" stroke-width="1.5"/>
+        <text x="60" y="356" text-anchor="middle" font-size="14" class="muted">skip</text>
+        <rect x="240" y="270" width="100" height="62" rx="5" fill="var(--c-card)" stroke="var(--c-accent)" stroke-width="2"/>
+        <text x="290" y="306" text-anchor="middle" font-size="14">document</text>
+        <path d="M100 246L240 294M100 252L240 302" stroke="var(--c-good)" stroke-width="2" fill="none"/>
+        <text x="180" y="392" text-anchor="middle" font-size="14" class="svg-good">2 calls, once</text>
+      </svg>
+      <figcaption>Each line is one <code>addEventListener</code> call. Red lines are repeats the browser throws away after paying for them.</figcaption>
+    </figure>
+
+    <h3 class="label">The fix</h3>
+    <p>Keep a module-level flag, so the listeners are installed by the first item and skipped by the rest. For store reads, combine each item's reads into one subscription that returns everything the item needs.</p>
+<pre><code>// Before: every item ran the two addEventListener calls on mount
+// After: the first item installs them, the rest skip
+let installed = false;                    // shared by all items
+function useFocusable() {
+  useEffect(() =&gt; {
+    if (installed) return;                // every item after the first skips
+    installed = true;
+    document.addEventListener('mousedown', onGlobalMouseDown, true);
+    document.addEventListener('keydown', onGlobalKeyDown, true);
+  }, []);
+}</code></pre>
+
+    <h3 class="label label-watch">Watch out</h3>
+    <ul>
+      <li>This only helps when many components add the very same listener. Listeners that differ per row are better replaced by one listener on the list that finds the row from the click.</li>
+      <li>For thousands of items, virtualisation (lesson 19) still wins, because rows that do not exist do no setup at all.</li>
+    </ul>
+
+    <h3 class="label label-evidence">Evidence</h3>
+    <p>Adding the global listeners once instead of per item made a dropdown open about 30 percent faster.</p>
+  </section>
+
+  <section aria-labelledby="l20-try">
+    <h2 id="l20-try">Try it</h2>
+    <div class="box try">
+      <strong>Try it (2 minutes)</strong>
+      <p>Open a list page in your own React app with React DevTools installed. In the Components tab settings, turn on "Highlight updates when components render", then tick one row's checkbox. If every row flashes, look for a prop that is a new set, function or object on each render.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="l20-remember">
+    <h2 id="l20-remember">Remember</h2>
+    <ul>
+      <li>A state change re-renders that component and everything below it, unless <code>memo</code> sees unchanged props.</li>
+      <li><code>memo</code> compares by identity, so a new function, object or array made in render defeats it.</li>
+      <li>Per-row setup multiplies by the row count: install shared listeners once and merge store reads.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="l20-words">
+    <h2 id="l20-words">Words used in this lesson</h2>
+    <div class="table-wrap"><table>
+      <tr><th>Term</th><th>Plain meaning</th></tr>
+      <tr><td>Re-render</td><td>React calling a component function again and comparing its result with last time.</td></tr>
+      <tr><td><code>memo</code></td><td>Wraps a component so it skips rendering when all its props are the same as last time.</td></tr>
+      <tr><td>Shallow compare, identity</td><td>Checking each prop with <code>Object.is</code>: is it the very same value or object, without looking inside.</td></tr>
+      <tr><td><code>useCallback</code>, <code>useMemo</code></td><td>Hooks that return the same function or value until a dependency changes.</td></tr>
+      <tr><td><code>useSyncExternalStore</code></td><td>The React hook a component uses to read and subscribe to a store outside React.</td></tr>
+    </table></div>
+  </section>
+
+  <section aria-labelledby="l20-quiz">
+    <h2 id="l20-quiz">Quick check</h2>
+    <details><summary>An OrderCard is wrapped in memo but still renders every time the list does. What do you check first?</summary><p>Check whether any prop is created during the parent's render, such as an inline arrow function, <code>{}</code>, <code>[]</code> or a new <code>Set</code>. <code>memo</code> compares by identity, so a new object counts as changed even when its contents match. Use <code>useCallback</code>, <code>useMemo</code>, or move constants outside the component.</p></details>
+    <details><summary>Why pass <code>selected={selectedIds.has(order.id)}</code> instead of the whole set?</summary><p>Ticking a box creates a new set, so every card would see a changed prop. The boolean only changes for the card that was ticked. So <code>memo</code> can skip all the others.</p></details>
+    <details><summary>A list of 500 items each calls the same store hook 5 times. What would you change?</summary><p>Merge the 5 reads into one subscription per item that returns an object with all 5 values. That cuts 2,500 hook calls per render to 500. For lists in the thousands, also consider virtualisation.</p></details>
+  </section>
+
+  <section aria-labelledby="l20-read">
+    <h2 id="l20-read">Read more</h2>
+    <ul class="sources">
+      <li><a href="https://3perf.com/blog/causal/">Causal performance audit</a>: memo that never matched, and how the re-renders were removed.</li>
+      <li><a href="https://github.com/ariakit/ariakit/pull/4860">Ariakit PR #4860</a>: hundreds of identical listener calls cut to one.</li>
+      <li><a href="https://github.com/ariakit/ariakit/pull/4212">Ariakit PR #4212</a> and its <a href="https://newsletter.ariakit.org/i/151844568/usesyncexternalstore">blog post</a>: one store read per item instead of more than 10.</li>
+    </ul>
+  </section>
+
+  <nav class="pager" aria-label="Lessons">
+    <a class="prev" href="19-dont-render-the-unseen.html"><span>Previous</span>Do not render what nobody sees</a>
+    <a class="home" href="00-start-here.html">All lessons</a>
+    <a class="next" href="21-smooth-animations.html"><span>Next</span>Smooth animations</a>
+  </nav>
+</main>
+</body>
+</html>
