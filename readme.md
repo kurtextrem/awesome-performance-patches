@@ -7,6 +7,8 @@ The purpose of this awesome list is to allow others to learn from performance im
 <sub>The list also includes blog posts without PRs, if they contain enough code to make them useful for this purpose. 
 <br>⭐ marks blog posts or articles covering a lot of areas with in-depth explanations.</sub>
 
+**New here?** The [performance course](course/README.md) is a quick, self-paced intro to the findings in this list: 28 short lessons with diagrams and runnable demos.
+
 For Web Performance, there are a few more lists of curated links of talks, newsletters, blogs and more:<br />
 ➡️ [fabkrum/web-performance-resources](https://github.com/fabkrum/web-performance-resources/blob/master/index.md)
 ➡️ [imteekay/web-performance-research](https://github.com/imteekay/web-performance-research)
