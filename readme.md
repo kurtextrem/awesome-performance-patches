@@ -120,6 +120,7 @@ Patches focused on JavaScript performance improvements. Guides:
 - [ai/nanoid](https://github.com/ai/nanoid/pull/602) - faster string generation via `Buffer#toString` instead of `str += char` [explainer](https://x.com/sitnikcode/status/2076690054362050811)
 - [react](https://github.com/react/react/pull/37086) - `Error.stackTraceLimit = 10` to make throwing `Error` cheaper/faster to run
 - [cometkim/unicode-segmenter](https://github.com/cometkim/unicode-segmenter/pull/144) - micro-optimization for the various v8 compilers (turbofan, meglev)
+- [oxc-project/oxc](https://github.com/oxc-project/oxc/pull/27816) - prefer `Object.create` over `__proto__`
 
 ### Blog Posts with Code 📖
 
